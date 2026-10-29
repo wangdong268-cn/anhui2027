@@ -150,14 +150,22 @@
     <script>
         (function() {
             var gate = document.getElementById('gate');
-            var key = 'tm_unlocked';
-            if (sessionStorage.getItem(key) === '1') {
+            var key = 'tm_unlock_time';
+            var ONE_HOUR = 3600000; // 1 hour in ms
+
+            function isUnlocked() {
+                var t = parseInt(localStorage.getItem(key) || '0', 10);
+                return (Date.now() - t) < ONE_HOUR;
+            }
+
+            if (isUnlocked()) {
                 gate.classList.add('hidden');
             }
+
             window.checkPwd = function() {
                 var pwd = document.getElementById('pwd').value;
                 if (pwd === 'miaowei2027') {
-                    sessionStorage.setItem(key, '1');
+                    localStorage.setItem(key, String(Date.now()));
                     gate.classList.add('hidden');
                 } else {
                     document.getElementById('err').textContent = '密码错误';
