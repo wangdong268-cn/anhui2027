@@ -68,7 +68,7 @@
             color: #aaa;
             font-size: 0.85rem;
         }
-        /* Password gate */
+        /* Password gate overlay */
         #gate {
             position: fixed;
             inset: 0;
@@ -79,6 +79,9 @@
             justify-content: center;
             z-index: 9999;
             gap: 16px;
+        }
+        #gate.hidden {
+            display: none;
         }
         #gate h2 {
             color: #fff;
@@ -111,13 +114,10 @@
             font-size: 0.9rem;
             height: 20px;
         }
-        #content {
-            display: none;
-        }
     </style>
 </head>
 <body>
-    <!-- Password gate -->
+    <!-- Password gate overlay -->
     <div id="gate">
         <h2>旅行地图</h2>
         <input type="password" id="pwd" placeholder="请输入密码" autofocus>
@@ -125,45 +125,40 @@
         <div class="error" id="err"></div>
     </div>
 
-    <!-- Main content -->
-    <div id="content">
-        <h1>旅行地图</h1>
-        <p class="subtitle">自驾路线 & 行程规划</p>
+    <!-- Main content (always in DOM, covered by gate) -->
+    <h1>旅行地图</h1>
+    <p class="subtitle">自驾路线 & 行程规划</p>
 
-        <div class="grid">
-            <a class="card" href="安徽2027/">
-                <div class="icon">🏔️</div>
-                <div class="title">安徽 2027</div>
-                <div class="desc">春节自驾</div>
-            </a>
-            <!-- 以后加新城市在这里加卡片 -->
-            <!--
-            <a class="card" href="北京/">
-                <div class="icon">🏯</div>
-                <div class="title">北京</div>
-                <div class="desc">2027 春游</div>
-            </a>
-            -->
-        </div>
-
-        <footer>Powered by GitHub Pages</footer>
+    <div class="grid">
+        <a class="card" href="安徽2027/">
+            <div class="icon">🏔️</div>
+            <div class="title">安徽 2027</div>
+            <div class="desc">春节自驾</div>
+        </a>
+        <!-- 以后加新城市在这里加卡片 -->
+        <!--
+        <a class="card" href="北京/">
+            <div class="icon">🏯</div>
+            <div class="title">北京</div>
+            <div class="desc">2027 春游</div>
+        </a>
+        -->
     </div>
+
+    <footer>Powered by GitHub Pages</footer>
 
     <script>
         (function() {
-            const key = 'tm_unlocked';
+            var gate = document.getElementById('gate');
+            var key = 'tm_unlocked';
             if (sessionStorage.getItem(key) === '1') {
-                document.getElementById('gate').style.display = 'none';
-                document.getElementById('content').style.display = 'flex';
-                document.body.style.display = 'flex';
+                gate.classList.add('hidden');
             }
             window.checkPwd = function() {
-                const pwd = document.getElementById('pwd').value;
+                var pwd = document.getElementById('pwd').value;
                 if (pwd === 'miaowei2027') {
                     sessionStorage.setItem(key, '1');
-                    document.getElementById('gate').style.display = 'none';
-                    document.getElementById('content').style.display = 'flex';
-                    document.body.style.display = 'flex';
+                    gate.classList.add('hidden');
                 } else {
                     document.getElementById('err').textContent = '密码错误';
                     document.getElementById('pwd').value = '';
