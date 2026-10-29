@@ -68,28 +68,111 @@
             color: #aaa;
             font-size: 0.85rem;
         }
+        /* Password gate */
+        #gate {
+            position: fixed;
+            inset: 0;
+            background: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            gap: 16px;
+        }
+        #gate h2 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        #gate input {
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            width: 240px;
+            text-align: center;
+        }
+        #gate button {
+            padding: 12px 32px;
+            font-size: 1rem;
+            background: #4a90d9;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        #gate button:hover {
+            background: #357abd;
+        }
+        #gate .error {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            height: 20px;
+        }
+        #content {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <h1>旅行地图</h1>
-    <p class="subtitle">自驾路线 & 行程规划</p>
-
-    <div class="grid">
-        <a class="card" href="安徽2027/">
-            <div class="icon">🏔️</div>
-            <div class="title">安徽 2027</div>
-            <div class="desc">春节自驾</div>
-        </a>
-        <!-- 以后加新城市在这里加卡片 -->
-        <!--
-        <a class="card" href="北京/">
-            <div class="icon">🏯</div>
-            <div class="title">北京</div>
-            <div class="desc">2027 春游</div>
-        </a>
-        -->
+    <!-- Password gate -->
+    <div id="gate">
+        <h2>旅行地图</h2>
+        <input type="password" id="pwd" placeholder="请输入密码" autofocus>
+        <button onclick="checkPwd()">进入</button>
+        <div class="error" id="err"></div>
     </div>
 
-    <footer>Powered by GitHub Pages</footer>
+    <!-- Main content -->
+    <div id="content">
+        <h1>旅行地图</h1>
+        <p class="subtitle">自驾路线 & 行程规划</p>
+
+        <div class="grid">
+            <a class="card" href="安徽2027/">
+                <div class="icon">🏔️</div>
+                <div class="title">安徽 2027</div>
+                <div class="desc">春节自驾</div>
+            </a>
+            <!-- 以后加新城市在这里加卡片 -->
+            <!--
+            <a class="card" href="北京/">
+                <div class="icon">🏯</div>
+                <div class="title">北京</div>
+                <div class="desc">2027 春游</div>
+            </a>
+            -->
+        </div>
+
+        <footer>Powered by GitHub Pages</footer>
+    </div>
+
+    <script>
+        (function() {
+            const key = 'tm_unlocked';
+            if (sessionStorage.getItem(key) === '1') {
+                document.getElementById('gate').style.display = 'none';
+                document.getElementById('content').style.display = 'flex';
+                document.body.style.display = 'flex';
+            }
+            window.checkPwd = function() {
+                const pwd = document.getElementById('pwd').value;
+                if (pwd === 'miaowei2027') {
+                    sessionStorage.setItem(key, '1');
+                    document.getElementById('gate').style.display = 'none';
+                    document.getElementById('content').style.display = 'flex';
+                    document.body.style.display = 'flex';
+                } else {
+                    document.getElementById('err').textContent = '密码错误';
+                    document.getElementById('pwd').value = '';
+                }
+            };
+            document.getElementById('pwd').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') checkPwd();
+            });
+        })();
+    </script>
 </body>
 </html>
