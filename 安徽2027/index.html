@@ -1231,7 +1231,7 @@ function renderMap() {
   });
 
   // 3.4 Amap-style Subtle Dashed Railways (like the gray-white railway in Gaode Map)
-  if (showRoads && ROUTES_DATA.railways) {
+  if (showRoads && view.scale >= 135 && ROUTES_DATA.railways) {
     ROUTES_DATA.railways.forEach(rw => {
       const pStr = coordsToSvgPath(rw.coords);
       svgHtml += `<path d="${pStr}" fill="none" stroke="#b4bec8" stroke-width="1.6" stroke-linecap="round" opacity="0.65" />`;
@@ -1244,7 +1244,7 @@ function renderMap() {
   // Pass B: Warm-orange Expressways (#e38d3b casing + #fab369 fill) + curved <textPath> highway names along the road!
   let defsHtml = "";
   let hwyTextSvg = "";
-  if (showRoads && ROUTES_DATA.roadNetwork) {
+  if (showRoads && view.scale >= 135 && ROUTES_DATA.roadNetwork) {
     if (view.scale >= 135) {
       ROUTES_DATA.roadNetwork.forEach(rn => {
         if (rn.type !== "prov" || !inViewBbox(rn.bbox)) return;
