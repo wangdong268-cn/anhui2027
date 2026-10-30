@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>见山河 · 带俩娃16天自驾陕甘青</title>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --paper:#f7f2e8; --paper-2:#efe7d8; --paper-3:#e8ddca;
+    --ink:#25211b; --ink-2:#5c5448; --ink-3:#8a8173;
+    --line:#cbd5e1; --accent:#a8492a; --accent-2:#2f6b5e; --gold:#bf8a3e;
+    --max:1180px; --topbar:56px;
+    --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background-color:var(--paper);
+    background-image:radial-gradient(rgba(120,100,70,.05) .6px, transparent .6px);
+    background-size:4px 4px; color:var(--ink); font-family:var(--sans);
+    line-height:1.85; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  ::selection{background:#e7c9a8;color:var(--ink)}
+  img,svg{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit}
+
+  .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:90;background:transparent}
+  .progress span{display:block;height:100%;width:0;background:var(--accent);transition:width .1s linear}
+
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:var(--topbar);
+    display:flex;align-items:center;gap:26px;padding:0 clamp(18px,4vw,48px);
+    z-index:80;border-bottom:1px solid transparent;
+    transition:background .3s,border-color .3s,backdrop-filter .3s;
+  }
+  .topbar.solid{background:rgba(247,242,232,.9);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom-color:var(--line)}
+  .brand{font-family:var(--serif);font-size:19px;font-weight:700;letter-spacing:.24em;white-space:nowrap}
+  .section-nav{display:flex;gap:22px;margin-left:auto}
+  .section-nav a{font-size:12px;letter-spacing:.14em;color:var(--ink-2);position:relative;padding:4px 0;white-space:nowrap}
+  .section-nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent);transition:width .25s}
+  .section-nav a:hover::after{width:100%}
+  .topbar-meta{font-size:11px;letter-spacing:.1em;color:var(--ink-3);white-space:nowrap;margin-left:20px}
+
+  .hero{position:relative;min-height:100svh;display:grid;place-items:center;padding:120px 24px 80px;overflow:hidden;isolation:isolate}
+  .hero-art{position:absolute;left:0;right:0;bottom:0;height:76%;z-index:-2;pointer-events:none}
+  .hero-art svg{width:100%;height:100%}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,var(--paper) 0%,rgba(247,242,232,.35) 36%,rgba(247,242,232,0) 62%,rgba(247,242,232,.6) 100%);
+  }
+  .hero-inner{text-align:center;max-width:920px;position:relative}
+  .kicker{font-size:11px;letter-spacing:.34em;color:var(--accent);margin:0;text-transform:uppercase}
+  .hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(64px,13vw,168px);line-height:1;letter-spacing:.16em;text-indent:.16em;margin:18px 0 0}
+  .hero-sub{font-family:var(--serif);font-size:clamp(18px,2.4vw,28px);letter-spacing:.16em;margin:26px 0 0}
+  .hero-lead{font-size:14px;color:var(--ink-2);letter-spacing:.06em;margin:18px auto 0;max-width:540px}
+  .hero-stats{display:flex;justify-content:center;gap:clamp(24px,5vw,64px);margin-top:46px;flex-wrap:wrap}
+  .hero-stats div{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .hero-stats b{font-family:var(--serif);font-size:clamp(24px,3.4vw,38px);font-weight:600;line-height:1}
+  .hero-stats span{font-size:11px;color:var(--ink-3);letter-spacing:.18em}
+  .scroll-cue{display:inline-flex;flex-direction:column;align-items:center;gap:10px;margin-top:52px;font-size:11px;letter-spacing:.22em;color:var(--ink-2)}
+  .scroll-cue i{display:block;width:1px;height:42px;background:linear-gradient(var(--ink-3),transparent);animation:cue 2s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(.35);transform-origin:top;opacity:.35}50%{transform:scaleY(1);opacity:1}}
+
+  .section{padding:clamp(72px,10vw,140px) clamp(20px,5vw,48px)}
+  .wrap{max-width:var(--max);margin:0 auto}
+  .section-head{max-width:760px;margin:0 0 48px}
+  .section-kicker{font-size:11px;letter-spacing:.3em;color:var(--accent);text-transform:uppercase;margin:0 0 14px;font-weight:600}
+  .section-head h2{font-family:var(--serif);font-size:clamp(32px,4.6vw,56px);font-weight:600;letter-spacing:.08em;line-height:1.22;margin:0}
+  .section-desc{max-width:640px;font-size:14px;color:var(--ink-2);line-height:1.95;margin:18px 0 0}
+
+  .map-section{padding-top:clamp(60px,8vw,110px)}
+  .map-shell{position:relative}
+  .map-scroll{overflow-x:auto;overflow-y:hidden;border:1px solid var(--line);background:#eef4f8;border-radius:3px;box-shadow:0 20px 60px rgba(80,60,30,.09)}
+  .map-inner{min-width:760px}
+  #routeMap{width:100%;height:auto;display:block}
+  .map-tip{
+    position:absolute;z-index:12;min-width:150px;max-width:240px;padding:10px 12px;
+    background:rgba(37,33,27,.95);color:#f7f2e8;border-radius:4px;font-size:11px;line-height:1.65;
+    opacity:0;transform:translateY(6px);transition:opacity .15s,transform .15s;pointer-events:none;
+    box-shadow:0 8px 24px rgba(0,0,0,.2);
+  }
+  .map-tip.show{opacity:1;transform:translateY(0)}
+  .map-tip .t-day{font-family:var(--serif);color:#e9c9a4;font-size:12px;letter-spacing:.12em}
+  .map-tip .t-name{font-size:14px;font-weight:600;margin:2px 0 3px}
+  .map-tip .t-meta{color:#cfc5b5}
+  .map-tip .t-cue{color:#d9b98c;margin-top:5px;font-size:10px;letter-spacing:.06em}
+  .map-legend{display:flex;flex-wrap:wrap;gap:18px;margin-top:16px;font-size:11px;color:var(--ink-3);letter-spacing:.04em;align-items:center}
+  .map-legend span{display:inline-flex;align-items:center;gap:7px}
+  .lg-dot{width:11px;height:11px;border-radius:50%;background:var(--paper);border:2px solid var(--accent)}
+  .lg-way{width:6px;height:6px;border-radius:50%;background:var(--accent-2)}
+  .lg-spur{width:20px;height:0;border-top:1.5px dashed var(--accent-2)}
+  .lg-geo{width:20px;height:0;border-top:1px solid #94a3b8}
+  .map-note{margin:14px 0 0;font-size:11px;color:var(--ink-3);letter-spacing:.04em}
+  .map-pan-hint{display:none}
+
+  .prelude-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .prelude-card{border-top:1px solid var(--line);padding-top:20px}
+  .prelude-card span{font-family:var(--serif);font-size:12px;letter-spacing:.22em;color:var(--accent)}
+  .prelude-card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:10px 0 8px;letter-spacing:.04em}
+  .prelude-card p{font-size:13.5px;color:var(--ink-2);line-height:1.95;margin:0}
+  .photo-note{max-width:820px;margin:38px 0 0;font-size:12px;color:var(--ink-3);line-height:1.9;border-left:2px solid var(--line);padding-left:14px}
+
+  .journey{padding-top:clamp(70px,9vw,120px)}
+  .day-rail{
+    position:sticky;top:var(--topbar);z-index:60;display:flex;gap:6px;overflow-x:auto;
+    background:rgba(247,242,232,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);margin:0 calc(-1 * clamp(20px,5vw,48px));
+    padding:10px clamp(20px,5vw,48px);scrollbar-width:none;
+  }
+  .day-rail::-webkit-scrollbar{display:none}
+  .day-chip{
+    flex:none;display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--ink-2);
+    padding:5px 10px;border:1px solid transparent;border-radius:999px;letter-spacing:.04em;white-space:nowrap;
+    transition:background .2s,color .2s;
+  }
+  .day-chip span{color:var(--ink-3);font-weight:500;font-size:10px}
+  .day-chip:hover{background:var(--paper-2)}
+  .day-chip.active{background:var(--ink);color:var(--paper)}
+  .day-chip.active span{color:#c9bfae}
+
+  .day-list{position:relative}
+  .day-list::before{content:"";position:absolute;left:149px;top:0;bottom:0;width:1px;background:var(--line)}
+  .day{
+    display:grid;grid-template-columns:150px minmax(0,1fr);gap:clamp(24px,4vw,56px);
+    padding:64px 0;border-top:1px solid var(--line);scroll-margin-top:calc(var(--topbar) + 62px);position:relative;
+  }
+  .day:first-child{border-top:none;padding-top:34px}
+  .day-marker{position:relative;padding-right:28px}
+  .day-num{display:block;font-family:var(--serif);font-size:54px;line-height:.9;color:var(--accent);letter-spacing:-.02em}
+  .day-date{display:block;margin-top:9px;font-size:12px;letter-spacing:.22em;color:var(--ink-3)}
+  .day-tag{display:inline-block;margin-top:11px;font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--ink-2);border:1px solid var(--line);border-radius:3px;padding:2px 7px}
+  .day-dot{position:absolute;right:-4.5px;top:6px;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--paper)}
+  .day-body{max-width:760px}
+  .day-route{font-size:12px;letter-spacing:.16em;color:var(--accent);margin:0 0 10px;font-weight:600}
+  .day-route i{font-style:normal;color:var(--line);margin:0 8px}
+  .day-title{font-family:var(--serif);font-size:clamp(24px,3vw,34px);font-weight:600;line-height:1.4;margin:0 0 14px;letter-spacing:.03em}
+  .day-meta{display:flex;flex-wrap:wrap;gap:16px;font-size:11px;color:var(--ink-3);margin:0 0 18px}
+  .day-meta b{font-family:var(--serif);font-size:14px;color:var(--ink);font-weight:600;margin-right:2px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 24px}
+  .tag{font-size:10.5px;color:var(--ink-2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;letter-spacing:.04em}
+  .story p{font-size:15.5px;line-height:2.05;color:#3b352c;margin:0 0 18px}
+  .story p:last-child{margin-bottom:0}
+  .pull{font-family:var(--serif);font-size:clamp(20px,2.4vw,26px);line-height:1.75;color:var(--accent);border-left:2px solid var(--accent);padding:4px 0 4px 20px;margin:30px 0;letter-spacing:.04em}
+  .day-note{background:var(--paper-2);border:1px solid var(--line);border-radius:3px;padding:14px 16px;margin:26px 0 0}
+  .note-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--accent-2);margin-bottom:6px}
+  .day-note p{font-size:13px;line-height:1.9;color:var(--ink-2);margin:0}
+  .day-facts{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px;padding-top:18px;border-top:1px dashed var(--line)}
+  .day-facts div{display:flex;gap:10px;align-items:flex-start}
+  .day-facts span{flex:none;font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--paper);background:var(--accent-2);border-radius:2px;padding:2px 5px;margin-top:3px}
+  .day-facts p{font-size:12.5px;line-height:1.8;color:var(--ink-2);margin:0}
+
+  .interlude{position:relative;height:clamp(340px,42vw,480px);overflow:hidden;display:grid;place-items:center;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);margin-top:clamp(20px,4vw,40px);margin-bottom:clamp(20px,4vw,40px)}
+  .interlude svg{position:absolute;inset:0;width:100%;height:100%}
+  .interlude::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(247,242,232,.1),rgba(247,242,232,.55),rgba(247,242,232,.1))}
+  .interlude blockquote{position:relative;z-index:2;max-width:760px;margin:0 24px;padding:28px 32px;background:rgba(247,242,232,.8);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-left:3px solid var(--accent);font-family:var(--serif);font-size:clamp(20px,3vw,32px);line-height:1.7;letter-spacing:.04em;color:var(--ink)}
+  .interlude cite{display:block;margin-top:12px;font-family:var(--sans);font-size:11px;font-style:normal;letter-spacing:.18em;color:var(--ink-3)}
+
+  .tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 36px}
+  .tip-item{display:flex;gap:14px;padding:20px 0;border-top:1px solid var(--line)}
+  .tip-item span{font-family:var(--serif);font-size:13px;color:var(--accent);flex:none;width:26px;padding-top:2px}
+  .tip-item h4{font-size:14.5px;margin:0 0 4px;font-weight:700;letter-spacing:.02em}
+  .tip-item p{font-size:12.5px;color:var(--ink-2);line-height:1.9;margin:0}
+
+  .ending{padding:clamp(90px,12vw,160px) 24px;text-align:center;border-top:1px solid var(--line);background:var(--paper-2)}
+  .ending-kicker{font-size:11px;letter-spacing:.34em;color:var(--accent);margin:0 0 24px}
+  .ending blockquote{font-family:var(--serif);font-size:clamp(32px,6vw,72px);letter-spacing:.14em;line-height:1.45;margin:0;font-weight:600}
+  .ending-text{max-width:660px;margin:34px auto 0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .signature{margin-top:44px;font-size:11px;letter-spacing:.2em;color:var(--ink-3)}
+  footer{padding:28px 24px;text-align:center;font-size:11px;color:var(--ink-3);letter-spacing:.06em;border-top:1px solid var(--line)}
+
+  .to-top{position:fixed;right:22px;bottom:22px;z-index:70;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(247,242,232,.92);display:grid;place-items:center;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;font-size:15px;color:var(--ink-2)}
+  .to-top.show{opacity:1;pointer-events:auto}
+  .to-top:hover{transform:translateY(-2px)}
+
+  .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+  .js .reveal.in{opacity:1;transform:none}
+
+  #routeMap .geo-label{font-family:var(--serif);fill:#94a3b8;font-size:11px;letter-spacing:.28em;opacity:.85}
+  #routeMap .stop-name{font-family:var(--sans);font-size:10.5px;fill:#0f172a;font-weight:600;paint-order:stroke;stroke:#eef4f8;stroke-width:3px;stroke-linejoin:round}
+  #routeMap .stop-name.way{font-size:9.5px;fill:#64748b;font-weight:500;letter-spacing:.04em}
+  #routeMap .map-stop{cursor:pointer;outline:none}
+  #routeMap .map-stop circle{fill:#f7f2e8;stroke:var(--accent);stroke-width:2;transition:fill .2s,stroke .2s}
+  #routeMap .map-stop .day-label{font-family:var(--sans);font-size:8.4px;font-weight:700;fill:var(--accent);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+  #routeMap .map-stop.start circle{fill:var(--accent);stroke:#f7f2e8;stroke-width:2.5}
+  #routeMap .map-stop.start .day-label{fill:#fff;font-size:8.4px}
+  #routeMap .map-stop.active circle{fill:var(--accent);stroke:#fff;stroke-width:3}
+  #routeMap .map-stop.active .day-label{fill:#fff}
+  #routeMap .map-stop.spur circle{fill:#f7f2e8;stroke:var(--accent-2)}
+  #routeMap .map-stop.spur .day-label{fill:var(--accent-2)}
+  #routeMap .map-stop.spur.active circle{fill:var(--accent-2);stroke:#fff}
+  #routeMap .map-stop.spur.active .day-label{fill:#fff}
+  #routeMap .map-wp{cursor:pointer;outline:none}
+  #routeMap .wp-dot{fill:var(--accent-2);stroke:#f7f2e8;stroke-width:1.5}
+  #routeMap .route-casing{fill:none;stroke:#f7f2e8;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+  #routeMap .route-base{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
+  #routeMap .route-progress{fill:none;stroke:var(--accent);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .3s}
+  #routeMap .route-spur{fill:none;stroke:var(--accent-2);stroke-width:1.4;stroke-dasharray:4 5;opacity:.62;stroke-linecap:round}
+
+  @media (max-width: 860px){
+    :root{--topbar:52px}
+    .topbar{height:52px;gap:16px;padding:0 18px}
+    .brand{font-size:17px;letter-spacing:.2em}
+    .section-nav{gap:14px}
+    .section-nav a{font-size:11px;letter-spacing:.08em}
+    .topbar-meta{display:none}
+    .hero{min-height:92svh;padding-top:100px}
+    .hero-stats{gap:22px}
+    .section-head{margin-bottom:32px}
+    .prelude-grid{grid-template-columns:1fr;gap:20px}
+    .day-list::before{display:none}
+    .day{grid-template-columns:1fr;gap:12px;padding:44px 0}
+    .day:first-child{padding-top:24px}
+    .day-marker{display:flex;align-items:baseline;gap:12px;padding:0}
+    .day-num{font-size:38px}
+    .day-date{margin:0;font-size:11px}
+    .day-tag{margin:0;font-size:9.5px}
+    .day-dot{display:none}
+    .day-body{max-width:none}
+    .day-title{font-size:25px}
+    .story p{font-size:15px;line-height:1.98}
+    .day-facts{grid-template-columns:1fr}
+    .tips-grid{grid-template-columns:1fr}
+    .map-inner{min-width:720px}
+    .map-pan-hint{display:inline}
+    .interlude{height:330px}
+    .interlude blockquote{padding:20px 22px;margin:0 16px}
+    .day-rail{margin:0 -20px;padding:9px 20px}
+    .to-top{right:14px;bottom:14px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .js .reveal{opacity:1;transform:none}
+  }
+</style>
+
+<style>
+/* ===== Anhui-consistent light theme ===== */
+:root{
+  --paper:#f8fafc; --paper-2:#f1f5f9; --paper-3:#e2e8f0;
+  --ink:#0f172a; --ink-2:#475569; --ink-3:#94a3b8;
+  --line:#e2e8f0; --accent:#0284c7; --accent-2:#059669; --gold:#d97706;
+}
+body{background:#f8fafc;background-image:none;color:var(--ink)}
+header.topbar{background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom-color:var(--line)}
+header.topbar.solid{background:rgba(255,255,255,.96)!important;border-bottom-color:var(--line);box-shadow:0 1px 6px rgba(15,23,42,.04)}
+.brand{font-family:var(--sans);font-weight:800;letter-spacing:.18em;color:var(--ink)}
+.section-nav a{color:var(--ink-2)}
+.section-nav a::after{background:var(--accent)}
+.topbar-meta{color:var(--ink-3)}
+.hero{background:linear-gradient(180deg,#f8fafc 0%,#eef6fb 58%,#e0f2fe 100%)}
+.hero-art{filter:hue-rotate(165deg) saturate(.7) brightness(1.06);opacity:.8}
+.hero h1{color:var(--ink)}
+.kicker{color:var(--accent)}
+.hero-lead{color:var(--ink-2)}
+.hero-stats b{color:var(--ink)}
+.hero-stats span{color:var(--ink-3)}
+.scroll-cue{color:var(--accent)}
+.scroll-cue i{background:linear-gradient(var(--accent),transparent)}
+.section-head h2{color:var(--ink)}
+.section-desc{color:var(--ink-2)}
+.section-kicker{color:var(--accent)}
+.journey{padding-left:clamp(20px,5vw,48px);padding-right:clamp(20px,5vw,48px)}
+.day-rail{background:rgba(248,250,252,.95);border-bottom-color:var(--line)}
+.day-chip{color:var(--ink-2)}
+.day-chip span{color:var(--ink-3)}
+.day-chip:hover{background:var(--paper-2)}
+.day-chip.active{background:var(--accent);color:#fff}
+.day-chip.active span{color:#e0f2fe}
+.day-list::before{background:var(--line)}
+.day{border-top-color:var(--line)}
+.day-num{color:var(--accent)}
+.day-date{color:var(--ink-3)}
+.day-tag{color:var(--ink-2);border-color:var(--line);background:#fff}
+.day-dot{background:var(--accent);box-shadow:0 0 0 4px var(--paper)}
+.day-body{background:#fff;border:1px solid var(--line);border-radius:14px;padding:clamp(18px,3vw,30px);box-shadow:0 2px 12px rgba(15,23,42,.04)}
+.day-route{color:var(--accent)}
+.day-route i{color:var(--ink-3)}
+.day-title{color:var(--ink)}
+.day-meta{color:var(--ink-3)}
+.day-meta b{color:var(--ink)}
+.tag{color:var(--ink-2);border-color:var(--line);background:var(--paper)}
+.story p{color:#334155}
+.pull{color:var(--accent);border-left-color:var(--accent)}
+.day-note{background:#f0f9ff;border-color:#bae6fd}
+.note-label{color:var(--accent)}
+.day-note p{color:var(--ink-2)}
+.day-facts{border-top-color:var(--line)}
+.day-facts span{background:var(--accent-2)}
+.day-facts p{color:var(--ink-2)}
+.prelude-card,.tip-item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:0 2px 10px rgba(15,23,42,.03)}
+.prelude-card span,.tip-item span{color:var(--accent)}
+.prelude-card h3{color:var(--ink)}
+.prelude-card p,.tip-item p{color:var(--ink-2)}
+.tips-grid{gap:16px}
+.tip-item{padding:18px}
+.photo-note{color:var(--ink-3);border-left-color:var(--line)}
+.interlude blockquote{background:rgba(255,255,255,.9);border-left-color:var(--accent);color:var(--ink)}
+.interlude cite{color:var(--ink-3)}
+.ending{background:var(--paper-2);border-top-color:var(--line)}
+.ending blockquote{color:var(--ink)}
+.ending-kicker{color:var(--accent)}
+.ending-text{color:var(--ink-2)}
+.signature{color:var(--ink-3)}
+footer{color:var(--ink-3);border-top-color:var(--line);background:var(--paper)}
+.to-top{background:#fff;border-color:var(--line);color:var(--accent)}
+.map-scroll{background:#eef4f8;border-color:var(--line);box-shadow:0 18px 50px rgba(15,23,42,.06)}
+.map-legend,.map-note{color:var(--ink-3)}
+.lg-geo{border-top-color:var(--ink-3)}
+#routeMap .geo-label{fill:var(--ink-3)}
+#routeMap .stop-name{fill:var(--ink);stroke:#fff}
+#routeMap .stop-name.way{fill:var(--ink-2)}
+#routeMap .route-casing{stroke:#fff}
+#routeMap .route-base,#routeMap .route-progress{stroke:var(--accent)}
+#routeMap .map-stop circle{fill:#fff;stroke:var(--accent)}
+#routeMap .map-stop .day-label{fill:var(--accent)}
+#routeMap .map-stop.active circle{fill:var(--accent);stroke:#fff}
+#routeMap .map-stop.active .day-label{fill:#fff}
+#routeMap .map-stop.start circle{fill:var(--accent);stroke:#fff}
+#routeMap .map-stop.start .day-label{fill:#fff}
+#routeMap .route-spur{stroke:var(--accent-2)}
+#routeMap .wp-dot{fill:var(--accent-2);stroke:#fff}
+.map-tip{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:0 8px 24px rgba(15,23,42,.12)}
+.map-tip .t-day{color:var(--accent)}
+.map-tip .t-name{color:var(--ink)}
+.map-tip .t-meta{color:var(--ink-2)}
+.map-tip .t-cue{color:var(--accent)}
+
+/* ===== Expense ===== */
+.expense-top{display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:stretch}
+.expense-total,.expense-bars,.expense-details{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 12px rgba(15,23,42,.04)}
+.expense-total{padding:26px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.expense-label{font-size:11px;letter-spacing:.2em;color:var(--ink-3);font-weight:700}
+.expense-total strong{font-family:var(--serif);font-size:clamp(36px,4.6vw,52px);line-height:1;color:var(--ink);font-weight:600;letter-spacing:-.02em}
+.expense-total strong em{font-family:var(--sans);font-size:14px;font-style:normal;color:var(--ink-3);margin-left:6px;letter-spacing:0}
+.expense-sub{font-size:11px;color:var(--ink-3)}
+.expense-bars{padding:25px 28px;display:flex;flex-direction:column;justify-content:center;gap:15px}
+.ex-bar-head{display:flex;align-items:baseline;gap:10px;font-size:12px;color:var(--ink-2)}
+.ex-bar-head span{width:36px;font-weight:700;color:var(--ink)}
+.ex-bar-head b{font-family:var(--serif);font-weight:600;font-size:14px;color:var(--ink)}
+.ex-bar-head em{font-style:normal;font-size:10.5px;color:var(--ink-3);margin-left:auto}
+.ex-track{height:7px;border-radius:99px;background:var(--paper-2);overflow:hidden;margin-top:5px}
+.ex-track i{display:block;height:100%;border-radius:99px}
+.expense-details{margin-top:20px;overflow:hidden}
+.expense-details summary{list-style:none;cursor:pointer;padding:18px 24px;font-size:13px;font-weight:800;color:var(--ink);display:flex;align-items:center;gap:12px}
+.expense-details summary::-webkit-details-marker{display:none}
+.expense-details summary::after{content:"展开 ↓";font-size:10.5px;font-weight:600;color:var(--accent);letter-spacing:.08em;margin-left:auto}
+.expense-details[open] summary::after{content:"收起 ↑"}
+.expense-details summary span{font-size:10.5px;font-weight:600;color:var(--ink-3);letter-spacing:.08em}
+.expense-table-wrap{overflow-x:auto;border-top:1px solid var(--line)}
+.expense-table{width:100%;min-width:720px;border-collapse:collapse;font-size:11.5px}
+.expense-table th{background:var(--paper);color:var(--ink-3);font-weight:700;text-align:right;padding:10px 12px;white-space:nowrap;letter-spacing:.04em}
+.expense-table th:first-child,.expense-table th:nth-child(2),.expense-table th:nth-child(3){text-align:left}
+.expense-table td{padding:10px 12px;border-top:1px solid var(--paper-2);color:var(--ink-2);text-align:right;white-space:nowrap}
+.expense-table td:first-child,.expense-table td:nth-child(2),.expense-table td:nth-child(3){text-align:left}
+.expense-table .ex-day{font-weight:800;color:var(--accent)}
+.expense-table .ex-route{white-space:normal;min-width:150px}
+.expense-table .ex-sum{font-weight:800;color:var(--ink)}
+.expense-table tfoot td{border-top:1px solid var(--line);font-weight:800;color:var(--ink);background:var(--paper)}
+.expense-foot{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:16px;font-size:11px;color:var(--ink-3)}
+.expense-foot a{font-weight:800;color:var(--accent);border-bottom:1px solid #bae6fd;padding-bottom:1px}
+.expense-foot a:hover{border-bottom-color:var(--accent)}
+
+/* ===== Mobile map focus + collapsible stories ===== */
+.map-fab{position:fixed;left:16px;bottom:16px;z-index:75;display:none;align-items:center;gap:6px;height:40px;padding:0 15px;border-radius:999px;border:1px solid #cbd5e1;background:#fff;color:var(--accent);font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(15,23,42,.12);cursor:pointer}
+.map-close{display:none;position:fixed;top:10px;right:10px;z-index:320;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:999px;border:1px solid #cbd5e1;background:#fff;color:var(--ink);font-size:12px;font-weight:800;box-shadow:0 4px 14px rgba(15,23,42,.12);cursor:pointer}
+.map-fab.map-fab-hidden{opacity:0;pointer-events:none;transform:translateY(6px)}
+.day-chip{transition:none!important}
+.map-fab{transition:none!important}
+body.map-focus{overflow:hidden}
+body.map-focus .map-section{position:fixed;inset:0;z-index:300;padding:52px 8px 8px;background:var(--paper);overflow:hidden}
+body.map-focus .map-section .section-head{display:none}
+body.map-focus .map-section .wrap{max-width:none;height:100%}
+body.map-focus .map-shell{height:calc(100% - 34px);margin:0}
+body.map-focus .map-scroll{height:100%;overflow:auto;display:flex;align-items:flex-start;justify-content:flex-start}
+body.map-focus .map-inner{min-width:1200px}
+body.map-focus .map-legend{display:none}
+body.map-focus .map-note{display:block;position:absolute;left:50%;bottom:8px;transform:translateX(-50%);z-index:315;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:999px;padding:4px 12px;white-space:nowrap;font-size:10.5px;color:var(--ink-2);box-shadow:0 2px 8px rgba(15,23,42,.06)}
+body.map-focus .map-pan-hint{display:none}
+body.map-focus .map-close{display:inline-flex}
+body.map-focus .map-fab{display:none}
+.story-toggle{display:none}
+@media (max-width:860px){
+  .hero{min-height:76svh;padding-top:86px}
+  .section{padding:46px 16px}
+  .journey{padding:40px 16px 0}
+  .section-head{margin-bottom:24px}
+  .section-head h2{font-size:30px}
+  .section-desc{font-size:13px;line-height:1.85}
+  .day{padding:28px 0}
+  .day-body{padding:16px;border-radius:12px}
+  .day-title{font-size:23px}
+  .story p{font-size:14.5px;line-height:1.95;margin-bottom:14px}
+  .day-meta{gap:10px;font-size:10.5px}
+  .prelude-grid{gap:12px}
+  .prelude-card{padding:16px}
+  .tips-grid{gap:12px}
+  .tip-item{padding:14px;gap:10px}
+  .expense-top{grid-template-columns:1fr;gap:14px}
+  .expense-total{padding:20px}
+  .expense-bars{padding:20px}
+  .expense-details summary{padding:14px 16px}
+  .expense-foot{font-size:10.5px}
+  .map-fab{display:flex;left:auto;right:14px;bottom:70px;width:46px;height:46px;padding:0;justify-content:center;border-radius:50%}
+  .map-section{padding-bottom:170px}
+  .map-inner{min-width:680px}
+  .map-pan-hint{display:inline}
+  .story-toggle{display:inline-flex;align-items:center;gap:4px;margin:0 0 16px;padding:5px 12px;border:1px solid var(--line);background:#fff;border-radius:999px;font-size:11px;font-weight:700;color:var(--accent);cursor:pointer}
+  .js .day-body.collapsible:not(.expanded) .story > p:nth-child(n+3){display:none}
+  .day-rail{margin:0 -16px;padding:9px 16px}
+  .to-top{right:14px;bottom:14px}
+}
+@media (prefers-reduced-motion: reduce){
+  .js .reveal{opacity:1;transform:none}
+}
+</style>
+
+</head>
+<body>
+
+<div class="progress"><span id="progressBar"></span></div>
+
+<header class="topbar" id="topbar">
+  <a class="brand" href="#top">见山河</a>
+  <nav class="section-nav" aria-label="页面目录">
+    <a href="#map">路线</a>
+    <a href="#prelude">行前</a>
+    <a href="#journey">逐日</a>
+    <a href="#expense">费用</a>
+    <a href="#tips">心法</a>
+  </nav>
+  <span class="topbar-meta">16天 · 7579公里</span>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+        <defs>
+          <linearGradient id="heroSky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f7f2e8"/><stop offset="1" stop-color="#efe4d1"/>
+          </linearGradient>
+          <linearGradient id="heroMist" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f7f2e8" stop-opacity="0"/><stop offset="1" stop-color="#f7f2e8" stop-opacity=".9"/>
+          </linearGradient>
+        </defs>
+        <rect width="1440" height="900" fill="url(#heroSky)"/>
+        <circle cx="1080" cy="300" r="128" fill="#c98b4b" opacity=".1"/>
+        <circle cx="1080" cy="300" r="54" fill="#c98b4b" opacity=".22"/>
+        <path d="M0 635 L120 545 L230 600 L360 470 L480 565 L610 485 L740 595 L870 505 L1010 585 L1140 480 L1270 565 L1440 505 L1440 900 L0 900 Z" fill="#ded0ba" opacity=".62"/>
+        <path d="M0 700 L140 625 L270 675 L400 565 L530 650 L660 580 L790 680 L920 600 L1050 670 L1180 585 L1310 660 L1440 610 L1440 900 L0 900 Z" fill="#cdbb9f" opacity=".7"/>
+        <path d="M0 775 L160 710 L300 765 L440 675 L580 760 L720 690 L860 770 L1000 700 L1140 765 L1280 695 L1440 755 L1440 900 L0 900 Z" fill="#b6a184" opacity=".78"/>
+        <path d="M0 840 L180 795 L340 835 L500 770 L660 840 L820 790 L980 845 L1140 785 L1300 835 L1440 805 L1440 900 L0 900 Z" fill="#8f7a5f" opacity=".82"/>
+        <rect y="560" width="1440" height="90" fill="url(#heroMist)" opacity=".55"/>
+      </svg>
+    </div>
+    <div class="hero-inner">
+      <p class="kicker">2021 · 夏 · 陕西 / 甘肃 / 青海</p>
+      <h1>见山河</h1>
+      <p class="hero-sub">带俩娃，16天，7579公里</p>
+      <p class="hero-lead">一家人在小小的车里谈笑，一起走过一段一段的路。</p>
+      <div class="hero-stats">
+        <div><b>16</b><span>天</span></div>
+        <div><b>7579</b><span>公里</span></div>
+        <div><b>2</b><span>个娃</span></div>
+        <div><b>8</b><span>个省区市</span></div>
+      </div>
+      <a class="scroll-cue" href="#map">沿着黄河，向西<i></i></a>
+    </div>
+  </section>
+
+  <section class="section map-section" id="map">
+    <button class="map-close" id="mapClose" type="button">✕ 返回游记</button>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-kicker">Route</p>
+        <h2>一条向西的路</h2>
+        <p class="section-desc">北京出发，过黄河，翻秦岭，进甘南，上昆仑，穿柴达木，最后从河西走廊回家。点击地图上的日期，可以跳到当天。</p>
+      </div>
+      <div class="map-shell">
+        <div class="map-scroll" id="mapScroll">
+          <div class="map-inner"><svg id="routeMap" role="img" aria-label="见山河自驾路线图"></svg></div>
+        </div>
+        <div class="map-tip" id="mapTip"></div>
+      </div>
+      <div class="map-legend">
+        <span><i class="lg-dot"></i>过夜 / 主要节点</span>
+        <span><i class="lg-way"></i>途经点</span>
+        <span><i class="lg-spur"></i>往返支线</span>
+        <span><i class="lg-geo"></i>山脉 / 盆地</span>
+      </div>
+      <p class="map-note"><span class="map-pan-hint">手机可左右滑动查看全程 · </span>数字对应行程天数 D0—D16。D10、D12 为当日往返支线。</p>
+    </div>
+  </section>
+
+  <section class="section prelude" id="prelude">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-kicker">Before</p>
+        <h2>正文之前</h2>
+        <p class="section-desc">每次出去，都被朋友们尤其是家里有娃的要攻略，于是，聊作纪念。</p>
+      </div>
+      <div class="prelude-grid">
+        <article class="prelude-card reveal"><span>01 / 照片</span><h3>只有两部华为手机</h3><p>没有设备，后期无技术。所有的照片，都只有两部华为手机。记录比器材重要。</p></article>
+        <article class="prelude-card reveal"><span>02 / 带娃</span><h3>没有娃不能去玩的</h3><p>只看你想不想带。做好准备，都可以的。风景在路上，边玩边走，拉链式的行进，度假不适合。</p></article>
+        <article class="prelude-card reveal"><span>03 / 节奏</span><h3>带着蜗牛去散步</h3><p>不催，不赶着打卡。司机要睡足，吃完早午饭再出发；孩子在路边玩土、玩水、吹风，也是正经事。</p></article>
+      </div>
+      <p class="photo-note">原文配有大量手机照片。此页面先以文字、路线与手绘山河呈现；照片可以后续嵌入对应日期。</p>
+    </div>
+  </section>
+
+  <section class="journey" id="journey">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-kicker">Day by Day</p>
+        <h2>逐日</h2>
+        <p class="section-desc">16 天，从华北平原到青藏高原边缘，再沿河西走廊回家。每一天都不长，但合起来，就是 7579 公里。</p>
+      </div>
+      <div class="day-rail" id="dayRail" aria-label="按天跳转">
+        <a class="day-chip" href="#day-d0" data-day="D0">D0<span>9</span></a>
+        <a class="day-chip" href="#day-d1" data-day="D1">D1<span>10</span></a>
+        <a class="day-chip" href="#day-d2" data-day="D2">D2<span>11</span></a>
+        <a class="day-chip" href="#day-d3" data-day="D3">D3<span>12</span></a>
+        <a class="day-chip" href="#day-d4" data-day="D4">D4<span>13</span></a>
+        <a class="day-chip" href="#day-d5" data-day="D5">D5<span>14</span></a>
+        <a class="day-chip" href="#day-d6" data-day="D6">D6<span>15</span></a>
+        <a class="day-chip" href="#day-d7" data-day="D7">D7<span>16</span></a>
+        <a class="day-chip" href="#day-d8" data-day="D8">D8<span>17</span></a>
+        <a class="day-chip" href="#day-d9" data-day="D9">D9<span>18</span></a>
+        <a class="day-chip" href="#day-d10" data-day="D10">D10<span>19</span></a>
+        <a class="day-chip" href="#day-d11" data-day="D11">D11<span>20</span></a>
+        <a class="day-chip" href="#day-d12" data-day="D12">D12<span>21</span></a>
+        <a class="day-chip" href="#day-d13" data-day="D13">D13<span>22</span></a>
+        <a class="day-chip" href="#day-d14" data-day="D14">D14<span>23</span></a>
+        <a class="day-chip" href="#day-d15" data-day="D15">D15<span>24</span></a>
+        <a class="day-chip" href="#day-d16" data-day="D16">D16<span>25</span></a>
+      </div>
+      <div class="day-list">
+        <article class="day" id="day-d0" data-day="D0">
+          <div class="day-marker"><span class="day-num">00</span><span class="day-date">9日</span><span class="day-tag">D0</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">北京 <i>→</i> 太原</p>
+            <h3 class="day-title">去见想见的人</h3>
+            <div class="day-meta"><span><b>537.8</b> km</span><span>约 6 小时 28 分</span><span>全程高速</span></div>
+            <div class="tags"><span class="tag">会友</span><span class="tag">太原</span><span class="tag">河东颐祥阁</span></div>
+            <div class="story">
+              <p>第一站去太原，纯属会友。若无此需求，大可另选一个中间站。</p>
+              <p>去了河东颐祥阁，吃到家乡的味道，也见到天天在微信里聊天、却许久没见的朋友。家属们算了算，按这样的见面频率，有生之年大概也就五回了。</p>
+              <p>所以，去见想见的人吧。</p>
+              <blockquote class="pull">所以，去见想见的人吧。</blockquote>
+            </div>
+            <div class="day-facts"><div><span>吃</span><p>河东颐祥阁，家乡的味道。</p></div><div><span>住</span><p>太原。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d1" data-day="D1">
+          <div class="day-marker"><span class="day-num">01</span><span class="day-date">10日</span><span class="day-tag">D1</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">太原 <i>→</i> 延安</p>
+            <h3 class="day-title">黄河大拐弯与延安夜市</h3>
+            <div class="day-meta"><span><b>577.4</b> km</span><span>约 7 小时 28 分</span><span>高速 + 临时下道</span></div>
+            <div class="tags"><span class="tag">羊杂割</span><span class="tag">乾坤湾</span><span class="tag">宝塔山</span><span class="tag">二道街夜市</span></div>
+            <div class="story">
+              <p>早上吃了一碗羊杂割，正式出发。司机要睡足，所以我们早上不赶路，睡到几点是几点，一般吃完早午饭出发，都要中午了。</p>
+              <p>临时在地图上找点下高速，导航去乾坤湾看黄河大拐弯。到时景区已经关门，我们其实看的并不是乾坤湾，但也是个大拐弯。下高速后沿途看见伏寺湾的路标，再往前有观景平台，平台不远处有小路可盘旋下到水边；又有盘龙湾、秦晋峡谷的标志。</p>
+              <p>本想让娃们看看黄土高原的千沟万壑，上上地理课，结果都是绿水青山了。</p>
+              <p>所有路程中，娃们最爱的是吹风——无人小路可以，大路危险。</p>
+              <p>晚上到延安，酒店就在宝塔山下，看宝塔山灯光秀。看完去二道街夜市，羊蹄、洋芋擦擦、烤面筋，网红单品一样来一份。夜市统一管理，秩序规范，明码标价，清扫及时，态度也好。</p>
+              <p>吃完下到桥下走走，一手是宝塔山，一手是清凉山，娃们消食，我们歇歇，小风吹着，很好。</p>
+              <blockquote class="pull">带着蜗牛去散步，不要催，不要赶着打卡。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>司机要睡足，早上不赶路；临时下高速看黄河，注意小路会车。吃完先消化再上车，防晕车。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>羊杂割；二道街夜市（羊蹄、洋芋擦擦、烤面筋）。</p></div><div><span>住</span><p>延安，宝塔山下。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d2" data-day="D2">
+          <div class="day-marker"><span class="day-num">02</span><span class="day-date">11日</span><span class="day-tag">D2</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">延安 <i>→</i> 中宁</p>
+            <h3 class="day-title">宝塔山下的红色一课</h3>
+            <div class="day-meta"><span>延安革命纪念馆</span><span>王家坪</span><span>枣园</span><span>中宁</span></div>
+            <div class="tags"><span class="tag">红色教育</span><span class="tag">老延安</span><span class="tag">小路晾衣</span><span class="tag">风车园</span></div>
+            <div class="story">
+              <p>革命从宝塔山走来。延安革命纪念馆（微信预约）、王家坪（免费）、枣园、宝塔山、清凉山，视情况参观几个，都是免费，现场扫码即可。纪念馆和王家坪挨着，走路就行；枣园远一些，得再开车去。</p>
+              <p>中午打卡老延安，就在宝塔山下。小米加步枪，小米粥好喝。疫情原因取消了表演，但布置得很有特色。吃完饭雨也停了，俩娃在门口玩了一会儿。</p>
+              <p>我家这两只上车爱睡觉，一般吃完先消化会儿再上车。带孩子要注意，不然容易晕车吐。</p>
+              <p>出了延安，往中宁的高速上，在高德上随意找了一条小路，走走停停玩玩，顺便晾衣服。出来不会带很多衣服，一天一换洗，随时找机会晾，也能倒腾过来。</p>
+              <p>在路边随意玩，其实是孩子最喜欢的。没有具体地点，没有景点名称，但可以和老乡聊聊，了解他们真实的生活——老乡可能想不通我们从北京来这里晾衣服。看看窑洞，看看地形地貌，所有都会留在他们心里。</p>
+              <p>快到中卫的路上，有个风车园，基建的魅力。</p>
+              <blockquote class="pull">所有都会留在他们心里。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>纪念馆和王家坪挨着，走路就行；枣园远一些，可打车。吃完先消化再上车，防晕车。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>老延安（小米加步枪、小米粥）。</p></div><div><span>住</span><p>中宁。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d3" data-day="D3">
+          <div class="day-marker"><span class="day-num">03</span><span class="day-date">12日</span><span class="day-tag">D3</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">中宁 <i>→</i> 兰州</p>
+            <h3 class="day-title">枸杞地、黄河与三炮台</h3>
+            <div class="day-meta"><span>中宁</span><span>兰州</span><span>黄河边</span></div>
+            <div class="tags"><span class="tag">枸杞</span><span class="tag">硒砂瓜</span><span class="tag">白塔山</span><span class="tag">三炮台</span></div>
+            <div class="story">
+              <p>中宁路边有很多枸杞地、瓜地，中卫一带的沙地硒砂瓜又大又甜。路上还见到一车一车包得严严实实的女人，大姐说她们去摘枸杞挣钱，一斤一块。</p>
+              <p>娃们天性，玩土玩水。</p>
+              <p>之后高速到兰州，在白塔山公园对面商场的立体停车库停车。出来是桥门清真寺，顺路走就到白塔山公园，可以坐缆车看黄河、逛公园。下来后可以步行去码头体验水上公交，需提前买票，有时间点，每船有票数——我们时间够，但票卖光了，娃们有点遗憾。</p>
+              <p>码头有快艇可以尝试。之后沿着黄河走，边上有免费台阶，也有茶摊。强烈建议买杯三炮台，一边喝茶一边看黄河，躺平的快乐瞬间拥有。</p>
+              <p>住宿推荐兰州坤逸星光亲子。</p>
+              <blockquote class="pull">躺平的快乐瞬间拥有。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>水上公交需提前买票，票数有限；黄河边茶摊适合歇脚。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>牛肉面；黄河边三炮台。</p></div><div><span>住</span><p>兰州坤逸星光亲子。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d4" data-day="D4">
+          <div class="day-marker"><span class="day-num">04</span><span class="day-date">13日</span><span class="day-tag">D4</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">兰州 <i>→</i> 冶海 <i>→</i> 卓尼</p>
+            <h3 class="day-title">从 37 度到 15 度</h3>
+            <div class="day-meta"><span><b>277</b> km</span><span>约 6 小时</span><span>海拔 1500 → 3340</span></div>
+            <div class="tags"><span class="tag">甘肃省博物馆</span><span class="tag">冶海</span><span class="tag">卓尼</span><span class="tag">海拔 3340</span></div>
+            <div class="story">
+              <p>甘肃省博物馆，看镇馆之宝，吃文创冰糕，公众号预约免费。在博物馆里，一下子就把丝绸之路给娃弄明白了。地理、历史，来之前给看好多纪录片娃都兴趣不大，来了之后会各种问——家长们做好功课。不能缺少的还有佛教的影响，各种石窟，知识点啊。</p>
+              <p>博物馆出来吃牛肉面。网红很多，找个近的，还点了肉串，肉嫩味道香。平时在北京不吃串的娃们吃得好开心。</p>
+              <p>出兰州往卓尼走，过冶海、冶力关国家森林公园风景区，可以开车穿越过去，200 元。开车时发现好多绕山的路被新开的穿山架桥取代了。趁着还没都是高速，抓紧去吧，路上才是景。</p>
+              <p>走走停停，玩玩水，漂流。晚上到达藏王故里、秘境卓尼。从兰州的 37 度高温到卓尼的 15 度瑟瑟发抖，从海拔 1500 到 3340，从干燥到湿润，从汉文化到藏族文化，这一段路就是改变。</p>
+              <blockquote class="pull">从兰州的 37 度到卓尼的 15 度，这一段路就是改变。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>博物馆提前在公众号预约；卓尼海拔 3340 米，备外套。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>牛肉面、肉串。</p></div><div><span>住</span><p>卓尼。</p></div></div>
+          </div>
+        </article>
+
+        <div class="interlude" aria-hidden="false">
+          <svg viewBox="0 0 1440 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="1440" height="480" fill="#e9e0cf"/>
+            <circle cx="1060" cy="120" r="62" fill="#c98b4b" opacity=".22"/>
+            <path d="M0 330 L150 220 L270 290 L410 180 L540 280 L680 200 L820 300 L960 215 L1100 290 L1240 205 L1360 280 L1440 235 L1440 480 L0 480 Z" fill="#d3c2a7" opacity=".75"/>
+            <path d="M0 380 L170 300 L330 355 L490 265 L650 360 L810 285 L970 370 L1130 290 L1290 360 L1440 315 L1440 480 L0 480 Z" fill="#bda98b" opacity=".8"/>
+            <path d="M0 430 L190 380 L380 425 L570 360 L760 430 L950 375 L1140 435 L1330 385 L1440 415 L1440 480 L0 480 Z" fill="#9a8468" opacity=".85"/>
+          </svg>
+          <blockquote>从兰州的 37 度到卓尼的 15 度，从海拔 1500 到 3340，从干燥到湿润，从汉文化到藏族文化——这一段路就是改变。<cite>D4 · 兰州 → 卓尼</cite></blockquote>
+        </div>
+
+        <article class="day" id="day-d5" data-day="D5">
+          <div class="day-marker"><span class="day-num">05</span><span class="day-date">14日</span><span class="day-tag">D5</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">卓尼 <i>→</i> 临潭 <i>→</i> 麻路 <i>→</i> 贡巴寺 <i>→</i> 尼巴村 <i>→</i> 扎尕那 <i>→</i> 迭部</p>
+            <h3 class="day-title">洛克之路，云里走</h3>
+            <div class="day-meta"><span><b>199</b> km</span><span>最高 3979 m</span><span>雨天 8 小时</span></div>
+            <div class="tags"><span class="tag">禅定寺</span><span class="tag">洮砚</span><span class="tag">洛克之路</span><span class="tag">扎尕那</span></div>
+            <div class="story">
+              <p>一大早出来，去卓尼的禅定寺。很安静，没游客，可以入大堂参观，但不要从中间走，不要乱动。后面还有很大的场地，有佛学院。碰上三个来拜的藏族大妈，听不懂她们说话，寺里僧人来大概说了下流程和意义。这个寺尽管小，却是最喜欢的：不吵，清净，僧人特别平和，眼神也不飘忽。后面去的都太火了，总感觉好商业，不纯粹。</p>
+              <p>洮砚，名砚之一。从卓尼去禅定寺的路上会有好多家，懂行的可以挑选。我们买的时候看到有人自带墨来研磨看好不好，还给我们讲了讲。他说现在都没年轻人动手学了，都出去打工，手艺人越来越少。</p>
+              <p>老大写毛笔字，买了喜欢的砚台后，心满意足，就要开启最美的洛克之路了。到临潭县前有几处观景台，可以看到成片油菜花田，网红图“秘境卓尼”就在附近。过县城吃了路边的马友军老炒，老炒和肉都好吃，那么多料的茶还不要茶水费。</p>
+              <p>甘南自驾，一定要去洛克之路。过了扎古禄，铺装路变成土坑路，越爬越高，能见度越来越低。左边落石，有时候半边都被落石挡住；右边什么都看不到，但觉得掉下去绝对成渣。坑坑洼洼的路又增加了难度。下雨天不好走，到迭部县城用了 8 小时；天晴最多 5 小时。路上有坑，小车谨慎些可过。</p>
+              <p>好不容易开始盘着下山，却碰到了路障——牛大哥、坑……好在工程车就在旁边，给现填。顺便说下高反：开始盘着上山时看了下是 2600 米，最高 3979 米。小老二有点反应，喊困，但也不头疼头晕，不严重；老大去年刚从西藏回来，一点事没有。爸妈光顾着紧张看路开车，哥哥就主动照顾妹妹，时刻观察，必要时给吸两口氧。提前买好氧气罐，有备无患。</p>
+              <p>可就是这么险的路，还是愿意再来 N 次，景好啊。而且心态要好：既来之则安之（其实是上下两难），小心驾驶，互相鼓励。给娃们说，看，我们在云里走，和神仙一样，大家也没那么紧张了。这一路经过了贡巴大寺、佛学院的活动、藏寨尼巴村、堪比奥地利的景色……一定要走。</p>
+              <p>就在精神紧张、感觉终于要下山的时候，天也黑了，突然远处一片天亮了——仙境扎尕那。从洛克之路过来到的是最高处，一路向下路过四个村子都可以吃住，人很多。其实甘南的景色都很美，还有徒步线路，有海拔没经验的慎选。</p>
+              <blockquote class="pull">我们在云里走，和神仙一样。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>洛克之路雨天难走，小车谨慎；氧气罐有备无患，孩子高反及时吸氧。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>马友军老炒。</p></div><div><span>住</span><p>迭部。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d6" data-day="D6">
+          <div class="day-marker"><span class="day-num">06</span><span class="day-date">15日</span><span class="day-tag">D6</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">迭部 <i>→</i> 铁布 <i>→</i> 花湖 <i>→</i> 郎木寺 <i>→</i> 夏河</p>
+            <h3 class="day-title">找梅花鹿的一天</h3>
+            <div class="day-meta"><span>迭部</span><span>铁布镇</span><span>花湖</span><span>夏河</span></div>
+            <div class="tags"><span class="tag">铁布镇</span><span class="tag">梅花鹿</span><span class="tag">崩巴村</span><span class="tag">花湖</span><span class="tag">桑沛东珠</span></div>
+            <div class="story">
+              <p>昨晚上到迭部加油时，就发现了川开头的车——是到了四川阿坝了。经过洛克路的车，上车蹭了一身土。</p>
+              <p>早饭在县城里找了一家老炒店，没有昨天马友军的好吃。路过烤馍店，可以买点干粮，都很好吃。刚出县城就看到了收割的场面。</p>
+              <p>第一站，导航铁布镇，沿着路去找野生梅花鹿。路窄，两个车有点困难，但沿途会有很多会车位。路上牛羊不断，有的会冲出来，小心驾驶。路边偶遇可以下去玩水扔石头的地方，玩了好一会儿。也没景点，娃们开心最重要。</p>
+              <p>这个码木头的样子，和在阿尔卑斯山穿行见到的一样样，应该都差不多纬度，植物景色基本一样。一路开得很慢，让娃们开启雷达眼，在漫山的绿里找一抹黄。梅花鹿，终于看到了，野生的。</p>
+              <p>告别了梅花鹿，接着到了一个藏族村子——崩巴村，刚好赶上夏日的活动。家家户户把好吃的拿出来，在村口空处搭帐篷，大家聚在一起。村子里大部分人听不懂汉语，只有几个小朋友会和我们交流，说在学校里学的。遇上的一家人不知道在干什么，下车一问，原来是在摘野生小草莓，我们也加入了队伍。明显技术不行，半天摘不到几个，但味道还不错。摘的时候在路边意思下就好，往里面走时看到了一条死蛇，不认识是什么蛇，但看起来很鲜艳，怕是有毒，就别往里面走了。</p>
+              <p>从铁布镇一直沿路，没有岔路，不用导航，就是走走停停。路过尼显寺。道路还是挺不容易的，有明显的从山上塌下来的痕迹，还有路面看着挺好、但肉眼可见外侧路基塌的。每次路过，车都尽量贴着内侧。胆小的我过这种路基有塌的都心惊肉跳，感觉随时都会掉下去，但发现只要靠里面结实的地方，一路上其实还好。</p>
+              <p>经过一个大转弯，看到特别美的小山坡，山花灿烂。看到有人在上面，还是刚才摘草莓的那家，太有缘分了，一起铺帐篷、聊聊天。他们要开车去九寨沟，都是穆斯林，一生的愿望是去圣地麦加。哥哥跟着那一家的男士一起去后面的山上撒欢，我们妇女儿童在下面聊天，分享好吃的。简单的快乐。</p>
+              <p>吃饱喝足再次道别。一路上两边要不都是山，要不一边山一边崖。谁知道路过一个很窄很窄的隘口后，会突然有个大的转变——山、树都不见了，突然就成了高山草原，黑色的牦牛，白色的羊群。要不是这牦牛，还以为到了内蒙古大草原。沿路出来就是花湖景区。一路的风景已经很美，和景区内都差不多。</p>
+              <p>接着导航郎木寺，最后往夏河方向走。到郎木寺要下班了，想着明天去拉卜楞寺，就到此一游。郎木寺商业气息就很浓了，反而更喜欢白天路上的走走停停。</p>
+              <p>不要忽略海拔，基本没什么反应。如果本身有感冒之类不舒服，可能会有高反。夏河住宿推荐桑沛东珠客栈，晚饭就在客栈餐厅里吃的火锅，态度特别好。讲个插曲：刚坐下准备吃火锅，有个僧人进来，拿个什么香在我们包间里转来转去，然后和我说一堆。我也听不懂，以为要推销什么。请服务员来沟通后，原来是觉得我们吃火锅会有很多肉，属于杀生，帮我们类似祈福消灾，并没有半点要收费的意思。惭愧惭愧。</p>
+              <blockquote class="pull">简单的快乐。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>路基塌方处尽量靠内侧；尊重当地习俗，不往草丛深处走。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>烤馍；桑沛东珠客栈火锅。</p></div><div><span>住</span><p>夏河桑沛东珠客栈。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d7" data-day="D7">
+          <div class="day-marker"><span class="day-num">07</span><span class="day-date">16日</span><span class="day-tag">D7</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">夏河 <i>→</i> 拉卜楞寺 <i>→</i> 甘加草原 <i>→</i> 坎布拉 <i>→</i> 西宁</p>
+            <h3 class="day-title">拉卜楞寺与碧绿的黄河</h3>
+            <div class="day-meta"><span>夏河</span><span>甘加草原</span><span>坎布拉</span><span>西宁</span></div>
+            <div class="tags"><span class="tag">拉卜楞寺</span><span class="tag">甘加草原</span><span class="tag">坎布拉</span><span class="tag">西宁</span></div>
+            <div class="story">
+              <p>早上在客栈吃了早饭，步行去路对面的拉卜楞寺。后来出景区才知道，如果只是单纯地在里面走一走、拍一拍，是不需要门票的；只有进到念经的大堂才需要买票，30 元/人，其他的院子也不需要门票。《天下无贼》里，傻根修补的寺庙、最后刘若英跪在寺庙前，就是这里。</p>
+              <p>出来后经过诺日朗卡观景台、甘加草原，穿坎布拉国家森林公园就进入青海了。</p>
+              <p>西北路程远，经常中午吃饭时间赶不到城市，自热米饭、火锅、螺蛳粉、烤鱼，一切皆可自热，需多备，晚上到城市后好好吃大餐。</p>
+              <p>坎布拉因为修路，不收费，直接穿。路过的景色很好，有清澈的黄河、丹霞地貌。如此清澈的黄河，光线问题，实际是碧绿色的。</p>
+              <p>时间允许可以去塔尔寺，因为早上去了拉卜楞寺，塔尔寺太商业，略过。到西宁后，住东关清真寺附近，看夜景，莫家街就在附近。</p>
+              <blockquote class="pull">如此清澈的黄河，实际是碧绿色的。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>中午常赶不到城市，自热米饭/火锅备足；拉卜楞寺只逛不进殿免门票。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>自热米饭/火锅；晚上西宁大餐。</p></div><div><span>住</span><p>西宁，东关清真寺附近。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d8" data-day="D8">
+          <div class="day-marker"><span class="day-num">08</span><span class="day-date">17日</span><span class="day-tag">D8</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">西宁 <i>→</i> 青海湖 <i>→</i> 德令哈</p>
+            <h3 class="day-title">青海湖的风与德令哈的蚊子</h3>
+            <div class="day-meta"><span>西宁</span><span>青海湖</span><span>德令哈</span></div>
+            <div class="tags"><span class="tag">青海湖</span><span class="tag">茶卡</span><span class="tag">德令哈</span><span class="tag">蚊子</span></div>
+            <div class="story">
+              <p>一碗牛肉面开始。千万不要说是兰州拉面，那就外地了，正宗的只会是牛肉面。</p>
+              <p>刚好碰上维修，不过正常开放，会有免费的讲解，凑一波就行。</p>
+              <p>靠近青海湖的湖边上，全都是围起来一块块可以拍照的地，有油菜花，也有一些造型。我们没有去人多的那，去了青海湖对面山上的观景台，更为开阔。特别晒，不热，一定要做好防晒。远处欣赏完，接着走到湖边，坐坐牦牛，玩玩水。</p>
+              <p>路过茶卡盐湖景区，青海湖玩水时间长，直接略过了。在快到德令哈的路上，以为下雨了，噼里啪啦，结果是蚊子，很大。娃下去想上厕所，下去就上来了，蚊子太多了而且太大了。和民宿老板聊，说政府会喷杀虫剂，就是灭蚊。</p>
+              <blockquote class="pull">特别晒，不热。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>青海湖不必挤人多拍照点；防晒要做足。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>牛肉面。</p></div><div><span>住</span><p>德令哈民宿。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d9" data-day="D9">
+          <div class="day-marker"><span class="day-num">09</span><span class="day-date">18日</span><span class="day-tag">D9</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">德令哈 <i>→</i> 小柴旦 <i>→</i> 格尔木</p>
+            <h3 class="day-title">姐姐，今夜我在德令哈</h3>
+            <div class="day-meta"><span>德令哈</span><span>小柴旦</span><span>格尔木</span></div>
+            <div class="tags"><span class="tag">环湖赛</span><span class="tag">海子</span><span class="tag">小柴旦</span><span class="tag">戈壁</span></div>
+            <div class="story">
+              <p>攻略做得再多，也总有计划外出现。碰上环湖赛，路都封了，出不去，那就近距离看比赛。</p>
+              <p>来德令哈，就一定不会错过海子的诗：姐姐，今夜我在德令哈。路边的景色也从绿色葱葱变成了戈壁。姐姐，我今夜只有戈壁。</p>
+              <p>从西宁开始，才走进了攻略上、旅游团上大部分所说到的西北大环线。</p>
+              <p>看完了环湖赛已是下午，娃们还想玩水，就又省去了不太顺路的大柴旦，直接去小柴旦。柳格高速路边有观景亭子，再往前绕，可到水边，玩水。</p>
+              <p>察尔汗盐湖，坐大巴穿工业区进去，玩水耽误，下班。都说我们行程赶，其实我们才是走哪算哪，去不去都行。</p>
+              <blockquote class="pull">姐姐，今夜我在德令哈。<br>姐姐，我今夜只有戈壁。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>环湖赛封路是计划外，随遇而安；小柴旦路边观景亭可下到水边。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>路上简餐，晚上格尔木。</p></div><div><span>住</span><p>格尔木。</p></div></div>
+          </div>
+        </article>
+
+        <div class="interlude" aria-hidden="false">
+          <svg viewBox="0 0 1440 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="1440" height="480" fill="#efe2cc"/>
+            <circle cx="300" cy="120" r="50" fill="#c98b4b" opacity=".3"/>
+            <path d="M0 280 Q240 220 480 285 T960 275 T1440 295 L1440 480 L0 480 Z" fill="#e0c9a5"/>
+            <path d="M0 340 Q300 285 600 345 T1200 325 T1440 345 L1440 480 L0 480 Z" fill="#ceb184"/>
+            <path d="M0 405 Q360 365 720 410 T1440 400 L1440 480 L0 480 Z" fill="#b08d61"/>
+            <path d="M720 480 C780 430 800 390 880 345 C940 310 1000 285 1060 270" fill="none" stroke="#7a6244" stroke-width="2" stroke-dasharray="8 9" opacity=".55"/>
+          </svg>
+          <blockquote>姐姐，今夜我在德令哈。<br>姐姐，我今夜只有戈壁。<cite>D9 · 德令哈</cite></blockquote>
+        </div>
+
+        <article class="day" id="day-d10" data-day="D10">
+          <div class="day-marker"><span class="day-num">10</span><span class="day-date">19日</span><span class="day-tag">D10</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">格尔木 <i>⇄</i> 昆仑山口</p>
+            <h3 class="day-title">上昆仑</h3>
+            <div class="day-meta"><span>青藏公路 G109</span><span>昆仑山口 4700 m</span><span>当日往返</span></div>
+            <div class="tags"><span class="tag">通行证</span><span class="tag">昆仑山口</span><span class="tag">西王母瑶池</span><span class="tag">藏羚羊</span></div>
+            <div class="story">
+              <p>1. 通行证。酒店入住会提示办理，免费，去酒店所在的派出所办，24 小时。但是检查站没查，只是确定了是不是还回来，还是直接去拉萨。办理的话，回格尔木要再交回派出所。</p>
+              <p>2. 上昆仑山一条路，青藏公路 G109，跟着走就行。路很好，车没问题，注意高反，尤其在昆仑山口 4700+，不过不停留，很快下来也没事。担心的话，带着氧气瓶。车好的，可以去大峡谷看看，时间紧就算了。</p>
+              <p>3. 景点都在路标上：昆仑圣泉、无极龙凤宫、保护站。无极龙凤宫旁边有条很明显的路，直接开进去，可以到西王母瑶池景点，往返 3 小时，路上景色也不错。我们是先一路往前，回来的路上再去，不用穿马路去景点。昆仑山口过去就是可可西里了。致敬英雄，我们才能看到自由自在的藏羚羊。</p>
+              <p>垭口的海拔有点高，拍照都是小步走，手上随时拎着氧气瓶。雪山下的藏羚羊，手机还是差相机好远。</p>
+              <p>4. 如果车上有空，带一袋垃圾下山，会有个小勋章。垃圾都整理好的，无异味。山上见到这样的房子先去领垃圾。刚好碰到电视台采访。在山下格尔木驿站把垃圾袋给工作人员，发个勋章和明信片。</p>
+              <p>5. 晚上回来找格尔木的疗养院，也没找到，在广场孩子跟着跳广场舞，吃烤肉、牦牛骨汤。</p>
+              <blockquote class="pull">巍巍昆仑，万山之祖。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>进昆仑山前在派出所办通行证；昆仑山口 4700 米，不停留、慢动作。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>烤肉、牦牛骨汤。</p></div><div><span>住</span><p>格尔木。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d11" data-day="D11">
+          <div class="day-marker"><span class="day-num">11</span><span class="day-date">20日</span><span class="day-tag">D11</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">格尔木 <i>→</i> 东台 <i>→</i> 西台 <i>→</i> 火星营地 <i>→</i> 敦煌</p>
+            <h3 class="day-title">最苦的一天</h3>
+            <div class="day-meta"><span>路线长</span><span>景点多</span><span>连夜翻当金山</span></div>
+            <div class="tags"><span class="tag">东台</span><span class="tag">水上雅丹</span><span class="tag">俄博梁</span><span class="tag">火星营地</span></div>
+            <div class="story">
+              <p>路线长、景点多、超级苦的一天。</p>
+              <p>格尔木出来，先过东台。东台不开放，周边全部挖断，人和车都不能靠近，估计是建景区。路上就会看到 U 型公路，很多人打卡，不安全。还有雅丹地貌，看到好的可以随时停车，但是不要停路边，危险；跟着车多的地方走，不要瞎走，破坏地貌，也很可能陷车。虽然有提示牌、警车巡逻，拍照的人还是很多，一定注意安全。</p>
+              <p>路过水上雅丹、西台双色公路。水上雅丹是景点，买门票加车票可以进去，周边也全部挖断，在人多的地方停车看看即可。双色公路，确实是两边不一样颜色，就是个公路。中间没有吃饭的地方，东台有很多旅游饭店，感觉不好；自热米饭可以在东台或者西台观景点吃。</p>
+              <p>中间没有城镇。小柴旦湖以南、西台以东有加油站，见了加油站就加满。过了双色公路，见到岔口就留心，会看到火星公路的指示牌。一条路走到岔口，写有火星营地、俄博梁。如果要去俄博梁穿越，看看火星营地就选左；去冷湖就接着穿火星公路。</p>
+              <p>俄博梁当时去开始收费了，下午六点关门，下雨不开，一车 500，押金 500，给个 PAD 和一个导航。里面地貌确实容易迷路，跟着导航，不要乱开，保护环境。给 5 小时的时间，多半小时 50 块，基本 3 小时差不多，加上拍照，5 小时够用。给孩子带的古装，很武侠风，垃圾带走，不要破坏。</p>
+              <p>火星营地可以住舱里，舱位少，1200 左右一个人，贵；外面的露营，一个帐篷 200，可以自带帐篷在停车场露营。</p>
+              <p>当天大风、降温、下雨，冷湖又住满，露营看星星、吃火锅取消，临时决定连夜开到敦煌。如果天气允许，可以露营，或者提前订在冷湖。俄博梁出来还可以去废弃的石油小镇。冷湖很小，酒店宾馆很少，又贵又差。再往前翻当金山，一路下坡，就到甘肃境内，最近的还有阿克塞（好多电影拍摄地，《九层妖塔》《西风烈》之类的），也可以开到这住，当时也满了，而且离敦煌又很近，索性直接到敦煌了。这天的行程计划临时打乱，最苦的一天。不建议这么走。</p>
+              <p>补一张半夜行走的火星公路。没有一丝光亮的黑，只有自己车的灯，还是很害怕。十一点出发，走得慢，凌晨一点才出了火星公路。在要翻山速降到敦煌路上，因为到了大路停车歇了歇，还被警察询问，负责！不怕他们多查多问，越负责越安全。</p>
+              <blockquote class="pull">最苦的一天，不建议这么走。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>见加油站就加满；不要随意下道；俄博梁跟导航走，垃圾带走。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>自热米饭、路餐。</p></div><div><span>住</span><p>敦煌（连夜赶到）。</p></div></div>
+          </div>
+        </article>
+
+        <div class="interlude" aria-hidden="false">
+          <svg viewBox="0 0 1440 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="1440" height="480" fill="#2b211d"/>
+            <circle cx="1120" cy="110" r="54" fill="#d8a35c" opacity=".25"/>
+            <path d="M0 320 Q240 270 480 325 T960 315 T1440 335 L1440 480 L0 480 Z" fill="#4a352a"/>
+            <path d="M0 380 Q300 340 600 390 T1200 375 T1440 395 L1440 480 L0 480 Z" fill="#38271f"/>
+            <path d="M650 480 C720 420 760 380 840 340 C900 310 960 295 1020 290" fill="none" stroke="#e0b47a" stroke-width="2.2" stroke-dasharray="7 10" opacity=".75"/>
+          </svg>
+          <blockquote>没有一丝光亮的黑，只有自己车的灯。<cite>D11 · 火星公路</cite></blockquote>
+        </div>
+
+        <article class="day" id="day-d12" data-day="D12">
+          <div class="day-marker"><span class="day-num">12</span><span class="day-date">21日</span><span class="day-tag">D12</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">敦煌 <i>⇄</i> 阳关</p>
+            <h3 class="day-title">西出阳关</h3>
+            <div class="day-meta"><span>敦煌</span><span>阳关</span><span>鸣沙山</span></div>
+            <div class="tags"><span class="tag">阳关</span><span class="tag">葡萄架</span><span class="tag">鸣沙山</span><span class="tag">靖远尕六</span></div>
+            <div class="story">
+              <p>凌晨到的敦煌，中午补觉，下午出门去阳关景区。西北地区日照时间长，基本 9 点才落日天黑。景区不错，特别晒，不热，一定做好防晒，推荐去。里面有小型博物馆，还有仿古的边关小镇。这里会有通关查验、通关文牒互动游戏，演职人员很投入。西出阳关无故人。</p>
+              <p>出来后路两边有葡萄架子，随便找了一家，可以吃瓜、免费洗车、玩，很舒服，推荐。西北干、日照长，瓜果都很甜，也是暴晒后急需补水，甜美多汁的西瓜吃了两个。</p>
+              <p>有体力的可以去鸣沙山了。鸣沙山除了景区进入，其他就是只能从户外露营这样的私人圈起来的地方进，一个人 200 大几的均价，包含露营、吃饭、沙漠穿越。路上碰到了好几队骆驼，从鸣沙山回家，步伐欢快，像极了打工人下班的状态。</p>
+              <p>吃的靖远尕六羊肉。西北的羊肉水煮、焖饼、烧烤，怎么做都好吃，看排名就好。</p>
+              <blockquote class="pull">西出阳关无故人。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>西北 9 点才天黑；阳关很晒，防晒要做足。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>靖远尕六羊肉、西瓜。</p></div><div><span>住</span><p>敦煌。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d13" data-day="D13">
+          <div class="day-marker"><span class="day-num">13</span><span class="day-date">22日</span><span class="day-tag">D13</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">敦煌 <i>→</i> 莫高窟 <i>→</i> 瓜州 <i>→</i> 山丹</p>
+            <h3 class="day-title">看一眼少一眼</h3>
+            <div class="day-meta"><span>莫高窟 3—4 小时</span><span>提前一个月预约</span><span>瓜州</span></div>
+            <div class="tags"><span class="tag">莫高窟</span><span class="tag">瓜州</span><span class="tag">大地之子</span><span class="tag">酒泉</span></div>
+            <div class="story">
+              <p>早上莫高窟，3—4 小时。提前一个月公众号上预定门票，所以从俄博梁直接敦煌不敢耽误，票都是提前一个月定好的。莫高窟提前看了好多纪录片，来了还是文盲，听着讲解还稍微好点。洞窟内不让拍照，烦死有些人还开闪光。一向秉承带娃出门不惹事、能让就让能忍就忍的我，也大声喊了出来——真是，看一眼少一眼，还不好好珍惜，不知道什么时候就关了，趁早。</p>
+              <p>门票有三种：应急、普通和特窟，区别在于窟的数量不同，每天开放的窟也不固定。特窟现场买更是随缘。如果不是强求哪一个，带娃只是见识，应急和普通的就够了。应急和普通在这里会交汇，普通的窟在二楼，应急的在一楼，想多看的可以查攻略，我们没有这么干。</p>
+              <p>最后一站敦煌，接下来就是往回走了，边回边看看有哪些之前西北漏下的点补上。瓜州，路边的沙漠雕塑，比较有名的大地之子、无界都在。买瓜，瓜州的瓜是一定要吃的。</p>
+              <p>酒泉、张掖已经逛过，此次就是路过，去了酒泉的卤肉店，同款打卡。</p>
+              <blockquote class="pull">看一眼少一眼。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>莫高窟门票提前一个月预约；洞窟内禁止拍照和闪光。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>瓜州瓜、酒泉卤肉。</p></div><div><span>住</span><p>山丹。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d14" data-day="D14">
+          <div class="day-marker"><span class="day-num">14</span><span class="day-date">23日</span><span class="day-tag">D14</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">山丹 <i>→</i> 武威 <i>→</i> 中卫</p>
+            <h3 class="day-title">补齐河西四郡</h3>
+            <div class="day-meta"><span>山丹</span><span>武威</span><span>中卫</span></div>
+            <div class="tags"><span class="tag">武威</span><span class="tag">雷台汉墓</span><span class="tag">鸠摩罗什寺</span><span class="tag">沙坡头</span></div>
+            <div class="story">
+              <p>河西四郡——敦煌、酒泉、张掖、武威，剩下一个武威，这次补齐了。武威就是诗词中的凉州，也是出土马踏飞燕的雷台汉墓所在，也是翻译佛经入中原传奇高僧鸠摩罗什寺所在，也有西藏纳入中国版图见证地的白塔寺，还有石窟、水库……武威，低估的好地方。</p>
+              <p>雷台汉墓、鸠摩罗什寺、凉州会盟。妹妹看到摩天轮非得上去，太热了都没人坐，现给开的。尽管工作人员选了个唯一带空调的，但还是快热晕了，导致很长一段时间妹妹都对坐摩天轮有阴影，五一去聊城好说歹说坐了，才发现不是所有的都那么热。</p>
+              <p>晚上在中卫。当年在沙坡头坐羊皮筏的地方，下班收摊了。玩水玩沙，娃们出来玩的终极追求。碰到旅拍的，拍好后还送给我们几个烟花。</p>
+              <blockquote class="pull">武威，低估的好地方。</blockquote>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>武威景点分散，按体力取舍；中卫沙坡头下班早。</p></aside>
+            <div class="day-facts"><div><span>吃</span><p>武威小吃、中卫夜市。</p></div><div><span>住</span><p>中卫。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d15" data-day="D15">
+          <div class="day-marker"><span class="day-num">15</span><span class="day-date">24日</span><span class="day-tag">D15</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">中卫 <i>→</i> 五寨</p>
+            <h3 class="day-title">在路上</h3>
+            <div class="day-meta"><span>长途</span><span>小公园小树林</span><span>五寨</span></div>
+            <div class="tags"><span class="tag">五寨</span><span class="tag">芦芽大酒店</span></div>
+            <div class="story">
+              <p>从中卫到山西五寨县，住五寨芦芽大酒店。这两天大部分在路上，也会下来找找地方小玩一会，小公园小树林，主要是长途歇一歇，不做赘述。</p>
+            </div>
+            <aside class="day-note"><span class="note-label">带娃提示</span><p>长途日多找小公园、小树林歇脚。</p></aside>
+            <div class="day-facts"><div><span>住</span><p>五寨芦芽大酒店。</p></div></div>
+          </div>
+        </article>
+
+        <article class="day" id="day-d16" data-day="D16">
+          <div class="day-marker"><span class="day-num">16</span><span class="day-date">25日</span><span class="day-tag">D16</span><span class="day-dot"></span></div>
+          <div class="day-body reveal">
+            <p class="day-route">五寨 <i>→</i> 北京</p>
+            <h3 class="day-title">见山河，见人生</h3>
+            <div class="day-meta"><span>回家</span><span>郑州暴雨</span><span>救灾车</span></div>
+            <div class="tags"><span class="tag">郑州暴雨</span><span class="tag">救灾车</span><span class="tag">回家</span></div>
+            <div class="story">
+              <p>从五寨到北京。那几天郑州下暴雨，有洪涝灾害和人员伤亡，各地都在驰援。高速上碰到从新疆来的救灾车，大概算了下路程，应该是日夜兼程没停过。真是一方有难，八方支援！不由得放下窗点个赞。</p>
+              <p>有人说，那么久的路上，我孩子不行怎么怎么。其实出来玩，最大的意义一在于陪伴：一家人在小小的车里谈笑，一起走过一段一段的路，一起吃过高速的泡面、风味不同的当地大餐……对孩子对家长都是成长。二是看见：不用太纠结到底有没有用，学到了多少，他看了他见了就够了。没有那么多的“有用没用”，放轻松点，出来玩就是要开心啊。</p>
+              <p>见山河，见人生，足矣。</p>
+              <blockquote class="pull">见山河，见人生，足矣。</blockquote>
+            </div>
+            <div class="day-facts"><div><span>住</span><p>北京（到家）。</p></div></div>
+          </div>
+        </article>
+
+        <!-- DAYS -->
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section expense" id="expense">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-kicker">Cost</p>
+        <h2>这一路花了多少</h2>
+        <p class="section-desc">根据同行的 Excel 花费明细整理。住宿费用未记录在表中，以下为门票、吃饭、高速、加油四项。</p>
+      </div>
+      <div class="expense-top">
+        <div class="expense-total">
+          <span class="expense-label">四项合计</span>
+          <strong>9,631.12<em>元</em></strong>
+          <span class="expense-sub">不含住宿 · D0—D16</span>
+        </div>
+        <div class="expense-bars">
+          <div class="ex-bar"><div class="ex-bar-head"><span>加油</span><b>¥3,847.22</b><em>39.9%</em></div><div class="ex-track"><i style="width:39.9%;background:#0284c7"></i></div></div><div class="ex-bar"><div class="ex-bar-head"><span>门票</span><b>¥2,211.00</b><em>23.0%</em></div><div class="ex-track"><i style="width:23.0%;background:#059669"></i></div></div><div class="ex-bar"><div class="ex-bar-head"><span>吃饭</span><b>¥2,038.60</b><em>21.2%</em></div><div class="ex-track"><i style="width:21.2%;background:#d97706"></i></div></div><div class="ex-bar"><div class="ex-bar-head"><span>高速</span><b>¥1,534.30</b><em>15.9%</em></div><div class="ex-track"><i style="width:15.9%;background:#64748b"></i></div></div>
+        </div>
+      </div>
+      <details class="expense-details">
+        <summary>按天看花费 <span>D0—D16</span></summary>
+        <div class="expense-table-wrap">
+          <table class="expense-table">
+            <thead><tr><th>天</th><th>日期</th><th>路线</th><th>门票</th><th>吃饭</th><th>高速</th><th>加油</th><th>合计</th></tr></thead>
+            <tbody><tr><td class="ex-day">D0</td><td>7.9</td><td class="ex-route">北京 → 太原</td><td>—</td><td>—</td><td>187.82</td><td>225.00</td><td class="ex-sum">412.82</td></tr><tr><td class="ex-day">D1</td><td>7.10</td><td class="ex-route">太原 → 延安</td><td>—</td><td>—</td><td>174.41</td><td>350.00</td><td class="ex-sum">524.41</td></tr><tr><td class="ex-day">D2</td><td>7.11</td><td class="ex-route">延安 → 中宁</td><td>—</td><td>210.00</td><td>195.99</td><td>324.00</td><td class="ex-sum">729.99</td></tr><tr><td class="ex-day">D3</td><td>7.12</td><td class="ex-route">中宁 → 兰州</td><td>335.00</td><td>117.00</td><td>48.30</td><td>211.00</td><td class="ex-sum">711.30</td></tr><tr><td class="ex-day">D4</td><td>7.13</td><td class="ex-route">兰州 → 卓尼</td><td>—</td><td>176.00</td><td>35.13</td><td>160.00</td><td class="ex-sum">371.13</td></tr><tr><td class="ex-day">D5</td><td>7.14</td><td class="ex-route">卓尼 → 迭部</td><td>780.00</td><td>164.00</td><td>—</td><td>145.02</td><td class="ex-sum">1,089.02</td></tr><tr><td class="ex-day">D6</td><td>7.15</td><td class="ex-route">迭部 → 夏河</td><td>—</td><td>248.00</td><td>—</td><td>150.00</td><td class="ex-sum">398.00</td></tr><tr><td class="ex-day">D7</td><td>7.16</td><td class="ex-route">夏河 → 西宁</td><td>120.00</td><td>60.00</td><td>41.65</td><td>170.00</td><td class="ex-sum">391.65</td></tr><tr><td class="ex-day">D8</td><td>7.17</td><td class="ex-route">西宁 → 德令哈</td><td>40.00</td><td>225.00</td><td>82.75</td><td>—</td><td class="ex-sum">347.75</td></tr><tr><td class="ex-day">D9</td><td>7.18</td><td class="ex-route">德令哈 → 格尔木</td><td>—</td><td>209.00</td><td>104.50</td><td>180.00</td><td class="ex-sum">493.50</td></tr><tr><td class="ex-day">D10</td><td>7.19</td><td class="ex-route">格尔木 → 格尔木</td><td>—</td><td>115.00</td><td>—</td><td>215.00</td><td class="ex-sum">330.00</td></tr><tr><td class="ex-day">D11</td><td>7.20</td><td class="ex-route">格尔木 → 敦煌/凌晨5到达</td><td>500.00</td><td>50.60</td><td>66.50</td><td>465.20</td><td class="ex-sum">1,082.30</td></tr><tr><td class="ex-day">D12</td><td>7.21</td><td class="ex-route">敦煌 → 敦煌</td><td>181.00</td><td>170.00</td><td>—</td><td>—</td><td class="ex-sum">351.00</td></tr><tr><td class="ex-day">D13</td><td>7.22</td><td class="ex-route">敦煌 → 酒泉山丹</td><td>255.00</td><td>260.00</td><td>—</td><td>292.00</td><td class="ex-sum">807.00</td></tr><tr><td class="ex-day">D14</td><td>7.23</td><td class="ex-route">山丹 → 中卫</td><td>—</td><td>10.00</td><td>114.95</td><td>—</td><td class="ex-sum">124.95</td></tr><tr><td class="ex-day">D15</td><td>7.24</td><td class="ex-route">中卫 → 五寨</td><td>—</td><td>—</td><td>295.45</td><td>643.00</td><td class="ex-sum">938.45</td></tr><tr><td class="ex-day">D16</td><td>7.25</td><td class="ex-route">五寨 → 北京</td><td>—</td><td>24.00</td><td>186.85</td><td>317.00</td><td class="ex-sum">527.85</td></tr></tbody>
+            <tfoot><tr><td></td><td></td><td>合计</td><td>2,211.00</td><td>2,038.60</td><td>1,534.30</td><td>3,847.22</td><td>9,631.12</td></tr></tfoot>
+          </table>
+        </div>
+      </details>
+      <div class="expense-foot">
+        <a href="2021青甘陕7.9-7.25.xlsx" download>下载原始 Excel 花费明细 ↓</a>
+        <span>另有未记录高速收费 318.52 元；住宿费用未在表中记录。</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tips" id="tips">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="section-kicker">With Kids</p>
+        <h2>带娃自驾的十件小事</h2>
+        <p class="section-desc">不是攻略，是这一路摸出来的、真正用得上的小事。</p>
+      </div>
+      <div class="tips-grid">
+        <article class="tip-item reveal"><span>01</span><div><h4>司机睡足，早上不赶路</h4><p>睡到几点是几点，吃完早午饭再出发。长途自驾，司机的状态比早到一小时重要。</p></div></article>
+        <article class="tip-item reveal"><span>02</span><div><h4>吃完先消化再上车</h4><p>孩子上车爱睡觉，刚吃饱就走容易晕车。在饭店门口玩一会儿，再出发。</p></div></article>
+        <article class="tip-item reveal"><span>03</span><div><h4>衣服一天一换洗</h4><p>不用带太多，随时找机会晾。服务区、民宿、路边的小风，都能把衣服吹干。</p></div></article>
+        <article class="tip-item reveal"><span>04</span><div><h4>不催，不赶打卡</h4><p>“带着蜗牛去散步。”孩子在路边玩土、扔石头、看收割，可能比景区更开心。</p></div></article>
+        <article class="tip-item reveal"><span>05</span><div><h4>自热食品备足</h4><p>自热米饭、火锅、螺蛳粉、烤鱼。西北中午常赶不到城市，晚上再好好吃一顿。</p></div></article>
+        <article class="tip-item reveal"><span>06</span><div><h4>氧气罐有备无患</h4><p>海拔慢慢升，孩子高反不一定严重。卓尼 3340 米、昆仑山口 4700 米，备着安心。</p></div></article>
+        <article class="tip-item reveal"><span>07</span><div><h4>见加油站就加满</h4><p>柴达木盆地中间没有城镇，小柴旦湖以南、西台以东有加油站。别等亮灯。</p></div></article>
+        <article class="tip-item reveal"><span>08</span><div><h4>垃圾带下山</h4><p>昆仑山上带一袋垃圾下山，会得到一枚小勋章。这里的生态，恢复得太慢。</p></div></article>
+        <article class="tip-item reveal"><span>09</span><div><h4>防晒，防晒，防晒</h4><p>西北特别晒，但不热。大人孩子都要做好防晒，帽子和墨镜比防晒霜更省事。</p></div></article>
+        <article class="tip-item reveal"><span>10</span><div><h4>放轻松，开心最重要</h4><p>不用纠结“有没有用”“学到了多少”。他看了，他见了，就够了。</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ending">
+    <p class="ending-kicker">后记</p>
+    <blockquote>见山河，见人生，足矣。</blockquote>
+    <p class="ending-text">有人说，那么久的路上，我孩子不行怎么怎么。其实出来玩，最大的意义一在于陪伴：一家人在小小的车里谈笑，一起走过一段一段的路，一起吃过高速的泡面、风味不同的当地大餐……对孩子对家长都是成长。二是看见：不用太纠结到底有没有用，学到了多少，他看了他见了就够了。没有那么多的“有用没用”，放轻松点，出来玩就是要开心啊。</p>
+    <p class="signature">—— 记于 2021 年夏 · 16 天 · 7579 公里</p>
+  </section>
+
+  <footer>见山河 · 带俩娃 16 天自驾陕甘青 ｜ 单文件离线阅读 ｜ 原文照片由两部华为手机拍摄</footer>
+</main>
+
+<button class="map-fab" id="mapFab" type="button" aria-label="全屏地图" title="全屏地图">
+  <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l-6 3V6l6-3 6 3 6-3v15l-6 3-6-3z"/><path d="M9 3v15M15 6v15"/></svg>
+</button>
+<button class="to-top" id="toTop" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  'use strict';
+
+  var MAP = {
+    main: [
+      {name:'北京',lng:116.407,lat:39.904,kind:'start',day:'D0',dx:0,dy:-28,anchor:'middle',meta:'D0 出发 · 9日 ｜ D16 到家 · 25日'},
+      {name:'太原',lng:112.549,lat:37.857,kind:'main',day:'D0',dx:-14,dy:4,anchor:'end',meta:'北京 → 太原 · 537.8 km'},
+      {name:'延安',lng:109.490,lat:36.596,kind:'main',day:'D1',dx:0,dy:22,anchor:'middle',meta:'太原 → 延安 · 577.4 km'},
+      {name:'中宁',lng:105.675,lat:37.492,kind:'main',day:'D2',dx:0,dy:-20,anchor:'middle',meta:'延安 → 中宁'},
+      {name:'兰州',lng:103.834,lat:36.061,kind:'main',day:'D3',dx:-14,dy:4,anchor:'end',meta:'中宁 → 兰州'},
+      {name:'卓尼',lng:103.507,lat:34.589,kind:'main',day:'D4',dx:-14,dy:4,anchor:'end',meta:'兰州 → 卓尼 · 277 km'},
+      {name:'迭部',lng:103.222,lat:34.056,kind:'main',day:'D5',dx:0,dy:22,anchor:'middle',meta:'卓尼 → 迭部 · 199 km'},
+      {name:'花湖',lng:102.850,lat:33.920,kind:'way',day:'D6',dx:-14,dy:34,anchor:'middle',meta:'D6 途经 · 迭部 → 花湖'},
+      {name:'夏河',lng:102.521,lat:35.203,kind:'main',day:'D6',dx:14,dy:4,anchor:'start',meta:'花湖 → 夏河'},
+      {name:'西宁',lng:101.778,lat:36.617,kind:'main',day:'D7',dx:14,dy:-6,anchor:'start',meta:'夏河 → 西宁'},
+      {name:'青海湖',lng:100.200,lat:36.900,kind:'way',day:'D8',dx:0,dy:-14,anchor:'middle',meta:'D8 途经 · 西宁 → 青海湖'},
+      {name:'德令哈',lng:97.370,lat:37.370,kind:'main',day:'D8',dx:0,dy:-20,anchor:'middle',meta:'青海湖 → 德令哈'},
+      {name:'格尔木',lng:94.903,lat:36.402,kind:'main',day:'D9',dx:0,dy:22,anchor:'middle',meta:'德令哈 → 格尔木'},
+      {name:'火星营地',lng:93.250,lat:38.300,kind:'way',day:'D11',dx:0,dy:20,anchor:'middle',meta:'D11 途经 · 格尔木 → 火星营地'},
+      {name:'敦煌',lng:94.662,lat:40.142,kind:'main',day:'D11',dx:14,dy:4,anchor:'start',meta:'火星营地 → 敦煌'},
+      {name:'瓜州',lng:95.780,lat:40.520,kind:'way',day:'D13',dx:0,dy:-14,anchor:'middle',meta:'D13 途经 · 敦煌 → 瓜州'},
+      {name:'山丹',lng:101.090,lat:38.790,kind:'main',day:'D13',dx:14,dy:4,anchor:'start',meta:'瓜州 → 山丹'},
+      {name:'武威',lng:102.638,lat:37.928,kind:'way',day:'D14',dx:0,dy:20,anchor:'middle',meta:'D14 途经 · 山丹 → 武威'},
+      {name:'中卫',lng:105.190,lat:37.510,kind:'main',day:'D14',dx:14,dy:4,anchor:'start',meta:'武威 → 中卫'},
+      {name:'五寨',lng:111.846,lat:38.912,kind:'main',day:'D15',dx:0,dy:-20,anchor:'middle',meta:'中卫 → 五寨'},
+      {name:'北京',lng:116.407,lat:39.904,kind:'end',day:'D16',dx:0,dy:-28,anchor:'middle',meta:'D16 · 五寨 → 北京'}
+    ],
+    spurs: [
+      {from:[109.490,36.596],to:[110.530,36.860],name:'乾坤湾',kind:'way',dx:0,dy:-10,anchor:'middle',meta:'D1 途经 · 黄河大拐弯'},
+      {from:[94.903,36.402],to:[94.050,35.620],name:'昆仑山口',kind:'day',day:'D10',dx:0,dy:18,anchor:'middle',meta:'D10 · 格尔木 ⇄ 昆仑山口'},
+      {from:[94.662,40.142],to:[94.070,39.930],name:'阳关',kind:'day',day:'D12',dx:-12,dy:14,anchor:'end',meta:'D12 · 敦煌 ⇄ 阳关'}
+    ],
+    waypoints: [
+      {name:'扎尕那',lng:103.200,lat:34.230,dx:-26,dy:4,anchor:'end',meta:'D5 途经 · 洛克之路终点'},
+      {name:'莫高窟',lng:94.810,lat:40.040,dx:10,dy:16,anchor:'start',meta:'D13 · 敦煌莫高窟'}
+    ],
+    geo: [
+      {text:'祁连山',lng:100.8,lat:39.35,rotate:-8},
+      {text:'昆仑山',lng:95.6,lat:35.15,rotate:-6},
+      {text:'柴达木盆地',lng:95.6,lat:37.55,rotate:0},
+      {text:'黄土高原',lng:108.8,lat:38.6,rotate:0},
+      {text:'秦岭',lng:107.6,lat:33.55,rotate:0},
+      {text:'黄河',lng:104.7,lat:37.25,rotate:-28}
+    ],
+    river: [[96.2,34.9],[97.8,35.1],[99.2,35.4],[100.6,35.9],[101.8,36.1],[102.9,36.05],[103.8,36.06],[104.3,36.35],[104.9,36.8],[105.3,37.25],[105.7,37.5],[106.2,38.0],[106.7,38.7],[107.0,39.3],[107.4,39.9],[108.0,40.4]],
+    lake: [[99.65,36.95],[99.85,37.10],[100.15,37.13],[100.45,37.05],[100.60,36.88],[100.50,36.72],[100.20,36.65],[99.90,36.72],[99.70,36.84]]
+  };
+
+  var svg = document.getElementById('routeMap');
+  var shell = document.querySelector('.map-shell');
+  var mapScroll = document.getElementById('mapScroll');
+  var tip = document.getElementById('mapTip');
+  var W = 1000, H = 460, PAD = 86;
+
+  var all = MAP.main.map(function(s){return [s.lng,s.lat];})
+    .concat(MAP.spurs.reduce(function(a,s){return a.concat([s.from,s.to]);},[]))
+    .concat(MAP.waypoints.map(function(s){return [s.lng,s.lat];}));
+  var lngs = all.map(function(p){return p[0];});
+  var lats = all.map(function(p){return p[1];});
+  var minLng = Math.min.apply(null,lngs);
+  var maxLng = Math.max.apply(null,lngs);
+  var minLat = Math.min.apply(null,lats);
+  var maxLat = Math.max.apply(null,lats);
+  var cos = Math.cos((minLat+maxLat)/2*Math.PI/180);
+  var scale = Math.min((W-PAD*2)/((maxLng-minLng)*cos), (H-PAD*2)/(maxLat-minLat));
+  var usedW = (maxLng-minLng)*cos*scale;
+  var usedH = (maxLat-minLat)*scale;
+  var ox = (W-usedW)/2;
+  var oy = (H-usedH)/2;
+
+  function proj(lng,lat){ return [ox+(lng-minLng)*cos*scale, oy+(maxLat-lat)*scale]; }
+
+  function smooth(pts){
+    if(pts.length<2) return '';
+    var d = 'M'+pts[0][0].toFixed(1)+','+pts[0][1].toFixed(1);
+    for(var i=0;i<pts.length-1;i++){
+      var p0 = pts[i-1] || pts[i];
+      var p1 = pts[i];
+      var p2 = pts[i+1];
+      var p3 = pts[i+2] || p2;
+      var c1x = p1[0]+(p2[0]-p0[0])/6;
+      var c1y = p1[1]+(p2[1]-p0[1])/6;
+      var c2x = p2[0]-(p3[0]-p1[0])/6;
+      var c2y = p2[1]-(p3[1]-p1[1])/6;
+      d += ' C'+c1x.toFixed(1)+','+c1y.toFixed(1)+' '+c2x.toFixed(1)+','+c2y.toFixed(1)+' '+p2[0].toFixed(1)+','+p2[1].toFixed(1);
+    }
+    return d;
+  }
+
+  function poly(pts){ return pts.map(function(p,i){return (i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ')+' Z'; }
+
+  function ridgeTop(base,amp,color,opacity,seed){
+    var d = 'M0 '+base;
+    for(var x=0;x<=W;x+=25){
+      var y = base + Math.sin((x+seed)*0.017)*amp + Math.sin((x+seed)*0.006)*amp*0.7;
+      d += ' L'+x+' '+y.toFixed(1);
+    }
+    d += ' L'+W+' 0 L0 0 Z';
+    return '<path d="'+d+'" fill="'+color+'" opacity="'+opacity+'"/>';
+  }
+
+  function ridgeBottom(base,amp,color,opacity,seed){
+    var d = 'M0 '+base;
+    for(var x=0;x<=W;x+=25){
+      var y = base + Math.sin((x+seed)*0.015)*amp + Math.sin((x+seed)*0.005)*amp*0.6;
+      d += ' L'+x+' '+y.toFixed(1);
+    }
+    d += ' L'+W+' '+H+' L0 '+H+' Z';
+    return '<path d="'+d+'" fill="'+color+'" opacity="'+opacity+'"/>';
+  }
+
+  var totalLen = 0;
+  var cum = [];
+  var dayIndex = {};
+
+  function drawMap(){
+    var s = '';
+    s += '<rect width="'+W+'" height="'+H+'" fill="#eef4f8"/>';
+    for(var i=0;i<12;i++){
+      var base = 34 + i*(H-68)/11;
+      var d = 'M0 '+base.toFixed(1);
+      for(var x=0;x<=W;x+=50){
+        var y = base + Math.sin((x+i*43)*0.011)*7 + Math.sin((x+i*17)*0.004)*4;
+        d += ' L'+x+' '+y.toFixed(1);
+      }
+      s += '<path d="'+d+'" fill="none" stroke="#cbd5e1" stroke-width=".55" opacity=".45"/>';
+    }
+    s += ridgeTop(64,10,'#dbeafe',.55,14);
+    s += ridgeTop(34,8,'#e0f2fe',.5,47);
+    s += ridgeBottom(H-46,9,'#bfdbfe',.55,22);
+    s += ridgeBottom(H-20,6,'#c7d2fe',.5,61);
+
+    var river = MAP.river.map(function(p){return proj(p[0],p[1]);});
+    s += '<path d="'+smooth(river)+'" fill="none" stroke="#7dd3fc" stroke-width="1.6" opacity=".55"/>';
+
+    var lake = MAP.lake.map(function(p){return proj(p[0],p[1]);});
+    s += '<path d="'+poly(lake)+'" fill="#bae6fd" opacity=".5" stroke="#38bdf8" stroke-width=".8"/>';
+
+    MAP.geo.forEach(function(g){
+      var p = proj(g.lng,g.lat);
+      s += '<text class="geo-label" x="'+p[0].toFixed(1)+'" y="'+p[1].toFixed(1)+'" text-anchor="middle" transform="rotate('+g.rotate+' '+p[0].toFixed(1)+' '+p[1].toFixed(1)+')">'+g.text+'</text>';
+    });
+
+    var mainPts = MAP.main.map(function(m){return proj(m.lng,m.lat);});
+    var routeD = smooth(mainPts);
+    s += '<path class="route-casing" d="'+routeD+'"/>';
+    s += '<path class="route-base" d="'+routeD+'"/>';
+    s += '<path class="route-progress" id="routeProgress" d="'+routeD+'"/>';
+
+    MAP.spurs.forEach(function(sp){
+      var a = proj(sp.from[0],sp.from[1]);
+      var b = proj(sp.to[0],sp.to[1]);
+      s += '<path class="route-spur" d="M'+a[0].toFixed(1)+','+a[1].toFixed(1)+' L'+b[0].toFixed(1)+','+b[1].toFixed(1)+'"/>';
+      if(sp.kind==='day'){
+        s += '<g class="map-stop spur" data-day="'+sp.day+'" data-name="'+sp.name+'" data-meta="'+sp.meta+'" tabindex="0" role="button">';
+        s += '<circle cx="'+b[0].toFixed(1)+'" cy="'+b[1].toFixed(1)+'" r="8"/>';
+        s += '<text class="day-label" x="'+b[0].toFixed(1)+'" y="'+b[1].toFixed(1)+'" font-size="7.4">'+sp.day.replace('D','')+'</text>';
+        s += '<text class="stop-name" x="'+(b[0]+sp.dx).toFixed(1)+'" y="'+(b[1]+sp.dy).toFixed(1)+'" text-anchor="'+sp.anchor+'">'+sp.name+'</text>';
+        s += '</g>';
+      } else {
+        s += '<g class="map-wp" data-name="'+sp.name+'" data-meta="'+sp.meta+'" tabindex="0">';
+        s += '<circle class="wp-dot" cx="'+b[0].toFixed(1)+'" cy="'+b[1].toFixed(1)+'" r="3.4"/>';
+        s += '<text class="stop-name way" x="'+(b[0]+sp.dx).toFixed(1)+'" y="'+(b[1]+sp.dy).toFixed(1)+'" text-anchor="'+sp.anchor+'">'+sp.name+'</text>';
+        s += '</g>';
+      }
+    });
+
+    MAP.waypoints.forEach(function(w){
+      var p = proj(w.lng,w.lat);
+      s += '<g class="map-wp" data-name="'+w.name+'" data-meta="'+w.meta+'" tabindex="0">';
+      s += '<circle class="wp-dot" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3.4"/>';
+      s += '<text class="stop-name way" x="'+(p[0]+w.dx).toFixed(1)+'" y="'+(p[1]+w.dy).toFixed(1)+'" text-anchor="'+w.anchor+'">'+w.name+'</text>';
+      s += '</g>';
+    });
+
+    MAP.main.forEach(function(m){
+      if(m.kind==='end') return;
+      var p = proj(m.lng,m.lat);
+      if(m.kind==='way'){
+        s += '<g class="map-wp" data-name="'+m.name+'" data-meta="'+m.meta+'" tabindex="0">';
+        s += '<circle class="wp-dot" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3.4"/>';
+        s += '<text class="stop-name way" x="'+(p[0]+m.dx).toFixed(1)+'" y="'+(p[1]+m.dy).toFixed(1)+'" text-anchor="'+m.anchor+'">'+m.name+'</text>';
+        s += '</g>';
+        return;
+      }
+      var isStart = m.kind==='start';
+      var label = isStart ? '始' : m.day.replace('D','');
+      var r = isStart ? 12 : (label.length>1?10:9);
+      var fs = label.length>1?7.4:8.6;
+      s += '<g class="map-stop '+(isStart?'start':'')+'" data-day="'+(isStart?'START':m.day)+'" '+(isStart?'data-target="D0" ':'')+'data-name="'+m.name+'" data-meta="'+m.meta+'" tabindex="0" role="button" aria-label="'+m.name+'">';
+      s += '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+r+'"/>';
+      s += '<text class="day-label" x="'+p[0].toFixed(1)+'" y="'+p[1].toFixed(1)+'" font-size="'+fs+'">'+label+'</text>';
+      s += '<text class="stop-name" x="'+(p[0]+m.dx).toFixed(1)+'" y="'+(p[1]+m.dy).toFixed(1)+'" text-anchor="'+m.anchor+'">'+m.name+'</text>';
+      s += '</g>';
+    });
+
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    svg.innerHTML = s;
+
+    var progress = document.getElementById('routeProgress');
+    totalLen = progress.getTotalLength();
+    progress.style.strokeDasharray = String(totalLen);
+    progress.style.opacity = '0';
+
+    cum = [0];
+    for(var k=1;k<mainPts.length;k++){
+      cum[k] = cum[k-1] + Math.hypot(mainPts[k][0]-mainPts[k-1][0], mainPts[k][1]-mainPts[k-1][1]);
+    }
+
+    dayIndex = {};
+    MAP.main.forEach(function(m,idx){ if(m.day) dayIndex[m.day] = idx; });
+    dayIndex['D10'] = dayIndex['D9'];
+    dayIndex['D12'] = dayIndex['D11'];
+
+    bindMapEvents();
+  }
+
+  function setProgress(idx){
+    var progress = document.getElementById('routeProgress');
+    if(!progress) return;
+    if(idx===undefined || idx===null || !totalLen){ progress.style.opacity = '0'; return; }
+    var frac = cum[idx] / cum[cum.length-1];
+    progress.style.strokeDashoffset = String(totalLen * (1-frac));
+    progress.style.opacity = '.95';
+  }
+
+  function showTip(g){
+    var d = g.getAttribute('data-day');
+    var isStart = d==='START';
+    var dayLabel = d && !isStart ? d : '';
+    var clickable = dayLabel || g.getAttribute('data-target');
+    var name = g.getAttribute('data-name') || '';
+    var meta = g.getAttribute('data-meta') || '';
+    var html = '';
+    if(dayLabel) html += '<div class="t-day">'+dayLabel+'</div>';
+    html += '<div class="t-name">'+name+'</div>';
+    if(meta) html += '<div class="t-meta">'+meta+'</div>';
+    if(clickable) html += '<div class="t-cue">点击查看当天</div>';
+    tip.innerHTML = html;
+    tip.classList.add('show');
+    var gr = g.getBoundingClientRect();
+    var sr = shell.getBoundingClientRect();
+    var x = gr.left - sr.left + gr.width/2;
+    var y = gr.top - sr.top;
+    var tw = tip.offsetWidth || 180;
+    var th = tip.offsetHeight || 80;
+    tip.style.left = Math.max(8, Math.min(x - tw/2, sr.width - tw - 8)) + 'px';
+    var top = y - th - 10;
+    if(top < 8) top = y + gr.height + 10;
+    tip.style.top = top + 'px';
+  }
+
+  function hideTip(){ tip.classList.remove('show'); }
+
+  function scrollToDay(day){
+    document.body.classList.remove('map-focus');
+    var el = document.getElementById('day-'+day.toLowerCase());
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    hideTip();
+  }
+
+  function bindMapEvents(){
+    var nodes = svg.querySelectorAll('.map-stop,.map-wp');
+    for(var i=0;i<nodes.length;i++){
+      (function(g){
+        g.addEventListener('pointerenter', function(){ showTip(g); });
+        g.addEventListener('pointerleave', hideTip);
+        g.addEventListener('focus', function(){ showTip(g); });
+        g.addEventListener('blur', hideTip);
+        g.addEventListener('click', function(){
+          var d = g.getAttribute('data-target') || g.getAttribute('data-day');
+          if(d && d!=='START') scrollToDay(d);
+        });
+        g.addEventListener('keydown', function(e){
+          if(e.key==='Enter' || e.key===' '){
+            e.preventDefault();
+            var d = g.getAttribute('data-target') || g.getAttribute('data-day');
+            if(d && d!=='START') scrollToDay(d);
+          }
+        });
+      })(nodes[i]);
+    }
+  }
+
+  var activeDay = null;
+
+  function centerChip(day){
+    var rail = document.getElementById('dayRail');
+    var chip = rail.querySelector('.day-chip[data-day="'+day+'"]');
+    if(!chip) return;
+    var cr = chip.getBoundingClientRect();
+    var rr = rail.getBoundingClientRect();
+    if(cr.left < rr.left+16 || cr.right > rr.right-16){
+      var left = cr.left - rr.left + rail.scrollLeft - (rail.clientWidth - cr.width)/2;
+      rail.scrollTo({left: Math.max(0,left), behavior:'smooth'});
+    }
+  }
+
+  function setActiveDay(day){
+    if(day===activeDay) return;
+    activeDay = day;
+    var chips = document.querySelectorAll('.day-chip');
+    for(var i=0;i<chips.length;i++){ chips[i].classList.toggle('active', chips[i].getAttribute('data-day')===day); }
+    var markers = svg.querySelectorAll('.map-stop');
+    for(var j=0;j<markers.length;j++){
+      var d = markers[j].getAttribute('data-day');
+      var on = (d===day) || (day==='D0' && d==='START') || (day==='D16' && d==='START');
+      markers[j].classList.toggle('active', on);
+    }
+    setProgress(dayIndex[day]);
+    centerChip(day);
+  }
+
+  var bar = document.getElementById('progressBar');
+  var topbar = document.getElementById('topbar');
+  var toTop = document.getElementById('toTop');
+  function onScroll(){
+    var y = window.scrollY || window.pageYOffset;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (max>0 ? Math.min(100, y/max*100) : 0) + '%';
+    topbar.classList.toggle('solid', y>60);
+    toTop.classList.toggle('show', y>900);
+    var current = null;
+    var days = document.querySelectorAll('.day');
+    for(var i=0;i<days.length;i++){
+      var r = days[i].getBoundingClientRect();
+      if(r.top <= window.innerHeight*0.45) current = days[i].getAttribute('data-day');
+    }
+    if(current) setActiveDay(current);
+  }
+
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  toTop.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, {threshold:.08, rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  function setupCollapsibleStories(){
+    var bodies = document.querySelectorAll('.day-body');
+    for(var i=0;i<bodies.length;i++){
+      (function(body){
+        var ps = body.querySelectorAll('.story > p');
+        if(ps.length <= 2) return;
+        body.classList.add('collapsible');
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'story-toggle';
+        btn.textContent = '展开全文 ↓';
+        btn.setAttribute('aria-expanded', 'false');
+        var story = body.querySelector('.story');
+        if(story){
+          var day = body.closest('.day');
+          story.id = (day ? day.id : 'story-' + i) + '-story';
+          btn.setAttribute('aria-controls', story.id);
+        }
+        btn.addEventListener('click', function(){
+          var open = body.classList.toggle('expanded');
+          btn.textContent = open ? '收起 ↑' : '展开全文 ↓';
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        if(story && story.parentNode) story.parentNode.insertBefore(btn, story.nextSibling);
+      })(bodies[i]);
+    }
+  }
+
+  var mapFab = document.getElementById('mapFab');
+  var mapClose = document.getElementById('mapClose');
+  var mapSection = document.getElementById('map');
+  var expenseSection = document.getElementById('expense');
+  if('IntersectionObserver' in window && mapSection && mapFab){
+    var fabSections = [mapSection, expenseSection].filter(Boolean);
+    var fabCovered = new Set();
+    var mapObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting) fabCovered.add(en.target);
+        else fabCovered.delete(en.target);
+      });
+      mapFab.classList.toggle('map-fab-hidden', fabCovered.size > 0);
+    }, {threshold:0.12});
+    fabSections.forEach(function(sec){ mapObs.observe(sec); });
+  }
+  if(mapFab){
+    mapFab.addEventListener('click', function(){
+      document.body.classList.add('map-focus');
+      hideTip();
+      var sc = document.getElementById('mapScroll');
+      if(sc) sc.scrollTop = 0;
+    });
+  }
+  if(mapClose){
+    mapClose.addEventListener('click', function(){
+      document.body.classList.remove('map-focus');
+      hideTip();
+    });
+  }
+
+  setupCollapsibleStories();
+  document.querySelectorAll('.day-body.reveal').forEach(function(el){ el.classList.add('in'); });
+  drawMap();
+  if(mapScroll.scrollWidth > mapScroll.clientWidth + 20 && mapScroll.scrollLeft === 0){
+    mapScroll.scrollLeft = mapScroll.scrollWidth;
+  }
+  onScroll();
+})();
+</script>
+</body>
+</html>
