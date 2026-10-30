@@ -63,6 +63,36 @@
             font-size: 0.9rem;
             color: #888;
         }
+        .card.cover-card {
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid rgba(255,255,255,.55);
+        }
+        .card.cover-card::before,
+        .card.cover-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        .card.cover-card::before {
+            background: var(--cover) center/cover no-repeat;
+            transform: scale(1.01);
+            transition: transform .55s cubic-bezier(.2,.7,.2,1);
+        }
+        .card.cover-card::after {
+            background:
+                linear-gradient(180deg, rgba(255,255,255,.02) 0%, rgba(255,255,255,.06) 30%, rgba(248,250,252,.52) 58%, rgba(248,250,252,.94) 80%, rgba(248,250,252,.98) 100%),
+                radial-gradient(65% 45% at 50% 64%, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 70%);
+        }
+        .card.cover-card > * {
+            position: relative;
+            z-index: 1;
+        }
+        .card.cover-card:hover::before {
+            transform: scale(1.055);
+        }
         footer {
             margin-top: 64px;
             color: #aaa;
@@ -130,12 +160,12 @@
     <p class="subtitle">自驾路线 & 行程规划</p>
 
     <div class="grid">
-        <a class="card" href="安徽2027/" style="background: linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.75)), url('安徽2027/huangshan.jpg') center/cover no-repeat;">
+        <a class="card cover-card" href="安徽2027/" style="--cover:url('安徽2027/huangshan.jpg');">
             <div class="icon">🏔️</div>
             <div class="title">安徽 2027</div>
             <div class="desc">春节自驾</div>
         </a>
-        <a class="card" href="青甘陕自驾2021/" style="background: linear-gradient(135deg,#e0f2fe,#f8fafc);">
+        <a class="card cover-card" href="青甘陕自驾2021/" style="--cover:url('青甘陕自驾2021/qinggan-collage.jpg');">
             <div class="icon" style="font-family:serif;">山</div>
             <div class="title">青甘陕 2021</div>
             <div class="desc">带俩娃 · 16天 · 7579公里</div>
@@ -156,11 +186,11 @@
         (function() {
             var gate = document.getElementById('gate');
             var key = 'tm_unlock_time';
-            var ONE_HOUR = 3600000; // 1 hour in ms
+            var EIGHT_HOURS = 8 * 3600000; // 8 hours in ms
 
             function isUnlocked() {
                 var t = parseInt(localStorage.getItem(key) || '0', 10);
-                return (Date.now() - t) < ONE_HOUR;
+                return (Date.now() - t) < EIGHT_HOURS;
             }
 
             if (isUnlocked()) {
