@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="js"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大同 2024 清明 · 北魏平城 / 云冈 / 悬空寺</title>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --paper:#f7f3ea;
+    --paper-2:#efe8da;
+    --paper-3:#e7ddcb;
+    --ink:#1f2b30;
+    --ink-2:#55636a;
+    --ink-3:#8b9698;
+    --line:#d8d0c2;
+    --accent:#8c3b2e;
+    --accent-deep:#262b31;
+    --accent-2:#2f5d6b;
+    --gold:#b98a4a;
+    --sea:#5b6f7a;
+    --coral:#a84a2f;
+    --max:1120px;
+    --topbar:58px;
+    --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:radial-gradient(rgba(120,100,70,.055) .6px,transparent .6px);
+    background-size:4px 4px;
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:#e7c9a8;color:var(--ink)}
+  a{color:inherit}
+  .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:90;background:transparent;pointer-events:none}
+  .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .1s linear}
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:80;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:0 28px;border-bottom:1px solid transparent;
+    transition:background .3s,border-color .3s,backdrop-filter .3s;
+  }
+  .topbar.solid{
+    background:rgba(247,243,234,.96);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-bottom-color:var(--line);
+  }
+  .brand{
+    font-family:var(--serif);font-size:17px;font-weight:600;
+    letter-spacing:.22em;text-decoration:none;white-space:nowrap;
+  }
+  .section-nav{
+    display:flex;align-items:center;gap:24px;
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .section-nav::-webkit-scrollbar{display:none}
+  .section-nav a{
+    position:relative;padding:6px 0;font-size:11px;letter-spacing:.16em;
+    color:var(--ink-2);text-decoration:none;white-space:nowrap;
+  }
+  .section-nav a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--accent);transition:width .25s;
+  }
+  .section-nav a:hover::after,.section-nav a.active::after{width:100%}
+  .section-nav a.active{color:var(--accent)}
+  .hero{
+    position:relative;min-height:100svh;display:grid;place-items:center;
+    padding:120px 24px 84px;overflow:hidden;isolation:isolate;
+    background:linear-gradient(180deg,#f7f3ea 0%,#eef1f2 46%,#dfe5e8 100%);
+  }
+  .hero-art{position:absolute;inset:0;z-index:-2;pointer-events:none}
+  .hero-art svg{display:block;width:100%;height:100%}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,0) 50%,rgba(247,243,234,.18) 72%,var(--paper) 100%);
+  }
+  .hero-inner{position:relative;max-width:980px;text-align:center}
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.32em;color:var(--accent);margin:0 0 22px}
+  .hero h1{
+    font-family:var(--serif);font-size:clamp(76px,15vw,188px);font-weight:700;
+    line-height:.9;letter-spacing:.16em;text-indent:.16em;margin:0;color:var(--ink);
+  }
+  .hero-sub{
+    font-family:var(--serif);font-size:clamp(17px,2.2vw,26px);
+    letter-spacing:.2em;margin:24px 0 0;color:var(--ink-2);
+  }
+  .hero-lead{max-width:680px;margin:24px auto 0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .hero-route{
+    display:inline-flex;flex-wrap:wrap;justify-content:center;gap:7px;
+    margin:26px auto 0;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    font-size:10px;letter-spacing:.12em;color:var(--ink-3);
+  }
+  .hero-route span{white-space:nowrap}
+  .hero-stats{display:flex;justify-content:center;gap:clamp(24px,5vw,64px);margin-top:38px;flex-wrap:wrap}
+  .hero-stats div{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .hero-stats b{font-family:var(--serif);font-size:clamp(24px,3.2vw,36px);font-weight:600;line-height:1;color:var(--ink)}
+  .hero-stats span{font-size:10px;letter-spacing:.18em;color:var(--ink-3)}
+  .scroll-cue{
+    position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:var(--ink-3);font-size:10px;letter-spacing:.2em;text-decoration:none;
+  }
+  .scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--ink-3),transparent);animation:cue 2.2s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(.6);opacity:.5}50%{transform:scaleY(1);opacity:1}}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .section{padding:clamp(72px,9vw,120px) 0;scroll-margin-top:70px}
+  .section-head{max-width:760px;margin-bottom:40px}
+  .section-head .num{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0 0 12px}
+  .section-head h2{font-family:var(--serif);font-size:clamp(30px,4.2vw,48px);font-weight:600;line-height:1.2;letter-spacing:.06em;margin:0 0 16px}
+  .section-head .lead{max-width:690px;margin:0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .route{background:linear-gradient(180deg,var(--paper) 0%,#f1ebe0 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .route-intro{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:end;margin-bottom:40px}
+  .route-intro .section-head{margin-bottom:0}
+  .route-aside{font-size:12px;line-height:2;color:var(--ink-2);padding-left:22px;border-left:1px solid var(--line)}
+  .route-aside b{color:var(--ink);font-weight:600}
+  .route-line{
+    display:flex;overflow-x:auto;padding:18px 0 4px;border-top:1px solid var(--line);
+    scrollbar-width:none;
+  }
+  .route-line::-webkit-scrollbar{display:none}
+  .stop{
+    position:relative;flex:1 0 100px;min-width:100px;padding:22px 12px 0;
+    text-decoration:none;border-right:1px solid var(--line);
+  }
+  .stop:last-child{border-right:0}
+  .stop::before{
+    content:"";position:absolute;left:12px;top:-4px;width:7px;height:7px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 0 4px var(--paper);
+  }
+  .stop .date{font-size:9px;letter-spacing:.14em;color:var(--ink-3)}
+  .stop .city{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.4;margin:5px 0 3px}
+  .stop .note{font-size:10px;line-height:1.6;color:var(--ink-2)}
+  .stop:hover .city{color:var(--accent)}
+  .prelude-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .pre-card{
+    display:flex;flex-direction:column;justify-content:space-between;min-height:228px;
+    padding:26px 24px;background:rgba(255,255,255,.5);border:1px solid var(--line);
+  }
+  .pre-card .idx{font-family:var(--serif);font-size:28px;line-height:1;color:var(--accent-2)}
+  .pre-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:18px 0 8px}
+  .pre-card p{margin:0;font-size:12.5px;line-height:1.9;color:var(--ink-2)}
+  .journey{padding:clamp(60px,8vw,110px) 0}
+  .day{display:grid;grid-template-columns:160px 1fr;gap:48px;padding:46px 0;border-top:1px solid var(--line)}
+  .day:first-of-type{border-top:0}
+  .day-meta{position:sticky;top:86px;align-self:start}
+  .day-num{font-family:var(--serif);font-size:46px;line-height:1;color:var(--accent);letter-spacing:.02em}
+  .day-date{font-size:10px;letter-spacing:.2em;color:var(--ink-3);margin-top:8px}
+  .day-route{font-size:12px;line-height:1.8;color:var(--ink-2);margin-top:12px}
+  .day-route b{display:block;color:var(--ink);font-weight:600;margin-bottom:3px}
+  .day-body h3{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:600;line-height:1.35;letter-spacing:.02em;margin:0 0 14px}
+  .day-body p{font-size:14px;line-height:2;color:var(--ink-2);margin:0 0 12px}
+  .day-body p:last-child{margin-bottom:0}
+  .day-facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+  .fact{font-size:10px;line-height:1.5;color:var(--ink-2);background:rgba(255,255,255,.5);border:1px solid var(--line);padding:4px 8px}
+  .fact b{color:var(--accent);font-weight:700;margin-right:4px}
+  .day-pull{
+    margin:20px 0 0;padding:16px 18px;border-left:2px solid var(--accent-2);
+    background:rgba(194,120,58,.06);font-family:var(--serif);
+    font-size:16px;line-height:1.9;color:var(--ink);
+  }
+  .feature{position:relative;overflow:hidden;background:var(--accent-deep);color:#f3ead9}
+  .feature::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(80% 60% at 82% 0%,rgba(197,154,74,.2),transparent 60%),
+      radial-gradient(60% 55% at 0% 100%,rgba(47,93,107,.4),transparent 62%);
+  }
+  .feature .wrap{position:relative}
+  .feature .section-head .num{color:#e0b56a}
+  .feature .section-head h2{color:#f3ead9}
+  .feature .section-head .lead{color:rgba(243,234,217,.72)}
+  .feature-quote{
+    max-width:850px;margin:0 0 42px;font-family:var(--serif);
+    font-size:clamp(22px,3vw,34px);line-height:1.7;letter-spacing:.04em;color:#f3ead9;
+  }
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+  .feature-card{padding:22px;border:1px solid rgba(243,234,217,.18);background:rgba(255,255,255,.03)}
+  .feature-card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 8px;color:#f3ead9}
+  .feature-card .price{font-family:var(--serif);font-size:18px;color:#e0b56a;margin:0 0 10px}
+  .feature-card p{margin:0;font-size:12.5px;line-height:1.9;color:rgba(243,234,217,.72)}
+  .feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0 34px;border-top:1px solid rgba(243,234,217,.16);margin-top:28px}
+  .feature-list div{display:grid;grid-template-columns:1fr auto;gap:18px;padding:12px 0;border-bottom:1px solid rgba(243,234,217,.12);font-size:12.5px;color:rgba(243,234,217,.78)}
+  .feature-list b{font-family:var(--serif);font-size:14px;font-weight:600;color:#e0b56a}
+  .feature-note{margin-top:18px;font-size:11px;line-height:1.8;color:rgba(243,234,217,.5)}
+  .stay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .stay-card{display:flex;flex-direction:column;gap:10px;padding:22px;background:rgba(255,255,255,.55);border:1px solid var(--line)}
+  .stay-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .stay-card h3{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.4;margin:0}
+  .badge{flex:none;font-size:9px;letter-spacing:.08em;padding:3px 6px;border:1px solid;white-space:nowrap}
+  .badge.yes{color:var(--accent);border-color:rgba(47,93,107,.35);background:rgba(47,93,107,.06)}
+  .badge.no{color:#a84a2f;border-color:rgba(168,74,47,.3);background:rgba(168,74,47,.06)}
+  .stay-loc{font-size:11px;letter-spacing:.06em;color:var(--ink-3)}
+  .stay-price{font-family:var(--serif);font-size:16px;color:var(--accent-2)}
+  .stay-card p{margin:0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .travel-card{padding:20px 0 0;border-top:2px solid var(--accent)}
+  .travel-card .num{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--accent-2)}
+  .travel-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:8px 0 10px}
+  .travel-card p,.travel-card li{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .travel-card p{margin:0}
+  .travel-card ul{margin:0;padding-left:16px}
+  .travel-card li{margin:3px 0}
+  .expense{background:linear-gradient(180deg,#f1ebe0 0%,var(--paper) 100%);border-top:1px solid var(--line)}
+  .expense-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start;margin-bottom:34px}
+  .expense-total{padding:28px;background:var(--accent-deep);color:#f3ead9}
+  .expense-total .label{font-size:10px;letter-spacing:.2em;color:rgba(243,234,217,.6)}
+  .expense-total .amount{font-family:var(--serif);font-size:clamp(36px,5vw,56px);line-height:1.1;margin:10px 0 4px;color:#f3ead9}
+  .expense-total .amount small{font-family:var(--sans);font-size:14px;color:#e0b56a;margin-left:6px}
+  .expense-total .sub{font-size:11px;line-height:1.8;color:rgba(243,234,217,.62)}
+  .expense-note{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .expense-note p{margin:0 0 8px}
+  .expense-note b{color:var(--ink)}
+  .bars{display:grid;gap:12px;margin-top:20px}
+  .bar{display:grid;grid-template-columns:88px 1fr 82px;gap:12px;align-items:center;font-size:11px;color:var(--ink-2)}
+  .bar .track{height:7px;background:#e3dbcc;overflow:hidden}
+  .bar .fill{height:100%;width:0;background:var(--accent);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+  .bar .val{text-align:right;font-family:var(--serif);font-size:13px;color:var(--ink)}
+  .bar .val em{font-family:var(--sans);font-style:normal;font-size:9px;color:var(--ink-3);margin-left:4px}
+  .expense-foot{margin-top:18px;font-size:10px;line-height:1.9;color:var(--ink-3)}
+  .tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;border-top:1px solid var(--line)}
+  .tip{display:grid;grid-template-columns:38px 1fr;gap:16px;padding:26px 0;border-bottom:1px solid var(--line)}
+  .tip .n{font-family:var(--serif);font-size:18px;color:var(--accent-2)}
+  .tip h3{font-family:var(--serif);font-size:17px;font-weight:600;margin:0 0 6px}
+  .tip p{margin:0;font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .ending{padding:clamp(90px,12vw,160px) 24px;text-align:center;border-top:1px solid var(--line);background:var(--paper-2)}
+  .ending-kicker{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0}
+  .ending blockquote{max-width:840px;margin:18px auto;font-family:var(--serif);font-size:clamp(24px,4vw,42px);line-height:1.6;letter-spacing:.06em;color:var(--ink)}
+  .ending p{max-width:620px;margin:0 auto;font-size:12px;line-height:2;color:var(--ink-2)}
+  footer{padding:30px 24px;text-align:center;background:var(--paper-2);border-top:1px solid var(--line);font-size:10px;letter-spacing:.12em;color:var(--ink-3)}
+  .js .reveal{transform:translateY(18px);transition:transform .7s ease}
+  .js .reveal.in{transform:none}
+  @media (max-width:980px){
+    .route-intro{grid-template-columns:1fr;gap:20px}
+    .route-aside{padding-left:0;border-left:0;border-top:1px solid var(--line);padding-top:16px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid{grid-template-columns:1fr 1fr}
+    .expense-top{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    :root{--topbar:54px}
+    .topbar{padding:0 14px;gap:10px}
+    .brand{font-size:15px;letter-spacing:.16em}
+    .section-nav{gap:14px;margin-left:8px}
+    .section-nav a{font-size:10px;letter-spacing:.1em}
+    .hero{min-height:92svh;padding:106px 18px 70px}
+    .hero h1{font-size:clamp(64px,20vw,110px)}
+    .hero-sub{font-size:16px;letter-spacing:.14em}
+    .hero-lead{font-size:13px;line-height:1.9}
+    .hero-route{font-size:9px;line-height:1.8;gap:5px}
+    .hero-stats{gap:22px}
+    .hero-stats b{font-size:26px}
+    .section{padding:60px 0}
+    .wrap{padding:0 18px}
+    .section-head{margin-bottom:28px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid,.feature-list{grid-template-columns:1fr}
+    .route-line{margin:0 -18px;padding-left:18px;padding-right:18px}
+    .stop{flex:0 0 108px;min-width:108px}
+    .day{grid-template-columns:1fr;gap:18px;padding:34px 0}
+    .day-meta{position:static;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+    .day-num{font-size:38px}
+    .day-date{margin-top:0}
+    .day-route{flex:1 0 100%;margin-top:0;padding-top:8px;border-top:1px solid var(--line)}
+    .day-body h3{font-size:22px}
+    .day-pull{font-size:15px}
+    .bar{grid-template-columns:64px 1fr 64px;gap:8px;font-size:10px}
+    .bar .val{font-size:11px}
+    .bar .val em{display:none}
+    .tips-grid{grid-template-columns:1fr;gap:0}
+    .expense-total{padding:22px}
+    .ending{padding:70px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .js .reveal{opacity:1;transform:none;transition:none}
+    .scroll-cue i{animation:none}
+    .bar .fill{transition:none}
+  }
+
+  .hero h1{font-size:clamp(64px,17vw,168px);letter-spacing:.12em;text-indent:.12em}
+  .hero-sub{letter-spacing:.14em}
+  .hero::after{background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,.08) 48%,rgba(247,243,234,.58) 70%,rgba(247,243,234,.94) 88%,var(--paper) 100%)}
+  .hero-stats span{color:var(--ink-2)}
+  .feature .section-head .lead{max-width:720px}
+
+  .part-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:54px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+  .part-head h3{font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:600;margin:0;letter-spacing:.04em}
+  .part-head span{font-size:10px;letter-spacing:.18em;color:var(--accent-2);font-weight:700;white-space:nowrap}
+  .part-head p{flex:1 0 100%;margin:4px 0 0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .route-line .stop{flex:1 0 140px}
+  .feature-list b{text-align:right}
+  @media (max-width:720px){
+    .part-head{margin-top:38px}
+    .part-head h3{font-size:22px}
+    .route-line .stop{flex:0 0 120px}
+  }
+
+</style>
+</head>
+<body>
+<div class="progress"><span id="progressBar"></span></div><header class="topbar" id="topbar"><a class="brand" href="#top">见山河</a><nav class="section-nav" aria-label="页面目录"><a href="#route">路线</a><a href="#prelude">行前</a><a href="#journey">逐日</a><a href="#feature">看点</a><a href="#stay">住行</a><a href="#expense">费用</a><a href="#tips">心法</a></nav></header><main id="top"><section class="hero"><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f0e6"/><stop offset=".55" stop-color="#e9eef0"/><stop offset="1" stop-color="#9fb4bd"/></linearGradient><radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e7b26c" stop-opacity=".55"/><stop offset="1" stop-color="#e7b26c" stop-opacity="0"/></radialGradient></defs>
+<rect width="1440" height="900" fill="url(#sky)"/>
+<circle cx="1080" cy="230" r="210" fill="url(#glow)"/><circle cx="1080" cy="230" r="78" fill="#dfa25e" opacity=".85"/>
+<path d="M0 570 C150 510 300 544 440 560 C580 576 700 524 840 548 C980 572 1100 520 1240 548 C1330 566 1390 548 1440 556 L1440 900 L0 900 Z" fill="#9fb4bd" opacity=".55"/>
+<path d="M0 660 C170 614 320 650 470 656 C620 662 760 612 910 636 C1060 660 1200 618 1320 642 C1370 652 1410 648 1440 652 L1440 900 L0 900 Z" fill="#3f4650" opacity=".55"/>
+<path d="M0 750 C180 712 340 750 510 738 C680 726 820 764 980 746 C1140 728 1280 760 1440 738 L1440 900 L0 900 Z" fill="#2f3a40" opacity=".82"/>
+<g fill="#2f3a40" opacity=".35"><path d="M150 900 L180 690 L210 900 Z"/><path d="M215 900 L245 650 L278 900 Z"/><path d="M1180 900 L1210 690 L1242 900 Z"/><path d="M1250 900 L1280 650 L1310 900 Z"/></g>
+<g fill="none" stroke="#3f565e" stroke-width="1.5" opacity=".3"><path d="M300 280 q10 -8 20 0 q10 -8 20 0"/><path d="M380 245 q8 -6 16 0 q8 -6 16 0"/><path d="M860 300 q9 -7 18 0 q9 -7 18 0"/></g></svg></div><div class="hero-inner"><p class="kicker">2024 · 清明 · 北魏平城</p><h1>大同</h1><p class="hero-sub">悬空寺 · 永安禅寺 · 云冈石窟 · 古城</p><p class="hero-lead">大同，北魏古都、辽金陪都。云冈石窟、悬空寺、恒山、古城，再加上朔州的应县木塔、雁门关，可以串成一条线。清明三天，怕堵车，四点半出发。</p><div class="hero-route"><span>北京</span><span>悬空寺</span><span>浑源</span><span>大同</span><span>云冈</span><span>古城</span><span>火山群</span><span>北京</span></div><div class="hero-stats"><div><b>3</b><span>天</span></div><div><b>2</b><span>晚</span></div><div><b>2大2小</b><span>同行</span></div><div><b>3,492</b><span>元 · 总花费</span></div></div></div><a class="scroll-cue" href="#route">沿着路，向北<i></i></a></section><section class="section route" id="route"><div class="wrap"><div class="route-intro"><div class="section-head reveal"><p class="num">01 / ROUTE</p><h2>三天，把平城看一遍</h2><p class="lead">北京早出发，悬空寺、永安禅寺、玉龙洞；第二天晋华宫下矿、云冈石窟；第三天市博、古城、城墙、火山群，晚上回京。</p></div><aside class="route-aside reveal"><b>路线骨架</b><br>北京 → 悬空寺 → 浑源 → 大同 → 晋华宫 → 云冈 → 古城 → 火山群 → 北京。<br><br><b>节奏</b><br>3 天 2 晚；清明人多，悬空寺登临票提前 7 天抢；云冈堵车，尽量早到。</aside></div><div class="route-line reveal"><a class="stop" href="#journey"><span class="date">4.4 · D1</span><span class="city">悬空寺 / 浑源</span><span class="note">登临&lt;br&gt;永安禅寺</span></a><a class="stop" href="#journey"><span class="date">4.5 · D2</span><span class="city">晋华宫 / 云冈</span><span class="note">下矿&lt;br&gt;石窟</span></a><a class="stop" href="#journey"><span class="date">4.6 · D3</span><span class="city">古城 / 火山群</span><span class="note">城墙&lt;br&gt;返程</span></a></div></div></section><section class="section prelude" id="prelude"><div class="wrap"><div class="section-head reveal"><p class="num">02 / WHY</p><h2>为什么是大同</h2><p class="lead">北魏古都、辽金陪都，云冈石窟和悬空寺都在；三天刚好，古城里还有九龙壁、华严寺、城墙。</p></div><div class="prelude-grid"><article class="pre-card reveal"><span class="idx">01</span><div><h3>悬空寺</h3><p>李白写“壮观”多一点；登临票 100，提前 7 天放票，恐高、腿脚不好可以不上去，在下面也能看清。</p></div></article><article class="pre-card reveal"><span class="idx">02</span><div><h3>云冈石窟</h3><p>北魏皇家石窟，和龙门、敦煌、麦积山并列；人多了体验差，最好淡季、找讲解、慢慢看。</p></div></article><article class="pre-card reveal"><span class="idx">03</span><div><h3>古城与火山</h3><p>市博、九龙壁、华严寺、城墙骑车；晚上去火山群远观，昊天寺路口白天可能上不去。</p></div></article></div></div></section><section class="journey" id="journey"><div class="wrap"><div class="section-head reveal"><p class="num">03 / DAY BY DAY</p><h2>三天，古都平城</h2><p class="lead">第一天悬空寺，第二天云冈，第三天古城；人多、排队、吃饭难，是这次最大的感受。</p></div><div class="part-head reveal"><h3>三天 · 悬空寺、云冈、古城</h3><span>4.4—4.6</span><p>早出发，避开堵车；悬空寺登临、永安禅寺、晋华宫下矿、云冈、古城墙、火山群。</p></div><article class="day reveal" id="d-0404"><div class="day-meta"><div class="day-num">4.4</div><div class="day-date">D1 · 北京—悬空寺—浑源—大同</div><div class="day-route"><b>悬空寺 → 恒山门口 → 永安禅寺 → 玉龙洞 → 大同</b>4:30 出发，9 点到。</div></div><div class="day-body"><h3>悬空寺，和浑源的永安禅寺</h3><p>怕堵车，早上四点半出发，一路畅通，九点到悬空寺。停车场进不去，大环岛封路，必须从游客中心坐摆渡车，20 元往返，可以到悬空寺或恒山。</p><p>九点半排队进入，入口很小；登临票 100，提前 7 天抢。围栏很矮、楼梯窄陡，恐高、腿脚不好可以不上去；在下面也能看清。</p><p>下来去浑源县城吃东方削面，花都开好了；永安禅寺小众值得，壁画很暗，不让闪光灯，但讲解手电照来照去；别错过后面的虎啸龙吟。</p><p>下午玉龙洞，上山路不好走，防火封路，大爷指了另一条更不好走的路；娃们喜欢探险，要爬过山洞。山顶看落日；晚上国宾酒店，明月轩火锅排队一小时。</p><div class="day-facts"><span class="fact"><b>玩</b>悬空寺 / 永安禅寺 / 玉龙洞</span><span class="fact"><b>吃</b>东方削面 / 明月轩</span><span class="fact"><b>住</b>国宾 595/2晚</span><span class="fact"><b>提醒</b>登临票提前 7 天</span></div></div></article><article class="day reveal" id="d-0405"><div class="day-meta"><div class="day-num">4.5</div><div class="day-date">D2 · 晋华宫—云冈石窟</div><div class="day-route"><b>晋华宫矿山公园 → 下矿 → 云冈石窟</b>下矿 85/人；云冈堵车。</div></div><div class="day-body"><h3>下矿，然后去云冈</h3><p>晋华宫矿山公园很大，先买下矿票，85/人，1.1 米以下和 70 岁以上不让进；一波人均摊导游费，一般 2 元一人。</p><p>买票还得等一小时，提前十分钟集合，过时只能退票重约；坐缆车 400 米，垂直下降 150 多米，矿道走 1 公里折返，全程 2 公里，没有厕所，通风很好。</p><p>出来云冈还是堵车，从矿山公园步行 800 米过桥；进门晚，最后被赶出来，逆时针转圈，返程没人，慢慢走。</p><p>云冈石窟保护得好，龙门破坏严重，历史价值无从比较；人多了体验差，最好淡季找讲解。高低来个 give me five。</p><div class="day-facts"><span class="fact"><b>玩</b>晋华宫 / 云冈</span><span class="fact"><b>吃</b>1+1 削面 / 明月轩</span><span class="fact"><b>住</b>国宾</span><span class="fact"><b>提醒</b>云冈堵车</span></div></div></article><article class="day reveal" id="d-0406"><div class="day-meta"><div class="day-num">4.6</div><div class="day-date">D3 · 市博—古城—火山群—北京</div><div class="day-route"><b>大同市博物馆 → 九龙壁 → 华严寺 → 城墙 → 火山群 → 北京</b>清明最后一天，人潮退去。</div></div><div class="day-body"><h3>市博、古城墙和火山群</h3><p>市博预约时段卡得严，过了时间可以刷身份证走单独闸机；展陈黑色框、各种形状，光都在展品上，杂技俑、漆版画、大鸱吻，一级馆推荐。</p><p>进古城，停在代王府旁，过马路就是九龙壁；代王府不开，华严寺收费，娃们只想上城墙骑车。租车 100 一辆 90 分钟，过了武定门不让骑，晚上有灯展，绕不了一圈。</p><p>中午人潮退去，网红店不用排队；北魏家宴平城烤鸡。晚上火山群远观，昊天寺路口白天可能上不去，晚上可以开到山顶；晚点出发一路畅通，到家晚。</p><p>城墙上碰到荷兰人，免签来中国，去了北京、成都、大同、西安，觉得中国很好；我们帮忙介绍景点、推荐行程，有一点骄傲。</p><div class="day-facts"><span class="fact"><b>玩</b>市博 / 九龙壁 / 城墙 / 火山</span><span class="fact"><b>吃</b>北魏家宴</span><span class="fact"><b>行</b>大同—北京</span><span class="fact"><b>提醒</b>淡季来</span></div></div></article></div></section><section class="section feature" id="feature"><div class="wrap"><div class="section-head reveal"><p class="num">04 / HIGHLIGHTS</p><h2>悬空寺、云冈和平城</h2><p class="lead">大同的看点很集中：悬空寺、云冈石窟、古城；三天刚好，但清明人太多，吃饭和堵车要有心理准备。</p></div><p class="feature-quote reveal">“天下不同，天下大同。”</p><div class="feature-grid"><article class="feature-card reveal"><h3>悬空寺</h3><p class="price">登临 100 · 提前 7 天</p><p>李白“壮观”多一点；登临票和参观票分开，入口查参观票，登临口查登临票；不上去也能在下面看。</p></article><article class="feature-card reveal"><h3>云冈石窟</h3><p class="price">北魏皇家石窟</p><p>第 20 窟露天大佛、昙曜五窟；标识不清，最好提前看纪录片、找讲解；淡季来。</p></article><article class="feature-card reveal"><h3>永安禅寺</h3><p class="price">浑源 · 壁画</p><p>小众值得；壁画很暗，不让闪光灯；前面庄严，后面虎啸龙吟；旁边还有圆觉寺、文庙、州署。</p></article><article class="feature-card reveal"><h3>古城 / 火山群</h3><p class="price">九龙壁 · 城墙 · 昊天寺</p><p>古城里除了华严寺收费，其他免费预约；城墙骑车 100/90 分钟；火山群远观，晚上可上山顶。</p></article></div><div class="feature-list reveal"><div><span>悬空寺</span><b>登临 100 / 参观 15</b></div><div><span>云冈石窟</span><b>120</b></div><div><span>晋华宫下矿</span><b>85</b></div><div><span>永安禅寺</span><b>20</b></div><div><span>城墙自行车</span><b>100</b></div><div><span>住宿 / 2 晚</span><b>595</b></div></div><p class="feature-note">清明人多，悬空寺 12 点队伍又长又乱；云冈堵车没人管；吃饭排队一两个小时。淡季来，体验会好很多。</p></div></section><section class="section stay" id="stay"><div class="wrap"><div class="section-head reveal"><p class="num">05 / STAY &amp; DRIVE</p><h2>住城墙边，吃饭要计划</h2><p class="lead">3 天 2 晚，住大同国宾酒店，就在城墙边；清明涨价很多，定得早。</p></div><div class="stay-grid"><article class="stay-card reveal"><div class="stay-top"><h3>大同 · 国宾酒店</h3><span class="badge yes">推荐</span></div><div class="stay-loc">城墙边</div><div class="stay-price">¥595 / 2 晚</div><p>定得早，涨价很多；位置好，去古城、城墙方便。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>浑源 / 大同</h3><span class="badge yes">推荐</span></div><div class="stay-loc">悬空寺 / 古城</div><div class="stay-price">当日往返</div><p>悬空寺下来去浑源县城吃削面、永安禅寺；晚上回大同。</p></article></div><div class="travel-grid"><article class="travel-card reveal"><p class="num">01 / DRIVE</p><h3>4:30 出发</h3><ul><li>怕堵车，早上四点半出发，九点到悬空寺；</li><li>悬空寺停车场封路，必须坐摆渡车 20/人；</li><li>云冈堵车严重，步行 800 米过桥反而快。</li></ul></article><article class="travel-card reveal"><p class="num">02 / TICKETS</p><h3>登临票与预约</h3><ul><li>悬空寺登临票提前 7 天抢，4.1 又放一批；</li><li>市博预约时段严，过时可以刷身份证走单独闸机；</li><li>古城免费点要扫码预约。</li></ul></article><article class="travel-card reveal"><p class="num">03 / FOOD</p><h3>吃饭要做计划</h3><ul><li>网红店排号一两个小时，甚至不接待；</li><li>非饭点不开餐；明月轩火锅排一小时；</li><li>淡季来，不然吃饭是大问题。</li></ul></article></div></div></section><section class="section expense" id="expense"><div class="wrap"><div class="section-head reveal"><p class="num">06 / COST</p><h2>3,492 元，清明三天</h2><p class="lead">3 天 2 晚，2 大 2 小；含悬空寺、云冈、晋华宫、住宿、吃饭和自驾。</p></div><div class="expense-top"><div class="expense-total reveal"><div class="label">TOTAL · 2024.4.4—4.6</div><div class="amount">3,492.00<small>元</small></div><div class="sub">日均约 1,164 元 · 2 大 2 小<br>门票 1,028 · 吃饭 1,003 · 住宿 595 · 车辆 510</div></div><div class="reveal"><div class="expense-note"><p>门票 1,028 元：悬空寺登临+参观+摆渡 290、晋华宫下矿 348、云冈 240、永安禅寺 50、城墙自行车 100。</p><p>吃饭 1,003 元：东方削面、明月轩火锅两顿、1+1 削面、北魏家宴等。</p><p>住宿 595 元（2 晚）；车辆 510 元（加油 495 + 停车 15）；其他 356 元。</p></div><div class="bars"><div class="bar"><span>门票</span><div class="track"><div class="fill" data-w="29.4" style="width:29.4%;background:#8c3b2e"></div></div><span class="val">1,028.00<em>29.4%</em></span></div><div class="bar"><span>吃饭</span><div class="track"><div class="fill" data-w="28.7" style="width:28.7%;background:#2f5d6b"></div></div><span class="val">1,003.00<em>28.7%</em></span></div><div class="bar"><span>住宿</span><div class="track"><div class="fill" data-w="17.0" style="width:17.0%;background:#b07a3f"></div></div><span class="val">595.00<em>17.0%</em></span></div><div class="bar"><span>车辆</span><div class="track"><div class="fill" data-w="14.6" style="width:14.6%;background:#6b8e23"></div></div><span class="val">510.00<em>14.6%</em></span></div><div class="bar"><span>其他</span><div class="track"><div class="fill" data-w="10.2" style="width:10.2%;background:#8b9698"></div></div><span class="val">356.00<em>10.2%</em></span></div></div><p class="expense-foot">百分比四舍五入，合计约 100%。车辆 = 加油 495 + 停车 15；其他含出发前好特卖 260、文创 42、蜜冰等 44。</p></div></div></div></section><section class="section tips" id="tips"><div class="wrap"><div class="section-head reveal"><p class="num">07 / NOTES</p><h2>清明大同，记住这些小事</h2><p class="lead">悬空寺抢票、云冈早到、古城预约、吃饭计划；人多是最大变量。</p></div><div class="tips-grid"><article class="tip reveal"><span class="n">01</span><div><h3>悬空寺登临票提前 7 天</h3><p>100/人，4.1 又放一批；参观票 15，入口查参观票，登临口查登临票；不上去也能在下面看。</p></div></article><article class="tip reveal"><span class="n">02</span><div><h3>悬空寺停车</h3><p>停车场进不去，大环岛封路，必须坐游客中心摆渡车 20/人；早到不排队。</p></div></article><article class="tip reveal"><span class="n">03</span><div><h3>云冈早到</h3><p>堵车严重，标识不清；入口过售票厅下电梯左拐；最好提前看纪录片、找讲解。</p></div></article><article class="tip reveal"><span class="n">04</span><div><h3>吃饭做计划</h3><p>网红店排号一两个小时，非饭点不开餐；明月轩火锅排一小时；淡季来。</p></div></article><article class="tip reveal"><span class="n">05</span><div><h3>古城预约</h3><p>古城里除华严寺收费，其他免费点要扫码预约；城墙自行车 100/90 分钟。</p></div></article><article class="tip reveal"><span class="n">06</span><div><h3>火山群</h3><p>昊天寺路口白天可能上不去，晚上可以开到山顶；远观火山群。</p></div></article><article class="tip reveal"><span class="n">07</span><div><h3>市博</h3><p>预约时段卡得严，过时间可刷身份证走单独闸机；电梯高，注意安全。</p></div></article><article class="tip reveal"><span class="n">08</span><div><h3>淡季来</h3><p>清明就爆款，五一更担心；古都平城值得 N 刷，淡季体验更好。</p></div></article></div></div></section><section class="ending"><p class="ending-kicker">后记</p><blockquote>天下不同，<br>天下大同。</blockquote><p>为山西城市火而自豪，为服务设施不足而着急；希望会改进，就像当年的平城一样。</p></section></main>
+<footer>见山河 · 大同 2024 清明 ｜ 2024.4.4—4.6 ｜ 悬空寺 / 云冈 / 古城 ｜ 单文件离线阅读</footer>
+<script>
+(function(){
+  'use strict';
+  var bar = document.getElementById('progressBar');
+  var topbar = document.getElementById('topbar');
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.section-nav a'));
+  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+
+  function onScroll(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? (window.scrollY / max) * 100 : 0;
+    if(bar) bar.style.width = Math.min(100, Math.max(0, p)) + '%';
+    if(topbar) topbar.classList.toggle('solid', window.scrollY > 24);
+    var current = sections[0];
+    sections.forEach(function(s){ if(s.getBoundingClientRect().top <= 120) current = s; });
+    navLinks.forEach(function(a){ a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    reveals.forEach(function(el){ io.observe(el); });
+  }else{
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var fills = Array.prototype.slice.call(document.querySelectorAll('.bar .fill'));
+  if('IntersectionObserver' in window){
+    var barIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var el = entry.target;
+          el.style.width = el.getAttribute('data-w') + '%';
+          barIO.unobserve(el);
+        }
+      });
+    }, {threshold:0.4});
+    fills.forEach(function(el){ barIO.observe(el); });
+  }else{
+    fills.forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+  }
+})();
+</script>
+</body>
+</html>

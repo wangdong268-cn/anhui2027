@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="js"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>晋陕蜀 2025 春节 · 响堂山 / 安岳 / 麦积山</title>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --paper:#f7f3ea;
+    --paper-2:#efe8da;
+    --paper-3:#e7ddcb;
+    --ink:#1f2b30;
+    --ink-2:#55636a;
+    --ink-3:#8b9698;
+    --line:#d8d0c2;
+    --accent:#8c3b2e;
+    --accent-deep:#262b31;
+    --accent-2:#2f5d6b;
+    --gold:#b98a4a;
+    --sea:#5b6f7a;
+    --coral:#a84a2f;
+    --max:1120px;
+    --topbar:58px;
+    --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:radial-gradient(rgba(120,100,70,.055) .6px,transparent .6px);
+    background-size:4px 4px;
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:#e7c9a8;color:var(--ink)}
+  a{color:inherit}
+  .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:90;background:transparent;pointer-events:none}
+  .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .1s linear}
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:80;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:0 28px;border-bottom:1px solid transparent;
+    transition:background .3s,border-color .3s,backdrop-filter .3s;
+  }
+  .topbar.solid{
+    background:rgba(247,243,234,.96);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-bottom-color:var(--line);
+  }
+  .brand{
+    font-family:var(--serif);font-size:17px;font-weight:600;
+    letter-spacing:.22em;text-decoration:none;white-space:nowrap;
+  }
+  .section-nav{
+    display:flex;align-items:center;gap:24px;
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .section-nav::-webkit-scrollbar{display:none}
+  .section-nav a{
+    position:relative;padding:6px 0;font-size:11px;letter-spacing:.16em;
+    color:var(--ink-2);text-decoration:none;white-space:nowrap;
+  }
+  .section-nav a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--accent);transition:width .25s;
+  }
+  .section-nav a:hover::after,.section-nav a.active::after{width:100%}
+  .section-nav a.active{color:var(--accent)}
+  .hero{
+    position:relative;min-height:100svh;display:grid;place-items:center;
+    padding:120px 24px 84px;overflow:hidden;isolation:isolate;
+    background:linear-gradient(180deg,#f7f3ea 0%,#eef1f2 46%,#dfe5e8 100%);
+  }
+  .hero-art{position:absolute;inset:0;z-index:-2;pointer-events:none}
+  .hero-art svg{display:block;width:100%;height:100%}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,0) 50%,rgba(247,243,234,.18) 72%,var(--paper) 100%);
+  }
+  .hero-inner{position:relative;max-width:980px;text-align:center}
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.32em;color:var(--accent);margin:0 0 22px}
+  .hero h1{
+    font-family:var(--serif);font-size:clamp(76px,15vw,188px);font-weight:700;
+    line-height:.9;letter-spacing:.16em;text-indent:.16em;margin:0;color:var(--ink);
+  }
+  .hero-sub{
+    font-family:var(--serif);font-size:clamp(17px,2.2vw,26px);
+    letter-spacing:.2em;margin:24px 0 0;color:var(--ink-2);
+  }
+  .hero-lead{max-width:680px;margin:24px auto 0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .hero-route{
+    display:inline-flex;flex-wrap:wrap;justify-content:center;gap:7px;
+    margin:26px auto 0;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    font-size:10px;letter-spacing:.12em;color:var(--ink-3);
+  }
+  .hero-route span{white-space:nowrap}
+  .hero-stats{display:flex;justify-content:center;gap:clamp(24px,5vw,64px);margin-top:38px;flex-wrap:wrap}
+  .hero-stats div{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .hero-stats b{font-family:var(--serif);font-size:clamp(24px,3.2vw,36px);font-weight:600;line-height:1;color:var(--ink)}
+  .hero-stats span{font-size:10px;letter-spacing:.18em;color:var(--ink-3)}
+  .scroll-cue{
+    position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:var(--ink-3);font-size:10px;letter-spacing:.2em;text-decoration:none;
+  }
+  .scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--ink-3),transparent);animation:cue 2.2s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(.6);opacity:.5}50%{transform:scaleY(1);opacity:1}}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .section{padding:clamp(72px,9vw,120px) 0;scroll-margin-top:70px}
+  .section-head{max-width:760px;margin-bottom:40px}
+  .section-head .num{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0 0 12px}
+  .section-head h2{font-family:var(--serif);font-size:clamp(30px,4.2vw,48px);font-weight:600;line-height:1.2;letter-spacing:.06em;margin:0 0 16px}
+  .section-head .lead{max-width:690px;margin:0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .route{background:linear-gradient(180deg,var(--paper) 0%,#f1ebe0 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .route-intro{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:end;margin-bottom:40px}
+  .route-intro .section-head{margin-bottom:0}
+  .route-aside{font-size:12px;line-height:2;color:var(--ink-2);padding-left:22px;border-left:1px solid var(--line)}
+  .route-aside b{color:var(--ink);font-weight:600}
+  .route-line{
+    display:flex;overflow-x:auto;padding:18px 0 4px;border-top:1px solid var(--line);
+    scrollbar-width:none;
+  }
+  .route-line::-webkit-scrollbar{display:none}
+  .stop{
+    position:relative;flex:1 0 100px;min-width:100px;padding:22px 12px 0;
+    text-decoration:none;border-right:1px solid var(--line);
+  }
+  .stop:last-child{border-right:0}
+  .stop::before{
+    content:"";position:absolute;left:12px;top:-4px;width:7px;height:7px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 0 4px var(--paper);
+  }
+  .stop .date{font-size:9px;letter-spacing:.14em;color:var(--ink-3)}
+  .stop .city{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.4;margin:5px 0 3px}
+  .stop .note{font-size:10px;line-height:1.6;color:var(--ink-2)}
+  .stop:hover .city{color:var(--accent)}
+  .prelude-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .pre-card{
+    display:flex;flex-direction:column;justify-content:space-between;min-height:228px;
+    padding:26px 24px;background:rgba(255,255,255,.5);border:1px solid var(--line);
+  }
+  .pre-card .idx{font-family:var(--serif);font-size:28px;line-height:1;color:var(--accent-2)}
+  .pre-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:18px 0 8px}
+  .pre-card p{margin:0;font-size:12.5px;line-height:1.9;color:var(--ink-2)}
+  .journey{padding:clamp(60px,8vw,110px) 0}
+  .day{display:grid;grid-template-columns:160px 1fr;gap:48px;padding:46px 0;border-top:1px solid var(--line)}
+  .day:first-of-type{border-top:0}
+  .day-meta{position:sticky;top:86px;align-self:start}
+  .day-num{font-family:var(--serif);font-size:46px;line-height:1;color:var(--accent);letter-spacing:.02em}
+  .day-date{font-size:10px;letter-spacing:.2em;color:var(--ink-3);margin-top:8px}
+  .day-route{font-size:12px;line-height:1.8;color:var(--ink-2);margin-top:12px}
+  .day-route b{display:block;color:var(--ink);font-weight:600;margin-bottom:3px}
+  .day-body h3{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:600;line-height:1.35;letter-spacing:.02em;margin:0 0 14px}
+  .day-body p{font-size:14px;line-height:2;color:var(--ink-2);margin:0 0 12px}
+  .day-body p:last-child{margin-bottom:0}
+  .day-facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+  .fact{font-size:10px;line-height:1.5;color:var(--ink-2);background:rgba(255,255,255,.5);border:1px solid var(--line);padding:4px 8px}
+  .fact b{color:var(--accent);font-weight:700;margin-right:4px}
+  .day-pull{
+    margin:20px 0 0;padding:16px 18px;border-left:2px solid var(--accent-2);
+    background:rgba(194,120,58,.06);font-family:var(--serif);
+    font-size:16px;line-height:1.9;color:var(--ink);
+  }
+  .feature{position:relative;overflow:hidden;background:var(--accent-deep);color:#f3ead9}
+  .feature::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(80% 60% at 82% 0%,rgba(197,154,74,.2),transparent 60%),
+      radial-gradient(60% 55% at 0% 100%,rgba(47,93,107,.4),transparent 62%);
+  }
+  .feature .wrap{position:relative}
+  .feature .section-head .num{color:#e0b56a}
+  .feature .section-head h2{color:#f3ead9}
+  .feature .section-head .lead{color:rgba(243,234,217,.72)}
+  .feature-quote{
+    max-width:850px;margin:0 0 42px;font-family:var(--serif);
+    font-size:clamp(22px,3vw,34px);line-height:1.7;letter-spacing:.04em;color:#f3ead9;
+  }
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+  .feature-card{padding:22px;border:1px solid rgba(243,234,217,.18);background:rgba(255,255,255,.03)}
+  .feature-card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 8px;color:#f3ead9}
+  .feature-card .price{font-family:var(--serif);font-size:18px;color:#e0b56a;margin:0 0 10px}
+  .feature-card p{margin:0;font-size:12.5px;line-height:1.9;color:rgba(243,234,217,.72)}
+  .feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0 34px;border-top:1px solid rgba(243,234,217,.16);margin-top:28px}
+  .feature-list div{display:grid;grid-template-columns:1fr auto;gap:18px;padding:12px 0;border-bottom:1px solid rgba(243,234,217,.12);font-size:12.5px;color:rgba(243,234,217,.78)}
+  .feature-list b{font-family:var(--serif);font-size:14px;font-weight:600;color:#e0b56a}
+  .feature-note{margin-top:18px;font-size:11px;line-height:1.8;color:rgba(243,234,217,.5)}
+  .stay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .stay-card{display:flex;flex-direction:column;gap:10px;padding:22px;background:rgba(255,255,255,.55);border:1px solid var(--line)}
+  .stay-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .stay-card h3{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.4;margin:0}
+  .badge{flex:none;font-size:9px;letter-spacing:.08em;padding:3px 6px;border:1px solid;white-space:nowrap}
+  .badge.yes{color:var(--accent);border-color:rgba(47,93,107,.35);background:rgba(47,93,107,.06)}
+  .badge.no{color:#a84a2f;border-color:rgba(168,74,47,.3);background:rgba(168,74,47,.06)}
+  .stay-loc{font-size:11px;letter-spacing:.06em;color:var(--ink-3)}
+  .stay-price{font-family:var(--serif);font-size:16px;color:var(--accent-2)}
+  .stay-card p{margin:0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .travel-card{padding:20px 0 0;border-top:2px solid var(--accent)}
+  .travel-card .num{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--accent-2)}
+  .travel-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:8px 0 10px}
+  .travel-card p,.travel-card li{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .travel-card p{margin:0}
+  .travel-card ul{margin:0;padding-left:16px}
+  .travel-card li{margin:3px 0}
+  .expense{background:linear-gradient(180deg,#f1ebe0 0%,var(--paper) 100%);border-top:1px solid var(--line)}
+  .expense-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start;margin-bottom:34px}
+  .expense-total{padding:28px;background:var(--accent-deep);color:#f3ead9}
+  .expense-total .label{font-size:10px;letter-spacing:.2em;color:rgba(243,234,217,.6)}
+  .expense-total .amount{font-family:var(--serif);font-size:clamp(36px,5vw,56px);line-height:1.1;margin:10px 0 4px;color:#f3ead9}
+  .expense-total .amount small{font-family:var(--sans);font-size:14px;color:#e0b56a;margin-left:6px}
+  .expense-total .sub{font-size:11px;line-height:1.8;color:rgba(243,234,217,.62)}
+  .expense-note{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .expense-note p{margin:0 0 8px}
+  .expense-note b{color:var(--ink)}
+  .bars{display:grid;gap:12px;margin-top:20px}
+  .bar{display:grid;grid-template-columns:88px 1fr 82px;gap:12px;align-items:center;font-size:11px;color:var(--ink-2)}
+  .bar .track{height:7px;background:#e3dbcc;overflow:hidden}
+  .bar .fill{height:100%;width:0;background:var(--accent);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+  .bar .val{text-align:right;font-family:var(--serif);font-size:13px;color:var(--ink)}
+  .bar .val em{font-family:var(--sans);font-style:normal;font-size:9px;color:var(--ink-3);margin-left:4px}
+  .expense-foot{margin-top:18px;font-size:10px;line-height:1.9;color:var(--ink-3)}
+  .tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;border-top:1px solid var(--line)}
+  .tip{display:grid;grid-template-columns:38px 1fr;gap:16px;padding:26px 0;border-bottom:1px solid var(--line)}
+  .tip .n{font-family:var(--serif);font-size:18px;color:var(--accent-2)}
+  .tip h3{font-family:var(--serif);font-size:17px;font-weight:600;margin:0 0 6px}
+  .tip p{margin:0;font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .ending{padding:clamp(90px,12vw,160px) 24px;text-align:center;border-top:1px solid var(--line);background:var(--paper-2)}
+  .ending-kicker{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0}
+  .ending blockquote{max-width:840px;margin:18px auto;font-family:var(--serif);font-size:clamp(24px,4vw,42px);line-height:1.6;letter-spacing:.06em;color:var(--ink)}
+  .ending p{max-width:620px;margin:0 auto;font-size:12px;line-height:2;color:var(--ink-2)}
+  footer{padding:30px 24px;text-align:center;background:var(--paper-2);border-top:1px solid var(--line);font-size:10px;letter-spacing:.12em;color:var(--ink-3)}
+  .js .reveal{transform:translateY(18px);transition:transform .7s ease}
+  .js .reveal.in{transform:none}
+  @media (max-width:980px){
+    .route-intro{grid-template-columns:1fr;gap:20px}
+    .route-aside{padding-left:0;border-left:0;border-top:1px solid var(--line);padding-top:16px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid{grid-template-columns:1fr 1fr}
+    .expense-top{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    :root{--topbar:54px}
+    .topbar{padding:0 14px;gap:10px}
+    .brand{font-size:15px;letter-spacing:.16em}
+    .section-nav{gap:14px;margin-left:8px}
+    .section-nav a{font-size:10px;letter-spacing:.1em}
+    .hero{min-height:92svh;padding:106px 18px 70px}
+    .hero h1{font-size:clamp(64px,20vw,110px)}
+    .hero-sub{font-size:16px;letter-spacing:.14em}
+    .hero-lead{font-size:13px;line-height:1.9}
+    .hero-route{font-size:9px;line-height:1.8;gap:5px}
+    .hero-stats{gap:22px}
+    .hero-stats b{font-size:26px}
+    .section{padding:60px 0}
+    .wrap{padding:0 18px}
+    .section-head{margin-bottom:28px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid,.feature-list{grid-template-columns:1fr}
+    .route-line{margin:0 -18px;padding-left:18px;padding-right:18px}
+    .stop{flex:0 0 108px;min-width:108px}
+    .day{grid-template-columns:1fr;gap:18px;padding:34px 0}
+    .day-meta{position:static;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+    .day-num{font-size:38px}
+    .day-date{margin-top:0}
+    .day-route{flex:1 0 100%;margin-top:0;padding-top:8px;border-top:1px solid var(--line)}
+    .day-body h3{font-size:22px}
+    .day-pull{font-size:15px}
+    .bar{grid-template-columns:64px 1fr 64px;gap:8px;font-size:10px}
+    .bar .val{font-size:11px}
+    .bar .val em{display:none}
+    .tips-grid{grid-template-columns:1fr;gap:0}
+    .expense-total{padding:22px}
+    .ending{padding:70px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .js .reveal{opacity:1;transform:none;transition:none}
+    .scroll-cue i{animation:none}
+    .bar .fill{transition:none}
+  }
+
+  .hero h1{font-size:clamp(64px,17vw,168px);letter-spacing:.12em;text-indent:.12em}
+  .hero-sub{letter-spacing:.14em}
+  .hero::after{background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,.08) 48%,rgba(247,243,234,.58) 70%,rgba(247,243,234,.94) 88%,var(--paper) 100%)}
+  .hero-stats span{color:var(--ink-2)}
+  .feature .section-head .lead{max-width:720px}
+
+  .part-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:54px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+  .part-head h3{font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:600;margin:0;letter-spacing:.04em}
+  .part-head span{font-size:10px;letter-spacing:.18em;color:var(--accent-2);font-weight:700;white-space:nowrap}
+  .part-head p{flex:1 0 100%;margin:4px 0 0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .route-line .stop{flex:1 0 140px}
+  .feature-list b{text-align:right}
+  @media (max-width:720px){
+    .part-head{margin-top:38px}
+    .part-head h3{font-size:22px}
+    .route-line .stop{flex:0 0 120px}
+  }
+
+</style>
+</head>
+<body>
+<div class="progress"><span id="progressBar"></span></div><header class="topbar" id="topbar"><a class="brand" href="#top">见山河</a><nav class="section-nav" aria-label="页面目录"><a href="#route">路线</a><a href="#prelude">行前</a><a href="#journey">逐日</a><a href="#feature">古建</a><a href="#stay">住行</a><a href="#expense">费用</a><a href="#tips">心法</a></nav></header><main id="top"><section class="hero"><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f0e6"/><stop offset=".55" stop-color="#e9eef0"/><stop offset="1" stop-color="#9fb4bd"/></linearGradient><radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e7b26c" stop-opacity=".55"/><stop offset="1" stop-color="#e7b26c" stop-opacity="0"/></radialGradient></defs>
+<rect width="1440" height="900" fill="url(#sky)"/>
+<circle cx="1080" cy="230" r="210" fill="url(#glow)"/><circle cx="1080" cy="230" r="78" fill="#dfa25e" opacity=".85"/>
+<path d="M0 570 C150 510 300 544 440 560 C580 576 700 524 840 548 C980 572 1100 520 1240 548 C1330 566 1390 548 1440 556 L1440 900 L0 900 Z" fill="#9fb4bd" opacity=".55"/>
+<path d="M0 660 C170 614 320 650 470 656 C620 662 760 612 910 636 C1060 660 1200 618 1320 642 C1370 652 1410 648 1440 652 L1440 900 L0 900 Z" fill="#3f4650" opacity=".55"/>
+<path d="M0 750 C180 712 340 750 510 738 C680 726 820 764 980 746 C1140 728 1280 760 1440 738 L1440 900 L0 900 Z" fill="#2f3a40" opacity=".82"/>
+<g fill="#2f3a40" opacity=".35"><path d="M150 900 L180 690 L210 900 Z"/><path d="M215 900 L245 650 L278 900 Z"/><path d="M1180 900 L1210 690 L1242 900 Z"/><path d="M1250 900 L1280 650 L1310 900 Z"/></g>
+<g fill="none" stroke="#3f565e" stroke-width="1.5" opacity=".3"><path d="M300 280 q10 -8 20 0 q10 -8 20 0"/><path d="M380 245 q8 -6 16 0 q8 -6 16 0"/><path d="M860 300 q9 -7 18 0 q9 -7 18 0"/></g></svg></div><div class="hero-inner"><p class="kicker">2025 · 春节 · 冀 / 晋 / 豫 / 川 / 甘 / 陕</p><h1>晋陕蜀</h1><p class="hero-sub">响堂山 · 浊漳河谷 · 安岳石刻 · 麦积山</p><p class="hero-lead">春节提前走两天，又晚回来四天，超长假期分三段：节前补响堂山和浊漳河谷；在运城过除夕，初二翻秦岭入川；返程在运城把后备箱填满。</p><div class="hero-route"><span>北京</span><span>武安</span><span>长治</span><span>沁水</span><span>运城</span><span>巴中</span><span>安岳</span><span>成都</span><span>天水</span><span>西安</span><span>运城</span><span>北京</span></div><div class="hero-stats"><div><b>17</b><span>天</span></div><div><b>6</b><span>人</span></div><div><b>3</b><span>段</span></div><div><b>14,119</b><span>元 · 总花费</span></div></div></div><a class="scroll-cue" href="#route">沿着路，向北<i></i></a></section><section class="section route" id="route"><div class="wrap"><div class="route-intro"><div class="section-head reveal"><p class="num">01 / ROUTE</p><h2>三段假期，一条晋陕蜀的环线</h2><p class="lead">节前从北京到武安、长治、沁水，回运城过年；初二再出发，翻秦岭入川，画一个圈；最后从西安过黄河回运城，再返京。</p></div><aside class="route-aside reveal"><b>路线骨架</b><br>北京 → 武安 → 长治 → 沁水 → 运城（除夕/初一）→ 巴中 → 安岳 → 成都 → 天水 → 西安 → 运城 → 北京。<br><br><b>节奏</b><br>17 天，6 人；节前看古建，春节看石刻，返程看博物馆；雪天和封路是最大变量，安全第一。</aside></div><div class="route-line reveal"><a class="stop" href="#journey"><span class="date">1.24—1.27</span><span class="city">节前</span><span class="note">响堂山&lt;br&gt;浊漳河谷</span></a><a class="stop" href="#journey"><span class="date">1.28—1.29</span><span class="city">运城</span><span class="note">除夕&lt;br&gt;休整</span></a><a class="stop" href="#journey"><span class="date">1.30—2.9</span><span class="city">入川 / 返程</span><span class="note">秦岭 / 安岳&lt;br&gt;麦积山 / 西安</span></a></div></div></section><section class="section prelude" id="prelude"><div class="wrap"><div class="section-head reveal"><p class="num">02 / WHY</p><h2>为什么是这条线</h2><p class="lead">一个省一个省地走。响堂山、浊漳河谷、安岳石刻、麦积山，都是惦记很久的点；春节高速免费，正好把晋陕蜀串起来。</p></div><div class="prelude-grid"><article class="pre-card reveal"><span class="idx">01</span><div><h3>节前补课</h3><p>响堂山北齐石窟、浊漳河谷 8 处国保古建；从河北翻太行进山西，雪越下越大，赶在封路前回运城。</p></div></article><article class="pre-card reveal"><span class="idx">02</span><div><h3>春节入川</h3><p>运城过除夕，初二翻秦岭；巴中、安岳、乐山、成都，看石窟、大佛、三星堆和熊猫。</p></div></article><article class="pre-card reveal"><span class="idx">03</span><div><h3>返程看博物馆</h3><p>天水麦积山、宝鸡青铜器、西安陕历博和兵马俑；过黄河回运城，把后备箱填满。</p></div></article></div></div></section><section class="journey" id="journey"><div class="wrap"><div class="section-head reveal"><p class="num">03 / DAY BY DAY</p><h2>十七天，从古建到石刻</h2><p class="lead">节前看古建，春节看石刻，返程看博物馆；每天都有主线，雪天和人多是变量，能看多少看多少。</p></div><div class="part-head reveal"><h3>第一段 · 节前：响堂山与浊漳河谷</h3><span>1.24—1.29</span><p>北京—武安—长治—沁水—运城；石窟、8 处国保、雪夜封路，回运城过年。</p></div><article class="day reveal" id="j-0124"><div class="day-meta"><div class="day-num">1.24</div><div class="day-date">D0 · 北京—武安</div><div class="day-route"><b>北京 → 武安</b>提前下班，驴肉火烧。</div></div><div class="day-body"><h3>提前两天走，还是很多人</h3><p>稍微提前下班，快五点出发；提前两天还是这么多人。晚饭在半路下高速，吃了上关王华的驴肉火烧，赶到邯郸旁的武安落脚。</p><div class="day-facts"><span class="fact"><b>行</b>北京—武安</span><span class="fact"><b>吃</b>驴肉火烧</span><span class="fact"><b>住</b>武安</span><span class="fact"><b>提醒</b>春节车流</span></div></div></article><article class="day reveal" id="j-0125"><div class="day-meta"><div class="day-num">1.25</div><div class="day-date">D1 · 武安—长治</div><div class="day-route"><b>响堂山 → 浊漳河谷 → 长治</b>石窟 + 8 处国保。</div></div><div class="day-body"><h3>响堂山，和浊漳河谷的 8 处国保</h3><p>先到响堂山数字馆，再上山。北响堂是皇家建，大佛洞、佛头高处的高欢墓传说，都比南响堂更有看头；聚福楼量大。</p><p>下午翻太行进山西平顺，40 多公里河谷藏着 8 处国保：龙门寺、回龙寺、夏禹神祠、淳化寺、佛头寺、大云院、原起寺、天台庵。三座五代、三座北宋、三座金代、两座元代，年代跨度近千年。</p><p>很多寺平时锁着，门口有文保员电话；打电话，两三分钟到，慢的十分钟。他们热情讲解，有的已经守到第三代。</p><div class="day-facts"><span class="fact"><b>玩</b>响堂山 / 8 国保</span><span class="fact"><b>吃</b>聚福楼</span><span class="fact"><b>住</b>长治</span><span class="fact"><b>提醒</b>文保员电话</span></div></div></article><article class="day reveal" id="j-0126"><div class="day-meta"><div class="day-num">1.26</div><div class="day-date">D2 · 长治—沁水</div><div class="day-route"><b>上党门 → 观音堂 → 法兴寺 → 崇庆寺 → 布村玉皇庙 → 小南村二仙庙</b>雪越下越大。</div></div><div class="day-body"><h3>悬塑、宋塑和雪</h3><p>上党门、观音堂四大悬塑；法兴寺最美十二圆觉没看到，关门；崇庆寺也吃闭门羹，但允许进院子看看。</p><p>布村玉皇庙的五代、孔雀蓝琉璃、房顶小人；府城玉皇庙的亢金龙；小南村二仙庙的天宫楼阁。雪已经很厚，山路打滑。</p><div class="day-facts"><span class="fact"><b>玩</b>观音堂 / 玉皇庙 / 二仙庙</span><span class="fact"><b>吃</b>长治</span><span class="fact"><b>住</b>沁水</span><span class="fact"><b>提醒</b>雪天山路</span></div></div></article><article class="day reveal" id="j-0127"><div class="day-meta"><div class="day-num">1.27</div><div class="day-date">D3 · 沁水—运城</div><div class="day-route"><b>国道绕出山 → 高速 → 运城</b>高速封，安全第一。</div></div><div class="day-body"><h3>被赶下高速，在沁水住一晚</h3><p>原计划 1.28 中午到运城，雪越下越大，怕高速封，好多点也打电话说不开门，索性取消晋城酒店。结果还是被赶下高速，被迫在沁水停一晚。</p><p>第二天九点高速口还没开，白天走国道绕出山，重新上高速；夜里山路冰雪，旁边不是山就是崖，听工作人员的建议，不能硬走。</p><div class="day-facts"><span class="fact"><b>行</b>沁水—运城</span><span class="fact"><b>住</b>沁水</span><span class="fact"><b>提醒</b>封路安全</span></div></div></article><article class="day reveal" id="j-0128"><div class="day-meta"><div class="day-num">1.28</div><div class="day-date">D4 · 运城 · 除夕</div><div class="day-route"><b>运城过年</b>超长假期分三段。</div></div><div class="day-body"><h3>除夕，在运城</h3><p>回到运城过年；把超长假期分成三段：节前补课、春节入川、返程。初一休整，初二再出发。</p><div class="day-facts"><span class="fact"><b>住</b>运城</span><span class="fact"><b>吃</b>年夜饭</span><span class="fact"><b>提醒</b>初二出发</span></div></div></article><div class="part-head reveal"><h3>第二段 · 入川：秦岭、安岳与成都</h3><span>1.30—2.5</span><p>运城—蓝田—巴中—遂宁—安岳—乐山—成都；石窟、大佛、三星堆、熊猫。</p></div><article class="day reveal" id="j-0130"><div class="day-meta"><div class="day-num">1.30</div><div class="day-date">D6 · 运城—巴中</div><div class="day-route"><b>蓝田水陆庵 → 翻秦岭 → 巴中</b>四大悬塑之一。</div></div><div class="day-body"><h3>水陆庵，翻秦岭入川</h3><p>蓝田水陆庵，四大悬塑之一，不用预约免费，也是黑神话取景地。出了水陆庵开始翻秦岭，只有走在其中，才能体会秦岭淮河分界线的意义。晚上到巴中。</p><div class="day-facts"><span class="fact"><b>玩</b>水陆庵</span><span class="fact"><b>行</b>翻秦岭</span><span class="fact"><b>住</b>巴中</span><span class="fact"><b>提醒</b>免费</span></div></div></article><article class="day reveal" id="j-0131"><div class="day-meta"><div class="day-num">1.31</div><div class="day-date">D7 · 巴中—遂宁</div><div class="day-route"><b>川陕革命根据地 → 南龛石窟 → 遂宁</b>双头佛；红油火锅。</div></div><div class="day-body"><h3>南龛石窟，和遂宁的烟花</h3><p>巴中第一站川陕革命根据地；步行到南龛石窟，人不多可以停这里。巴中四个石窟，南龛保存好、数量多，一般游客来这里，看双头佛。</p><p>入川必吃红油火锅；晚上到遂宁，小县城放烟花。住大城市旁边的县城，又便宜又大。</p><div class="day-facts"><span class="fact"><b>玩</b>南龛石窟</span><span class="fact"><b>吃</b>火锅</span><span class="fact"><b>住</b>遂宁</span><span class="fact"><b>提醒</b>停车</span></div></div></article><article class="day reveal" id="j-0201"><div class="day-meta"><div class="day-num">2.1</div><div class="day-date">D8 · 遂宁—安岳—荣县</div><div class="day-route"><b>卧佛院 → 木门寺 → 圆觉洞 → 毗卢洞 → 华严洞</b>安岳石刻一天。</div></div><div class="day-body"><h3>安岳石刻，为了看一眼紫竹观音</h3><p>安岳石刻上承龙门、下启大足，过年期间免费，比较分散适合自驾。从北往南：卧佛院、木门寺、圆觉洞、毗卢洞、华严洞。</p><p>毗卢洞的紫竹观音，左看男相、右看女相，虚实相生；多少人就是为了看一眼专门来。晚上到荣县，住景区门口。</p><div class="day-facts"><span class="fact"><b>玩</b>安岳石刻</span><span class="fact"><b>吃</b>后山豆花</span><span class="fact"><b>住</b>荣县</span><span class="fact"><b>提醒</b>石羊镇堵车</span></div></div></article><article class="day reveal" id="j-0202"><div class="day-meta"><div class="day-num">2.2</div><div class="day-date">D9 · 荣县—乐山—成都</div><div class="day-route"><b>荣县大佛 → 乐山大佛 → 成都</b>看佛的一天。</div></div><div class="day-body"><h3>荣县大佛，和乐山的人山人海</h3><p>先看世界第二的荣县大佛，再到乐山。一进乐山，旅游城市的喧闹就起来了；上中顺、张公桥全是人。</p><p>导航冬泳俱乐部远观大佛，免费；南门进只看佛头，排队下佛脚还要一个半小时，放弃。晚上到成都，春熙路、太古里。</p><div class="day-facts"><span class="fact"><b>玩</b>荣县大佛 / 乐山大佛</span><span class="fact"><b>吃</b>跷脚牛肉</span><span class="fact"><b>住</b>成都</span><span class="fact"><b>提醒</b>乐山排队</span></div></div></article><article class="day reveal" id="j-0203"><div class="day-meta"><div class="day-num">2.3</div><div class="day-date">D10 · 成都—都江堰—成都</div><div class="day-route"><b>三星堆 → 都江堰 → 文殊院 → 川剧</b>差点被挤死的三星堆。</div></div><div class="day-body"><h3>三星堆、都江堰和川剧</h3><p>三星堆千万不要被空空的广场欺骗，里面人很多；大立人、青铜神树。接着都江堰，直接开到秦堰楼，从高往低走，少爬台阶。</p><p>晚上回成都，文殊院关门了，安安静静；火锅、串串、跷脚牛肉，最后看川剧。</p><div class="day-facts"><span class="fact"><b>玩</b>三星堆 / 都江堰 / 川剧</span><span class="fact"><b>吃</b>钵钵鸡 / 火锅</span><span class="fact"><b>住</b>成都</span><span class="fact"><b>提醒</b>三星堆人多</span></div></div></article><article class="day reveal" id="j-0204"><div class="day-meta"><div class="day-num">2.4</div><div class="day-date">D11 · 成都</div><div class="day-route"><b>熊猫谷 → 省博 → 武侯祠 / 锦里</b>小熊猫；武侯祠庙会。</div></div><div class="day-body"><h3>熊猫谷、省博和武侯祠</h3><p>妹妹不满 8 岁，放弃义工熊猫苑，去熊猫谷看大熊猫和小熊猫；小熊猫在林子里跑，人太多它害怕。</p><p>下午省博；傍晚去武侯祠，春节期间和南郊公园、锦里连成庙会区，40 元；从文物区进，出来看花灯，再去锦里。运气好碰上武侯奇庙夜表演。</p><div class="day-facts"><span class="fact"><b>玩</b>熊猫谷 / 省博 / 武侯祠</span><span class="fact"><b>吃</b>拉面 / 烧烤外卖</span><span class="fact"><b>住</b>成都</span><span class="fact"><b>提醒</b>庙会票</span></div></div></article><article class="day reveal" id="j-0205"><div class="day-meta"><div class="day-num">2.5</div><div class="day-date">D12 · 成都—广元</div><div class="day-route"><b>两弹城 → 江油金光洞 → 广元</b>爱国主义教育 + 哪吒。</div></div><div class="day-body"><h3>两弹城，和江油金光洞</h3><p>每次行程必须有爱国主义教育；两弹城虽然没有其他景点火，带娃还是推荐。</p><p>下午江油，因为哪吒 2 爆火，加上本身是封神迷，特意加了一站太乙真人的金光洞；上山路不好走。到江油就想到肥肠和李白。</p><div class="day-facts"><span class="fact"><b>玩</b>两弹城 / 金光洞</span><span class="fact"><b>吃</b>江油肥肠</span><span class="fact"><b>住</b>广元</span><span class="fact"><b>提醒</b>山路</span></div></div></article><div class="part-head reveal"><h3>第三段 · 返程：麦积山、宝鸡与西安</h3><span>2.6—2.9</span><p>广元—天水—宝鸡—西安—运城—北京；四大石窟、何尊、陕历博、兵马俑。</p></div><article class="day reveal" id="j-0206"><div class="day-meta"><div class="day-num">2.6</div><div class="day-date">D13 · 广元—天水—宝鸡</div><div class="day-route"><b>麦积山石窟 → 天水麻辣烫 → 宝鸡</b>四大石窟打卡完毕。</div></div><div class="day-body"><h3>麦积山，四大石窟补齐</h3><p>早上磨蹭，中午出发，赶在关门前进麦积山石窟；至此四大石窟打卡完毕。到得晚，特窟没买，也贵；但承包了景区。</p><p>网很影响观看，山西的栅栏都改了，保护与观赏性应该有更好的平衡。到天水，怎能不吃麻辣烫。</p><div class="day-facts"><span class="fact"><b>玩</b>麦积山</span><span class="fact"><b>吃</b>天水麻辣烫</span><span class="fact"><b>住</b>宝鸡</span><span class="fact"><b>提醒</b>特窟贵</span></div></div></article><article class="day reveal" id="j-0207"><div class="day-meta"><div class="day-num">2.7</div><div class="day-date">D14 · 宝鸡—西安</div><div class="day-route"><b>大唐秦王陵 → 青铜器博物院 → 大唐不夜城</b>何尊本尊。</div></div><div class="day-body"><h3>宝鸡，青铜器的耶路撒冷</h3><p>大唐秦王陵，哪里都要下墓；必去宝鸡青铜器博物院，镇馆之宝何尊，在考古博物馆已经惊叹，见到本尊真是此生足矣。</p><p>宝鸡是暗度陈仓的陈仓、凤鸣岐山的西岐，离五丈原也不远，真是宝藏城市。晚上到西安，大唐不夜城，人还是那么多。</p><div class="day-facts"><span class="fact"><b>玩</b>秦王陵 / 青铜器博物院</span><span class="fact"><b>吃</b>令家</span><span class="fact"><b>住</b>西安</span><span class="fact"><b>提醒</b>何尊</span></div></div></article><article class="day reveal" id="j-0208"><div class="day-meta"><div class="day-num">2.8</div><div class="day-date">D15 · 西安—运城</div><div class="day-route"><b>陕历博 → 兵马俑 → 运城</b>抢票；工作日看兵马俑。</div></div><div class="day-body"><h3>陕历博，闪瞎双眼</h3><p>三个人拿手机盯着秒表抢到陕历博；这一路震撼，最后的陕历博仍然闪瞎双眼，太多了，看不完。</p><p>工作日居然可以看到兵马俑，娃们看的也不都是别人的腿了。过黄河，回运城。</p><div class="day-facts"><span class="fact"><b>玩</b>陕历博 / 兵马俑</span><span class="fact"><b>吃</b>子午路夹肉</span><span class="fact"><b>住</b>运城</span><span class="fact"><b>提醒</b>抢票</span></div></div></article><article class="day reveal" id="j-0209"><div class="day-meta"><div class="day-num">2.9</div><div class="day-date">D16 · 运城—北京</div><div class="day-route"><b>高速返京</b>一路顺利。</div></div><div class="day-body"><h3>返京</h3><p>高速返京，一路顺利。</p><div class="day-facts"><span class="fact"><b>行</b>运城—北京</span><span class="fact"><b>提醒</b>错峰</span></div></div></article></div></section><section class="section feature" id="feature"><div class="wrap"><div class="section-head reveal"><p class="num">04 / HERITAGE</p><h2>古建与石窟，这一次看个够</h2><p class="lead">响堂山、浊漳河谷、安岳石刻、麦积山，是这条线的四个关键词；古建看年代，石窟看造像，博物馆看何尊。</p></div><p class="feature-quote reveal">“地上山西，地下陕西；中间还有四川的石刻。”</p><div class="feature-grid"><article class="feature-card reveal"><h3>响堂山石窟</h3><p class="price">北齐 · 北响堂</p><p>北响堂是皇家建，大佛洞、佛头高处的高欢墓传说；数字馆先看，再上山。高洋墓没去成，下次补。</p></article><article class="feature-card reveal"><h3>浊漳河谷 8 国保</h3><p class="price">五代—元 · 近千年</p><p>龙门寺、回龙寺、夏禹神祠、淳化寺、佛头寺、大云院、原起寺、天台庵；文保员电话在门口，打电话就来。</p></article><article class="feature-card reveal"><h3>安岳石刻</h3><p class="price">上承龙门 · 下启大足</p><p>卧佛院、木门寺、圆觉洞、毗卢洞、华严洞；紫竹观音左看男相、右看女相，为了看一眼专门来。</p></article><article class="feature-card reveal"><h3>麦积山石窟</h3><p class="price">四大石窟 · 补齐</p><p>赶到关门前进去，承包景区；特窟贵，没买；网影响观看，但神佛们千百年看着这片土地。</p></article></div><div class="feature-list reveal"><div><span>四大悬塑</span><b>长治观音堂 / 隰县小西天 / 平遥双林寺 / 蓝田水陆庵</b></div><div><span>四大石窟</span><b>莫高窟 / 云冈 / 龙门 / 麦积山</b></div><div><span>文保员</span><b>守庙人 · 第三代</b></div><div><span>何尊</span><b>宝鸡青铜器博物院</b></div><div><span>安岳</span><b>9 个点，一天挑几个</b></div><div><span>门票合计</span><b>2,303.80</b></div></div><p class="feature-note">很多寺平时锁着，门口有文保员电话；他们领着几乎算没有的工资，却热情讲解。正是这种守护和传承，才让我们看到这么多宝藏。</p></div></section><section class="section stay" id="stay"><div class="wrap"><div class="section-head reveal"><p class="num">05 / STAY &amp; DRIVE</p><h2>住得经济，路上要稳</h2><p class="lead">17 天，6 人，住宿以经济型为主；春节运城是家，入川后沿途城市住一晚，成都连住两晚。</p></div><div class="stay-grid"><article class="stay-card reveal"><div class="stay-top"><h3>运城</h3><span class="badge yes">推荐</span></div><div class="stay-loc">除夕 / 初一 / 返程</div><div class="stay-price">家</div><p>超长假期的中转站；过年、休整、把后备箱填满。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>巴中 / 遂宁</h3><span class="badge yes">推荐</span></div><div class="stay-loc">入川前两晚</div><div class="stay-price">403 / 348</div><p>巴中北海洋、遂宁安逸，都是两间；住大城市旁边的县城，便宜又大。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>荣县 / 成都</h3><span class="badge yes">推荐</span></div><div class="stay-loc">看大佛 / 成都三晚</div><div class="stay-price">350 / 397+936</div><p>荣县住景区门口；成都全季/星程，连住方便看熊猫、省博、武侯祠。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>广元 / 宝鸡 / 西安</h3><span class="badge yes">推荐</span></div><div class="stay-loc">返程三晚</div><div class="stay-price">195 / 351 / 332</div><p>广元银座、宝鸡星程、西安星程；都是经济型，停车方便。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>安岳 / 乐山</h3><span class="badge yes">推荐</span></div><div class="stay-loc">石刻 / 大佛</div><div class="stay-price">当日往返</div><p>安岳石刻分散，适合自驾；乐山只是看佛，没住。</p></article></div><div class="travel-grid"><article class="travel-card reveal"><p class="num">01 / DRIVE</p><h3>6 人自驾</h3><ul><li>运城出发、运城返回；春节高速免费，但车多；</li><li>雪天、封路是最大变量，听工作人员建议，不硬走；</li><li>安岳石刻分散，自驾最方便，路都修好了。</li></ul></article><article class="travel-card reveal"><p class="num">02 / BOOK</p><h3>预约与抢票</h3><ul><li>陕历博要抢票，三个人拿手机盯秒表；</li><li>兵马俑工作日人少，体验好很多；</li><li>731 之外，麦积山特窟贵，按需买。</li></ul></article><article class="travel-card reveal"><p class="num">03 / SNOW</p><h3>雪天与封路</h3><ul><li>浊漳河谷下雨雪，山路打滑；</li><li>高速封了就住一晚，安全第一；</li><li>博物馆春节开放时间会变，出发前查公众号。</li></ul></article></div></div></section><section class="section expense" id="expense"><div class="wrap"><div class="section-head reveal"><p class="num">06 / COST</p><h2>14,119.33 元，6 人 17 天</h2><p class="lead">含住宿、餐饮、门票、高速、燃油和一张成都—北京机票；按 Excel 费用表整理，人民币计价。</p></div><div class="expense-top"><div class="expense-total reveal"><div class="label">TOTAL · 2025.1.24—2.9</div><div class="amount">14,119.33<small>元</small></div><div class="sub">17 天 · 6 人 · 日均约 830.55 元<br>不含机票人均约 2,103.22 元</div></div><div class="reveal"><div class="expense-note"><p>住宿 3,312 元，餐饮 3,189.50 元，燃油 2,857.46 元，门票 2,303.80 元，高速 901.17 元，其他 1,555.40 元。</p><p>其他含成都—北京机票 1,500 元、熊猫玩偶 35 元、明信片 20.40 元；6 人总计 14,119.33 元。</p><p>不含机票 1,500 元，6 人合计 12,619.33 元，人均约 2,103.22 元；另有 593 元已单独结算，未计入人均。</p></div><div class="bars"><div class="bar"><span>住宿</span><div class="track"><div class="fill" data-w="23.5" style="width:23.5%;background:#8c3b2e"></div></div><span class="val">3,312.00<em>23.5%</em></span></div><div class="bar"><span>餐饮</span><div class="track"><div class="fill" data-w="22.6" style="width:22.6%;background:#2f5d6b"></div></div><span class="val">3,189.50<em>22.6%</em></span></div><div class="bar"><span>燃油</span><div class="track"><div class="fill" data-w="20.2" style="width:20.2%;background:#b07a3f"></div></div><span class="val">2,857.46<em>20.2%</em></span></div><div class="bar"><span>门票</span><div class="track"><div class="fill" data-w="16.3" style="width:16.3%;background:#a84a2f"></div></div><span class="val">2,303.80<em>16.3%</em></span></div><div class="bar"><span>其他</span><div class="track"><div class="fill" data-w="11.0" style="width:11.0%;background:#8b9698"></div></div><span class="val">1,555.40<em>11.0%</em></span></div><div class="bar"><span>高速</span><div class="track"><div class="fill" data-w="6.4" style="width:6.4%;background:#6b8e23"></div></div><span class="val">901.17<em>6.4%</em></span></div></div><p class="expense-foot">百分比四舍五入，合计约 100%。门票含安岳、麦积山、陕历博、兵马俑等；餐饮含沿途火锅、烧烤、面食。</p></div></div></div></section><section class="section tips" id="tips"><div class="wrap"><div class="section-head reveal"><p class="num">07 / NOTES</p><h2>春节自驾，记住这些小事</h2><p class="lead">古建看门、石窟看造像、博物馆看预约；雪天和人多是最大变量，提前查、早点到。</p></div><div class="tips-grid"><article class="tip reveal"><span class="n">01</span><div><h3>古建找文保员</h3><p>山西很多寺平时锁着，门口有电话；打电话，几分钟就来，热情讲解。看完记得说谢谢。</p></div></article><article class="tip reveal"><span class="n">02</span><div><h3>雪天不硬走</h3><p>高速封了就住一晚，国道山路冰雪危险；听工作人员建议，安全第一。</p></div></article><article class="tip reveal"><span class="n">03</span><div><h3>博物馆预约</h3><p>陕历博抢票；麦积山特窟贵；春节开放时间会变，出发前查官方公众号。</p></div></article><article class="tip reveal"><span class="n">04</span><div><h3>安岳石刻分散</h3><p>分南线北线，适合自驾；一天挑几个，别贪多；石羊镇容易堵车。</p></div></article><article class="tip reveal"><span class="n">05</span><div><h3>乐山看佛</h3><p>冬泳俱乐部远观免费；南门只看佛头，排队下佛脚要一个半小时，量力而行。</p></div></article><article class="tip reveal"><span class="n">06</span><div><h3>熊猫谷</h3><p>妹妹不满 8 岁，放弃义工熊猫苑；熊猫谷顺着路走就行，小熊猫在林子里跑。</p></div></article><article class="tip reveal"><span class="n">07</span><div><h3>吃饭</h3><p>不刻意追网红，找本地人多的；川菜连吃几天会想念面食，到天水、宝鸡、西安就适口了。</p></div></article><article class="tip reveal"><span class="n">08</span><div><h3>提前学</h3><p>人文景点先了解一点，不然人挤人又累又困；小宝宝家庭还是海边更合适。</p></div></article></div></div></section><section class="ending"><p class="ending-kicker">后记</p><blockquote>地上山西，地下陕西；<br>中间还有四川的石刻。</blockquote><p>瑞思拜每一位守庙人。下一次，把没看完的安岳和大足一起补上。</p></section></main>
+<footer>见山河 · 晋陕蜀 2025 春节 ｜ 2025.1.24—2.9 ｜ 响堂山 / 浊漳河谷 / 安岳 / 麦积山 ｜ 单文件离线阅读</footer>
+<script>
+(function(){
+  'use strict';
+  var bar = document.getElementById('progressBar');
+  var topbar = document.getElementById('topbar');
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.section-nav a'));
+  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+
+  function onScroll(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? (window.scrollY / max) * 100 : 0;
+    if(bar) bar.style.width = Math.min(100, Math.max(0, p)) + '%';
+    if(topbar) topbar.classList.toggle('solid', window.scrollY > 24);
+    var current = sections[0];
+    sections.forEach(function(s){ if(s.getBoundingClientRect().top <= 120) current = s; });
+    navLinks.forEach(function(a){ a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    reveals.forEach(function(el){ io.observe(el); });
+  }else{
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var fills = Array.prototype.slice.call(document.querySelectorAll('.bar .fill'));
+  if('IntersectionObserver' in window){
+    var barIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var el = entry.target;
+          el.style.width = el.getAttribute('data-w') + '%';
+          barIO.unobserve(el);
+        }
+      });
+    }, {threshold:0.4});
+    fills.forEach(function(el){ barIO.observe(el); });
+  }else{
+    fills.forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+  }
+})();
+</script>
+</body>
+</html>

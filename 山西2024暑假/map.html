@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="js"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>山西古建 2024 · 跟着梁林看古建</title>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --paper:#f7f3ea;
+    --paper-2:#efe8da;
+    --paper-3:#e7ddcb;
+    --ink:#1f2b30;
+    --ink-2:#55636a;
+    --ink-3:#8b9698;
+    --line:#d8d0c2;
+    --accent:#8c3b2e;
+    --accent-deep:#262b31;
+    --accent-2:#2f5d6b;
+    --gold:#b98a4a;
+    --sea:#5b6f7a;
+    --coral:#a84a2f;
+    --max:1120px;
+    --topbar:58px;
+    --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:radial-gradient(rgba(120,100,70,.055) .6px,transparent .6px);
+    background-size:4px 4px;
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:#e7c9a8;color:var(--ink)}
+  a{color:inherit}
+  .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:90;background:transparent;pointer-events:none}
+  .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .1s linear}
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:80;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:0 28px;border-bottom:1px solid transparent;
+    transition:background .3s,border-color .3s,backdrop-filter .3s;
+  }
+  .topbar.solid{
+    background:rgba(247,243,234,.96);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-bottom-color:var(--line);
+  }
+  .brand{
+    font-family:var(--serif);font-size:17px;font-weight:600;
+    letter-spacing:.22em;text-decoration:none;white-space:nowrap;
+  }
+  .section-nav{
+    display:flex;align-items:center;gap:24px;
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .section-nav::-webkit-scrollbar{display:none}
+  .section-nav a{
+    position:relative;padding:6px 0;font-size:11px;letter-spacing:.16em;
+    color:var(--ink-2);text-decoration:none;white-space:nowrap;
+  }
+  .section-nav a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--accent);transition:width .25s;
+  }
+  .section-nav a:hover::after,.section-nav a.active::after{width:100%}
+  .section-nav a.active{color:var(--accent)}
+  .hero{
+    position:relative;min-height:100svh;display:grid;place-items:center;
+    padding:120px 24px 84px;overflow:hidden;isolation:isolate;
+    background:linear-gradient(180deg,#f7f3ea 0%,#eef1f2 46%,#dfe5e8 100%);
+  }
+  .hero-art{position:absolute;inset:0;z-index:-2;pointer-events:none}
+  .hero-art svg{display:block;width:100%;height:100%}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,0) 50%,rgba(247,243,234,.18) 72%,var(--paper) 100%);
+  }
+  .hero-inner{position:relative;max-width:980px;text-align:center}
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.32em;color:var(--accent);margin:0 0 22px}
+  .hero h1{
+    font-family:var(--serif);font-size:clamp(76px,15vw,188px);font-weight:700;
+    line-height:.9;letter-spacing:.16em;text-indent:.16em;margin:0;color:var(--ink);
+  }
+  .hero-sub{
+    font-family:var(--serif);font-size:clamp(17px,2.2vw,26px);
+    letter-spacing:.2em;margin:24px 0 0;color:var(--ink-2);
+  }
+  .hero-lead{max-width:680px;margin:24px auto 0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .hero-route{
+    display:inline-flex;flex-wrap:wrap;justify-content:center;gap:7px;
+    margin:26px auto 0;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    font-size:10px;letter-spacing:.12em;color:var(--ink-3);
+  }
+  .hero-route span{white-space:nowrap}
+  .hero-stats{display:flex;justify-content:center;gap:clamp(24px,5vw,64px);margin-top:38px;flex-wrap:wrap}
+  .hero-stats div{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .hero-stats b{font-family:var(--serif);font-size:clamp(24px,3.2vw,36px);font-weight:600;line-height:1;color:var(--ink)}
+  .hero-stats span{font-size:10px;letter-spacing:.18em;color:var(--ink-3)}
+  .scroll-cue{
+    position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:var(--ink-3);font-size:10px;letter-spacing:.2em;text-decoration:none;
+  }
+  .scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--ink-3),transparent);animation:cue 2.2s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(.6);opacity:.5}50%{transform:scaleY(1);opacity:1}}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .section{padding:clamp(72px,9vw,120px) 0;scroll-margin-top:70px}
+  .section-head{max-width:760px;margin-bottom:40px}
+  .section-head .num{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0 0 12px}
+  .section-head h2{font-family:var(--serif);font-size:clamp(30px,4.2vw,48px);font-weight:600;line-height:1.2;letter-spacing:.06em;margin:0 0 16px}
+  .section-head .lead{max-width:690px;margin:0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .route{background:linear-gradient(180deg,var(--paper) 0%,#f1ebe0 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .route-intro{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:end;margin-bottom:40px}
+  .route-intro .section-head{margin-bottom:0}
+  .route-aside{font-size:12px;line-height:2;color:var(--ink-2);padding-left:22px;border-left:1px solid var(--line)}
+  .route-aside b{color:var(--ink);font-weight:600}
+  .route-line{
+    display:flex;overflow-x:auto;padding:18px 0 4px;border-top:1px solid var(--line);
+    scrollbar-width:none;
+  }
+  .route-line::-webkit-scrollbar{display:none}
+  .stop{
+    position:relative;flex:1 0 100px;min-width:100px;padding:22px 12px 0;
+    text-decoration:none;border-right:1px solid var(--line);
+  }
+  .stop:last-child{border-right:0}
+  .stop::before{
+    content:"";position:absolute;left:12px;top:-4px;width:7px;height:7px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 0 4px var(--paper);
+  }
+  .stop .date{font-size:9px;letter-spacing:.14em;color:var(--ink-3)}
+  .stop .city{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.4;margin:5px 0 3px}
+  .stop .note{font-size:10px;line-height:1.6;color:var(--ink-2)}
+  .stop:hover .city{color:var(--accent)}
+  .prelude-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .pre-card{
+    display:flex;flex-direction:column;justify-content:space-between;min-height:228px;
+    padding:26px 24px;background:rgba(255,255,255,.5);border:1px solid var(--line);
+  }
+  .pre-card .idx{font-family:var(--serif);font-size:28px;line-height:1;color:var(--accent-2)}
+  .pre-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:18px 0 8px}
+  .pre-card p{margin:0;font-size:12.5px;line-height:1.9;color:var(--ink-2)}
+  .journey{padding:clamp(60px,8vw,110px) 0}
+  .day{display:grid;grid-template-columns:160px 1fr;gap:48px;padding:46px 0;border-top:1px solid var(--line)}
+  .day:first-of-type{border-top:0}
+  .day-meta{position:sticky;top:86px;align-self:start}
+  .day-num{font-family:var(--serif);font-size:46px;line-height:1;color:var(--accent);letter-spacing:.02em}
+  .day-date{font-size:10px;letter-spacing:.2em;color:var(--ink-3);margin-top:8px}
+  .day-route{font-size:12px;line-height:1.8;color:var(--ink-2);margin-top:12px}
+  .day-route b{display:block;color:var(--ink);font-weight:600;margin-bottom:3px}
+  .day-body h3{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:600;line-height:1.35;letter-spacing:.02em;margin:0 0 14px}
+  .day-body p{font-size:14px;line-height:2;color:var(--ink-2);margin:0 0 12px}
+  .day-body p:last-child{margin-bottom:0}
+  .day-facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+  .fact{font-size:10px;line-height:1.5;color:var(--ink-2);background:rgba(255,255,255,.5);border:1px solid var(--line);padding:4px 8px}
+  .fact b{color:var(--accent);font-weight:700;margin-right:4px}
+  .day-pull{
+    margin:20px 0 0;padding:16px 18px;border-left:2px solid var(--accent-2);
+    background:rgba(194,120,58,.06);font-family:var(--serif);
+    font-size:16px;line-height:1.9;color:var(--ink);
+  }
+  .feature{position:relative;overflow:hidden;background:var(--accent-deep);color:#f3ead9}
+  .feature::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(80% 60% at 82% 0%,rgba(197,154,74,.2),transparent 60%),
+      radial-gradient(60% 55% at 0% 100%,rgba(47,93,107,.4),transparent 62%);
+  }
+  .feature .wrap{position:relative}
+  .feature .section-head .num{color:#e0b56a}
+  .feature .section-head h2{color:#f3ead9}
+  .feature .section-head .lead{color:rgba(243,234,217,.72)}
+  .feature-quote{
+    max-width:850px;margin:0 0 42px;font-family:var(--serif);
+    font-size:clamp(22px,3vw,34px);line-height:1.7;letter-spacing:.04em;color:#f3ead9;
+  }
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+  .feature-card{padding:22px;border:1px solid rgba(243,234,217,.18);background:rgba(255,255,255,.03)}
+  .feature-card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 8px;color:#f3ead9}
+  .feature-card .price{font-family:var(--serif);font-size:18px;color:#e0b56a;margin:0 0 10px}
+  .feature-card p{margin:0;font-size:12.5px;line-height:1.9;color:rgba(243,234,217,.72)}
+  .feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0 34px;border-top:1px solid rgba(243,234,217,.16);margin-top:28px}
+  .feature-list div{display:grid;grid-template-columns:1fr auto;gap:18px;padding:12px 0;border-bottom:1px solid rgba(243,234,217,.12);font-size:12.5px;color:rgba(243,234,217,.78)}
+  .feature-list b{font-family:var(--serif);font-size:14px;font-weight:600;color:#e0b56a}
+  .feature-note{margin-top:18px;font-size:11px;line-height:1.8;color:rgba(243,234,217,.5)}
+  .stay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .stay-card{display:flex;flex-direction:column;gap:10px;padding:22px;background:rgba(255,255,255,.55);border:1px solid var(--line)}
+  .stay-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .stay-card h3{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.4;margin:0}
+  .badge{flex:none;font-size:9px;letter-spacing:.08em;padding:3px 6px;border:1px solid;white-space:nowrap}
+  .badge.yes{color:var(--accent);border-color:rgba(47,93,107,.35);background:rgba(47,93,107,.06)}
+  .badge.no{color:#a84a2f;border-color:rgba(168,74,47,.3);background:rgba(168,74,47,.06)}
+  .stay-loc{font-size:11px;letter-spacing:.06em;color:var(--ink-3)}
+  .stay-price{font-family:var(--serif);font-size:16px;color:var(--accent-2)}
+  .stay-card p{margin:0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .travel-card{padding:20px 0 0;border-top:2px solid var(--accent)}
+  .travel-card .num{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--accent-2)}
+  .travel-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:8px 0 10px}
+  .travel-card p,.travel-card li{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .travel-card p{margin:0}
+  .travel-card ul{margin:0;padding-left:16px}
+  .travel-card li{margin:3px 0}
+  .expense{background:linear-gradient(180deg,#f1ebe0 0%,var(--paper) 100%);border-top:1px solid var(--line)}
+  .expense-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start;margin-bottom:34px}
+  .expense-total{padding:28px;background:var(--accent-deep);color:#f3ead9}
+  .expense-total .label{font-size:10px;letter-spacing:.2em;color:rgba(243,234,217,.6)}
+  .expense-total .amount{font-family:var(--serif);font-size:clamp(36px,5vw,56px);line-height:1.1;margin:10px 0 4px;color:#f3ead9}
+  .expense-total .amount small{font-family:var(--sans);font-size:14px;color:#e0b56a;margin-left:6px}
+  .expense-total .sub{font-size:11px;line-height:1.8;color:rgba(243,234,217,.62)}
+  .expense-note{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .expense-note p{margin:0 0 8px}
+  .expense-note b{color:var(--ink)}
+  .bars{display:grid;gap:12px;margin-top:20px}
+  .bar{display:grid;grid-template-columns:88px 1fr 82px;gap:12px;align-items:center;font-size:11px;color:var(--ink-2)}
+  .bar .track{height:7px;background:#e3dbcc;overflow:hidden}
+  .bar .fill{height:100%;width:0;background:var(--accent);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+  .bar .val{text-align:right;font-family:var(--serif);font-size:13px;color:var(--ink)}
+  .bar .val em{font-family:var(--sans);font-style:normal;font-size:9px;color:var(--ink-3);margin-left:4px}
+  .expense-foot{margin-top:18px;font-size:10px;line-height:1.9;color:var(--ink-3)}
+  .tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;border-top:1px solid var(--line)}
+  .tip{display:grid;grid-template-columns:38px 1fr;gap:16px;padding:26px 0;border-bottom:1px solid var(--line)}
+  .tip .n{font-family:var(--serif);font-size:18px;color:var(--accent-2)}
+  .tip h3{font-family:var(--serif);font-size:17px;font-weight:600;margin:0 0 6px}
+  .tip p{margin:0;font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .ending{padding:clamp(90px,12vw,160px) 24px;text-align:center;border-top:1px solid var(--line);background:var(--paper-2)}
+  .ending-kicker{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0}
+  .ending blockquote{max-width:840px;margin:18px auto;font-family:var(--serif);font-size:clamp(24px,4vw,42px);line-height:1.6;letter-spacing:.06em;color:var(--ink)}
+  .ending p{max-width:620px;margin:0 auto;font-size:12px;line-height:2;color:var(--ink-2)}
+  footer{padding:30px 24px;text-align:center;background:var(--paper-2);border-top:1px solid var(--line);font-size:10px;letter-spacing:.12em;color:var(--ink-3)}
+  .js .reveal{transform:translateY(18px);transition:transform .7s ease}
+  .js .reveal.in{transform:none}
+  @media (max-width:980px){
+    .route-intro{grid-template-columns:1fr;gap:20px}
+    .route-aside{padding-left:0;border-left:0;border-top:1px solid var(--line);padding-top:16px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid{grid-template-columns:1fr 1fr}
+    .expense-top{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    :root{--topbar:54px}
+    .topbar{padding:0 14px;gap:10px}
+    .brand{font-size:15px;letter-spacing:.16em}
+    .section-nav{gap:14px;margin-left:8px}
+    .section-nav a{font-size:10px;letter-spacing:.1em}
+    .hero{min-height:92svh;padding:106px 18px 70px}
+    .hero h1{font-size:clamp(64px,20vw,110px)}
+    .hero-sub{font-size:16px;letter-spacing:.14em}
+    .hero-lead{font-size:13px;line-height:1.9}
+    .hero-route{font-size:9px;line-height:1.8;gap:5px}
+    .hero-stats{gap:22px}
+    .hero-stats b{font-size:26px}
+    .section{padding:60px 0}
+    .wrap{padding:0 18px}
+    .section-head{margin-bottom:28px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid,.feature-list{grid-template-columns:1fr}
+    .route-line{margin:0 -18px;padding-left:18px;padding-right:18px}
+    .stop{flex:0 0 108px;min-width:108px}
+    .day{grid-template-columns:1fr;gap:18px;padding:34px 0}
+    .day-meta{position:static;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+    .day-num{font-size:38px}
+    .day-date{margin-top:0}
+    .day-route{flex:1 0 100%;margin-top:0;padding-top:8px;border-top:1px solid var(--line)}
+    .day-body h3{font-size:22px}
+    .day-pull{font-size:15px}
+    .bar{grid-template-columns:64px 1fr 64px;gap:8px;font-size:10px}
+    .bar .val{font-size:11px}
+    .bar .val em{display:none}
+    .tips-grid{grid-template-columns:1fr;gap:0}
+    .expense-total{padding:22px}
+    .ending{padding:70px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .js .reveal{opacity:1;transform:none;transition:none}
+    .scroll-cue i{animation:none}
+    .bar .fill{transition:none}
+  }
+
+  .hero h1{font-size:clamp(64px,17vw,168px);letter-spacing:.12em;text-indent:.12em}
+  .hero-sub{letter-spacing:.14em}
+  .hero::after{background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,.08) 48%,rgba(247,243,234,.58) 70%,rgba(247,243,234,.94) 88%,var(--paper) 100%)}
+  .hero-stats span{color:var(--ink-2)}
+  .feature .section-head .lead{max-width:720px}
+
+  .part-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:54px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+  .part-head h3{font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:600;margin:0;letter-spacing:.04em}
+  .part-head span{font-size:10px;letter-spacing:.18em;color:var(--accent-2);font-weight:700;white-space:nowrap}
+  .part-head p{flex:1 0 100%;margin:4px 0 0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .route-line .stop{flex:1 0 140px}
+  .feature-list b{text-align:right}
+  @media (max-width:720px){
+    .part-head{margin-top:38px}
+    .part-head h3{font-size:22px}
+    .route-line .stop{flex:0 0 120px}
+  }
+
+</style>
+</head>
+<body>
+<div class="progress"><span id="progressBar"></span></div><header class="topbar" id="topbar"><a class="brand" href="#top">见山河</a><nav class="section-nav" aria-label="页面目录"><a href="#route">路线</a><a href="#prelude">行前</a><a href="#journey">逐日</a><a href="#feature">古建</a><a href="#stay">住行</a><a href="#expense">费用</a><a href="#tips">心法</a></nav></header><main id="top"><section class="hero"><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f0e6"/><stop offset=".55" stop-color="#e9eef0"/><stop offset="1" stop-color="#9fb4bd"/></linearGradient><radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e7b26c" stop-opacity=".55"/><stop offset="1" stop-color="#e7b26c" stop-opacity="0"/></radialGradient></defs>
+<rect width="1440" height="900" fill="url(#sky)"/>
+<circle cx="1080" cy="230" r="210" fill="url(#glow)"/><circle cx="1080" cy="230" r="78" fill="#dfa25e" opacity=".85"/>
+<path d="M0 570 C150 510 300 544 440 560 C580 576 700 524 840 548 C980 572 1100 520 1240 548 C1330 566 1390 548 1440 556 L1440 900 L0 900 Z" fill="#9fb4bd" opacity=".55"/>
+<path d="M0 660 C170 614 320 650 470 656 C620 662 760 612 910 636 C1060 660 1200 618 1320 642 C1370 652 1410 648 1440 652 L1440 900 L0 900 Z" fill="#3f4650" opacity=".55"/>
+<path d="M0 750 C180 712 340 750 510 738 C680 726 820 764 980 746 C1140 728 1280 760 1440 738 L1440 900 L0 900 Z" fill="#2f3a40" opacity=".82"/>
+<g fill="#2f3a40" opacity=".35"><path d="M150 900 L180 690 L210 900 Z"/><path d="M215 900 L245 650 L278 900 Z"/><path d="M1180 900 L1210 690 L1242 900 Z"/><path d="M1250 900 L1280 650 L1310 900 Z"/></g>
+<g fill="none" stroke="#3f565e" stroke-width="1.5" opacity=".3"><path d="M300 280 q10 -8 20 0 q10 -8 20 0"/><path d="M380 245 q8 -6 16 0 q8 -6 16 0"/><path d="M860 300 q9 -7 18 0 q9 -7 18 0"/></g></svg></div><div class="hero-inner"><p class="kicker">2024 · 暑假 · 跟着梁林看古建</p><h1>山西古建</h1><p class="hero-sub">繁峙 · 五台 · 平遥 · 隰县 · 运城 · 芮城</p><p class="hero-lead">去年十一看了运城的古建，7 天没看够。暑假想了一圈：要不人多，要不太热，要不钱不到位，那就去心里还念念不忘的山西。人少、凉快、花费少，好几处都包场了。</p><div class="hero-route"><span>北京</span><span>繁峙</span><span>佛光寺</span><span>南禅寺</span><span>祁县</span><span>隰县</span><span>侯马</span><span>运城</span><span>芮城</span><span>永济</span><span>运城</span><span>北京</span></div><div class="hero-stats"><div><b>10</b><span>天</span></div><div><b>2大2小</b><span>同行</span></div><div><b>10</b><span>天古建</span></div><div><b>4,413</b><span>元 · 总花费</span></div></div></div><a class="scroll-cue" href="#route">沿着路，向北<i></i></a></section><section class="section route" id="route"><div class="wrap"><div class="route-intro"><div class="section-head reveal"><p class="num">01 / ROUTE</p><h2>从晋北到晋南，跟着梁林看古建</h2><p class="lead">北京自驾出发，先到繁峙看正觉寺、公主寺、佛光寺、南禅寺；再沿平遥、介休、隰县、侯马一路南下，以运城为基地，看芮城、万荣、夏县、永济；返程补广胜寺和太原北齐壁画。</p></div><aside class="route-aside reveal"><b>路线骨架</b><br>北京 → 繁峙 → 五台 → 祁县 → 隰县 → 侯马 → 运城 → 芮城 / 万荣 / 夏县 / 永济 → 运城 → 北京。<br><br><b>节奏</b><br>10 天，2 大 2 小；古建分散，自驾最方便；山西寺庙开不开门靠运气，随缘。</aside></div><div class="route-line reveal"><a class="stop" href="#journey"><span class="date">7.12—7.15</span><span class="city">晋北</span><span class="note">佛光寺&lt;br&gt;南禅寺</span></a><a class="stop" href="#journey"><span class="date">7.16—7.20</span><span class="city">运城</span><span class="note">永乐宫&lt;br&gt;小西天</span></a><a class="stop" href="#journey"><span class="date">7.21</span><span class="city">返程</span><span class="note">广胜寺&lt;br&gt;北齐壁画</span></a></div></div></section><section class="section prelude" id="prelude"><div class="wrap"><div class="section-head reveal"><p class="num">02 / WHY</p><h2>为什么是山西</h2><p class="lead">去年十一在运城看了 7 天，没看够。暑假的山西人少、凉快、花费少，很多小寺小庙可以安安静静地看，甚至包场。</p></div><div class="prelude-grid"><article class="pre-card reveal"><span class="idx">01</span><div><h3>跟着梁林看古建</h3><p>佛光寺、南禅寺、双林寺、小西天、永乐宫、广胜寺；从唐构到明清，从彩塑到壁画，一条线看下来。</p></div></article><article class="pre-card reveal"><span class="idx">02</span><div><h3>人少凉快</h3><p>暑假的山西比南方凉快，古建大多在村里、山上；人不多，能靠近看斗拱、悬鱼、琉璃，体验比热门景区好。</p></div></article><article class="pre-card reveal"><span class="idx">03</span><div><h3>花费少</h3><p>门票便宜，很多点免费或年卡；吃住也实在。10 天 2 大 2 小，总花费 4,413.17 元。</p></div></article></div></div></section><section class="journey" id="journey"><div class="wrap"><div class="section-head reveal"><p class="num">03 / DAY BY DAY</p><h2>十天，从晋北看到晋南</h2><p class="lead">古建看门、彩塑看光、壁画看运气；每天一两个重点，剩下的随缘。</p></div><div class="part-head reveal"><h3>第一段 · 晋北：繁峙、五台、平遥</h3><span>7.12—7.15</span><p>正觉寺、公主寺、佛光寺、南禅寺、双林寺、镇国寺、小西天。</p></div><article class="day reveal" id="s-0712"><div class="day-meta"><div class="day-num">7.12</div><div class="day-date">D0 · 北京—繁峙</div><div class="day-route"><b>北京 → 繁峙</b>下午出发，晚上到。</div></div><div class="day-body"><h3>出发，第一站繁峙</h3><p>中午约 4 点从北京出发，高速晚上 9 点到繁峙，简单住下；到的早可以去憨山景区，之前免费，今年开始收费。</p><div class="day-facts"><span class="fact"><b>行</b>北京—繁峙</span><span class="fact"><b>吃</b>老地方烧烤</span><span class="fact"><b>住</b>繁峙 81</span><span class="fact"><b>提醒</b>早到可逛憨山</span></div></div></article><article class="day reveal" id="s-0713"><div class="day-meta"><div class="day-num">7.13</div><div class="day-date">D1 · 繁峙—祁县</div><div class="day-route"><b>正觉寺 → 公主寺 → 佛光寺 → 南禅寺 → 忻州古城</b>梁林路线的重头戏。</div></div><div class="day-body"><h3>佛光寺，千年一寺</h3><p>繁峙本地人读“si”，山多、寺多。城里选正觉寺，看房顶、经幢、悬鱼惹草；公主寺运气好，门开着。</p><p>重头戏是佛光寺，清华讲解的“千年一寺”，林徽因照片里的经幢；转间铺作两米多高。南禅寺是三座半唐构中最早的。</p><p>晚上到忻州古城，明码标价，放心吃。</p><div class="day-facts"><span class="fact"><b>玩</b>佛光寺 / 南禅寺</span><span class="fact"><b>吃</b>忻州古城</span><span class="fact"><b>住</b>祁县汉庭 149</span><span class="fact"><b>提醒</b>必去佛光寺</span></div></div></article><article class="day reveal" id="s-0714"><div class="day-meta"><div class="day-num">7.14</div><div class="day-date">D2 · 祁县—隰县</div><div class="day-route"><b>双林寺 → 镇国寺 → 介休 → 王家大院 → 隰县</b>彩塑、琉璃、大院。</div></div><div class="day-body"><h3>双林寺的韦陀，和介休的琉璃</h3><p>放弃平遥古城，选双林寺、镇国寺。双林寺四大天王、自在观音、最帅韦陀，眼珠子特别亮；千佛殿千手观音。</p><p>介休一定要看琉璃：祆神楼、后土庙，孔雀蓝在晴天更好看；非饭点没吃的，一定要看饭点。</p><p>灵石王家大院，山西第一宅；请个讲解，山西归来不看院。</p><div class="day-facts"><span class="fact"><b>玩</b>双林寺 / 镇国寺 / 王家大院</span><span class="fact"><b>吃</b>介休饼子</span><span class="fact"><b>住</b>隰县 88</span><span class="fact"><b>提醒</b>饭点</span></div></div></article><article class="day reveal" id="s-0715"><div class="day-meta"><div class="day-num">7.15</div><div class="day-date">D3 · 隰县—侯马</div><div class="day-route"><b>小西天 → 蒲县东岳庙 → 侯马</b>悬塑绝唱；大雨放弃广胜寺。</div></div><div class="day-body"><h3>小西天，悬塑绝唱</h3><p>小西天是必须之必。200 多级台阶，九九八十一阶，进殿看天宫楼阁；到的早人少，可以靠近慢慢看，11 点后研学团一来就吵。</p><p>午饭隰县羊汤；下午蒲县东岳庙，除了我没有游客，安静得有点怕。地狱部分黑黑的，十八层地狱各种刑罚，胆小慎入。</p><p>本来去洪洞广胜寺，大雨大雾，高速能见度差，放弃，直接侯马聚餐；路边侧翻大车，安全第一。</p><div class="day-facts"><span class="fact"><b>玩</b>小西天 / 东岳庙</span><span class="fact"><b>吃</b>隰县羊汤</span><span class="fact"><b>住</b>侯马汉庭</span><span class="fact"><b>提醒</b>早去小西天</span></div></div></article><div class="part-head reveal"><h3>第二段 · 运城：芮城、万荣、夏县、永济</h3><span>7.16—7.20</span><p>以运城为基地，看永乐宫、广仁王庙、李家大院、堆云洞、关帝圣像。</p></div><article class="day reveal" id="s-0716"><div class="day-meta"><div class="day-num">7.16</div><div class="day-date">D4 · 侯马—运城</div><div class="day-route"><b>稷王庙 → 大佛寺 → 马村砖雕墓 → 李家大院</b>下墓；李家大院看善。</div></div><div class="day-body"><h3>稷王庙、砖雕墓和李家大院</h3><p>稷山稷王庙保存最完整、最大，三绝：木雕、石刻、琉璃；大佛寺没游客，居士讲解；青龙寺壁画很绝，可惜关闭。</p><p>马村砖雕墓，经典的妇人启门；下墓没人有点怕，问讲解说有两拨人，结果电话一接游客都上来了，只能大胆下墓。</p><p>万荣李家大院，看善行善举；秋风楼、后土祠、飞云楼没去，留个下次。</p><div class="day-facts"><span class="fact"><b>玩</b>稷王庙 / 砖雕墓 / 李家大院</span><span class="fact"><b>吃</b>稷山饼子 / 羊肉泡</span><span class="fact"><b>住</b>运城</span><span class="fact"><b>提醒</b>青龙寺关闭</span></div></div></article><article class="day reveal" id="s-0717"><div class="day-meta"><div class="day-num">7.17</div><div class="day-date">D5 · 运城—芮城—运城</div><div class="day-route"><b>广仁王庙 → 永乐宫 → 城隍庙 → 大禹渡 → 圣天湖</b>黄河边，空无一人的景区。</div></div><div class="day-body"><h3>永乐宫，和黄河观景台</h3><p>早市买早饭回来，加上头天娃们逮的知了猴，秒回童年。广仁王庙免费，登记即可；永乐宫年卡，阴雨天殿里黑乎乎，还是不让拍照。</p><p>寿圣寺关了，只能外围看；城隍庙一下看四个朝代的建筑；大禹渡、望河楼看黄河，两三分钟后云飘过来什么都看不到。</p><p>圣天湖空无一人；田里成片扔掉的油桃，产地收购价低，摘都不摘。</p><div class="day-facts"><span class="fact"><b>玩</b>永乐宫 / 城隍庙 / 黄河</span><span class="fact"><b>吃</b>早市 / 熟肉</span><span class="fact"><b>住</b>运城</span><span class="fact"><b>提醒</b>永乐宫不让拍</span></div></div></article><article class="day reveal" id="s-0718"><div class="day-meta"><div class="day-num">7.18</div><div class="day-date">D6 · 运城—万荣—运城</div><div class="day-route"><b>李家大院拍照 → 盐池 006 → 盬街 → 小石岛书店</b>终于天晴。</div></div><div class="day-body"><h3>天晴，去李家大院拍照</h3><p>接连阴雨，这一天终于天晴，抓紧又去李家大院给两姑娘拍照；盐池公路 006 号路杆成了网红打卡地，还专门修了台子。</p><p>盬街、小石岛书店小聚；以前总路过，没想到成了打卡地。</p><div class="day-facts"><span class="fact"><b>玩</b>李家大院 / 盐池</span><span class="fact"><b>吃</b>古街夜市</span><span class="fact"><b>住</b>运城</span><span class="fact"><b>提醒</b>拍照 350</span></div></div></article><article class="day reveal" id="s-0719"><div class="day-meta"><div class="day-num">7.19</div><div class="day-date">D7 · 运城—夏县—运城</div><div class="day-route"><b>堆云洞 → 司马温公祠 → 黄河夜市</b>走亲戚，吃夜市。</div></div><div class="day-body"><h3>堆云洞和司马光</h3><p>早走亲戚，午饭聚餐；下午夏县堆云洞，有早期革命地址；司马温公祠，夏县最著名的人物司马光。</p><p>晚上黄河夜市，运城娃娃们都懂。</p><div class="day-facts"><span class="fact"><b>玩</b>堆云洞 / 司马温公祠</span><span class="fact"><b>吃</b>黄河夜市</span><span class="fact"><b>住</b>运城</span><span class="fact"><b>提醒</b>走亲戚</span></div></div></article><article class="day reveal" id="s-0720"><div class="day-meta"><div class="day-num">7.20</div><div class="day-date">D8 · 运城—永济—运城</div><div class="day-route"><b>关帝圣像 → 扁鹊庙 → 永济 → 牛肉饺子</b>全牛宴；关帝圣像。</div></div><div class="day-body"><h3>关帝圣像和永济</h3><p>关帝圣像景区，60 米高的圣像，建议上去坐摆渡车，下来溜达；运城还有解州关帝庙、常平家庙，时间够可以一起。</p><p>下午永济办事，路过扁鹊庙，一进门中药味；永济可以看鹳雀楼、黄河大铁牛、普救寺、风陵渡。晚上晓雪牛肉饺子。</p><div class="day-facts"><span class="fact"><b>玩</b>关帝圣像 / 扁鹊庙</span><span class="fact"><b>吃</b>全牛宴 / 牛肉饺子</span><span class="fact"><b>住</b>运城</span><span class="fact"><b>提醒</b>摆渡车</span></div></div></article><div class="part-head reveal"><h3>第三段 · 返程：广胜寺与北齐壁画</h3><span>7.21</span><p>补上广胜寺和太原北齐壁画，半夜到京。</p></div><article class="day reveal" id="s-0721"><div class="day-meta"><div class="day-num">7.21</div><div class="day-date">D9 · 运城—北京</div><div class="day-route"><b>广胜寺 → 太原北齐壁画 → 北京</b>琉璃宝塔；壁画。</div></div><div class="day-body"><h3>广胜寺，和北齐壁画</h3><p>6:30 出发，广胜寺琉璃宝塔 8 月围起来修，去之前看开没开；飞虹塔名声在外，上寺下寺的泥塑、壁画也很好。摆渡车上山，从上寺走下来。</p><p>下寺壁画被扣走卖掉，现在在美国大都会、纳尔逊博物馆，只剩空白。太原北齐壁画博物馆，赶上 3 点公益讲解；马的眼睛，无论哪个角度都像在看你。</p><p>吃完饭返京，半夜到；山西一定要注意饭点。</p><div class="day-facts"><span class="fact"><b>玩</b>广胜寺 / 北齐壁画</span><span class="fact"><b>吃</b>老太原</span><span class="fact"><b>行</b>运城—北京</span><span class="fact"><b>提醒</b>饭点</span></div></div></article></div></section><section class="section feature" id="feature"><div class="wrap"><div class="section-head reveal"><p class="num">04 / HERITAGE</p><h2>从唐构到悬塑，一次看个够</h2><p class="lead">佛光寺、南禅寺、双林寺、小西天、永乐宫、广胜寺、北齐壁画；这条线把山西古建最精华的一段串起来。</p></div><p class="feature-quote reveal">“地上山西，地下陕西；山西古建，越看越上头。”</p><div class="feature-grid"><article class="feature-card reveal"><h3>佛光寺</h3><p class="price">唐 · 千年一寺</p><p>梁林路线的重头戏；东大殿、经幢、两米多高的转间铺作。看清华讲解，也可以读古建筑的书。</p></article><article class="feature-card reveal"><h3>南禅寺</h3><p class="price">唐 · 三座半唐构最早</p><p>规模不大，但年代最早；和佛光寺一起看，唐构的两种气质。</p></article><article class="feature-card reveal"><h3>双林寺 / 小西天</h3><p class="price">彩塑 · 悬塑</p><p>双林寺的韦陀、自在观音；小西天的天宫楼阁、悬塑绝唱。都要早去，安静地看。</p></article><article class="feature-card reveal"><h3>永乐宫 / 广胜寺</h3><p class="price">壁画 · 琉璃</p><p>永乐宫壁画不让拍照；广胜寺飞虹塔、上寺下寺泥塑壁画；下寺壁画流失海外，只剩空白。</p></article></div><div class="feature-list reveal"><div><span>繁峙</span><b>正觉寺 / 公主寺</b></div><div><span>五台</span><b>佛光寺 / 南禅寺</b></div><div><span>平遥</span><b>双林寺 / 镇国寺</b></div><div><span>隰县</span><b>小西天</b></div><div><span>芮城</span><b>永乐宫 / 广仁王庙</b></div><div><span>洪洞 / 太原</span><b>广胜寺 / 北齐壁画</b></div></div><p class="feature-note">很多寺平时锁着，门口有文保员电话；公主寺刚好文物局检查才开门。古建太多，资金人员不到位，谁来谁开；随缘。</p></div></section><section class="section stay" id="stay"><div class="wrap"><div class="section-head reveal"><p class="num">05 / STAY &amp; DRIVE</p><h2>住得简单，古建优先</h2><p class="lead">10 天，2 大 2 小；住宿以经济型为主，运城是家，祁县、隰县、侯马各一晚。</p></div><div class="stay-grid"><article class="stay-card reveal"><div class="stay-top"><h3>繁峙 · 普通酒店</h3><span class="badge yes">推荐</span></div><div class="stay-loc">第一晚</div><div class="stay-price">¥81</div><p>到得晚，简单住下；早到可去憨山景区。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>祁县 · 汉庭</h3><span class="badge yes">推荐</span></div><div class="stay-loc">平遥旁</div><div class="stay-price">¥149</div><p>放弃平遥古城，住祁县，第二天看双林寺、镇国寺。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>隰县 · 普通酒店</h3><span class="badge yes">推荐</span></div><div class="stay-loc">小西天旁</div><div class="stay-price">¥88</div><p>为了第二天早去小西天；条件一般，价格便宜。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>侯马 · 汉庭</h3><span class="badge yes">推荐</span></div><div class="stay-loc">亲友聚餐</div><div class="stay-price">¥0</div><p>有亲朋好友，聚餐方便；第二天去稷山。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>运城 · 家</h3><span class="badge yes">推荐</span></div><div class="stay-loc">5 晚基地</div><div class="stay-price">家</div><p>芮城、万荣、夏县、永济都当天往返；早市、夜市、聚会都方便。</p></article></div><div class="travel-grid"><article class="travel-card reveal"><p class="num">01 / DRIVE</p><h3>自驾最方便</h3><ul><li>山西古建分散且偏，公共交通不便，建议自驾；</li><li>10 天高速 + 加油 2,100.77 元；</li><li>运城年卡可省门票，永乐宫、李家大院等可用。</li></ul></article><article class="travel-card reveal"><p class="num">02 / OPEN</p><h3>开门靠运气</h3><ul><li>很多寺平时锁着，门口有文保员电话；</li><li>公主寺刚好文物局检查，门开了；</li><li>青龙寺、寿圣寺关闭，留个下次。</li></ul></article><article class="travel-card reveal"><p class="num">03 / PHOTO</p><h3>拍照与规则</h3><ul><li>今年新规：不用闪光灯、强光，简单拍照放开；</li><li>永乐宫特殊，仍然不让拍；</li><li>让拍就拍，不让拍就好好看，网图多得是。</li></ul></article></div></div></section><section class="section expense" id="expense"><div class="wrap"><div class="section-head reveal"><p class="num">06 / COST</p><h2>4,413.17 元，10 天古建</h2><p class="lead">10 天，2 大 2 小；含高速/加油、住宿、门票、吃饭和拍照。按 Excel 费用表整理。</p></div><div class="expense-top"><div class="expense-total reveal"><div class="label">TOTAL · 2024.7.12—7.21</div><div class="amount">4,413.17<small>元</small></div><div class="sub">日均约 441.32 元 · 2 大 2 小<br>高速加油 2,100.77 · 吃饭 796 · 住宿 318</div></div><div class="reveal"><div class="expense-note"><p>高速 + 加油 2,100.77 元，是最大头；自驾 10 天，跑了晋北到晋南。</p><p>住宿 318 元：繁峙 81、祁县 149、隰县 88，侯马和运城住家/亲友。</p><p>门票 589.40 元；吃饭 796 元；其他 609 元，含拍照 350、礼盒 230 等。</p></div><div class="bars"><div class="bar"><span>高速加油</span><div class="track"><div class="fill" data-w="47.6" style="width:47.6%;background:#8c3b2e"></div></div><span class="val">2,100.77<em>47.6%</em></span></div><div class="bar"><span>吃饭</span><div class="track"><div class="fill" data-w="18.0" style="width:18.0%;background:#2f5d6b"></div></div><span class="val">796.00<em>18.0%</em></span></div><div class="bar"><span>其他</span><div class="track"><div class="fill" data-w="13.8" style="width:13.8%;background:#8b9698"></div></div><span class="val">609.00<em>13.8%</em></span></div><div class="bar"><span>门票</span><div class="track"><div class="fill" data-w="13.4" style="width:13.4%;background:#b07a3f"></div></div><span class="val">589.40<em>13.4%</em></span></div><div class="bar"><span>住宿</span><div class="track"><div class="fill" data-w="7.2" style="width:7.2%;background:#a84a2f"></div></div><span class="val">318.00<em>7.2%</em></span></div></div><p class="expense-foot">百分比四舍五入，合计约 100%。拍照 350 元、礼盒 230 元计入其他。</p></div></div></div></section><section class="section tips" id="tips"><div class="wrap"><div class="section-head reveal"><p class="num">07 / NOTES</p><h2>看古建，记住这些小事</h2><p class="lead">山西古建分散、开门靠运气；自驾、看饭点、随缘，心态好最重要。</p></div><div class="tips-grid"><article class="tip reveal"><span class="n">01</span><div><h3>自驾</h3><p>古建位置分散且偏，公共交通不便；自驾最方便，村路慢一点。</p></div></article><article class="tip reveal"><span class="n">02</span><div><h3>饭点</h3><p>山西饭店过了饭点真没吃的；介休、运城都踩过；一定要看饭点。</p></div></article><article class="tip reveal"><span class="n">03</span><div><h3>文保员</h3><p>很多寺平时锁着，门口有电话；打过去几分钟就来，热情讲解；看完说谢谢。</p></div></article><article class="tip reveal"><span class="n">04</span><div><h3>拍照规则</h3><p>不用闪光灯、强光，简单拍照放开；永乐宫仍然不让拍；遵守规则。</p></div></article><article class="tip reveal"><span class="n">05</span><div><h3>提前学</h3><p>硬山悬山歇山庑殿、斗拱昂杪耍头、三圣三清；不懂也会被震撼，但懂一点更好看。</p></div></article><article class="tip reveal"><span class="n">06</span><div><h3>年卡</h3><p>运城年卡可省门票；永乐宫、李家大院、关帝圣像等可用。</p></div></article><article class="tip reveal"><span class="n">07</span><div><h3>广胜寺</h3><p>飞虹塔 8 月围起来修，去之前看开没开；摆渡车上山，从上寺走下来。</p></div></article><article class="tip reveal"><span class="n">08</span><div><h3>随缘</h3><p>古建太多，资金人员不到位；开门靠运气，别避雷，随缘。</p></div></article></div></div></section><section class="ending"><p class="ending-kicker">后记</p><blockquote>地上山西，地下陕西；<br>山西古建，越看越上头。</blockquote><p>两次假期也只是从南到北挑着看；西边沿黄公路、东边晋城长治，留个下次。</p></section></main>
+<footer>见山河 · 山西古建 2024 暑假 ｜ 2024.7.12—7.21 ｜ 繁峙 / 五台 / 平遥 / 隰县 / 运城 ｜ 单文件离线阅读</footer>
+<script>
+(function(){
+  'use strict';
+  var bar = document.getElementById('progressBar');
+  var topbar = document.getElementById('topbar');
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.section-nav a'));
+  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+
+  function onScroll(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? (window.scrollY / max) * 100 : 0;
+    if(bar) bar.style.width = Math.min(100, Math.max(0, p)) + '%';
+    if(topbar) topbar.classList.toggle('solid', window.scrollY > 24);
+    var current = sections[0];
+    sections.forEach(function(s){ if(s.getBoundingClientRect().top <= 120) current = s; });
+    navLinks.forEach(function(a){ a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    reveals.forEach(function(el){ io.observe(el); });
+  }else{
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var fills = Array.prototype.slice.call(document.querySelectorAll('.bar .fill'));
+  if('IntersectionObserver' in window){
+    var barIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var el = entry.target;
+          el.style.width = el.getAttribute('data-w') + '%';
+          barIO.unobserve(el);
+        }
+      });
+    }, {threshold:0.4});
+    fills.forEach(function(el){ barIO.observe(el); });
+  }else{
+    fills.forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+  }
+})();
+</script>
+</body>
+</html>

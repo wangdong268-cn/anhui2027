@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="js"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>东北双城 · 五一长春 / 沈阳 · 2025</title>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --paper:#f7f3ea;
+    --paper-2:#efe8da;
+    --paper-3:#e7ddcb;
+    --ink:#1f2b30;
+    --ink-2:#55636a;
+    --ink-3:#8b9698;
+    --line:#d8d0c2;
+    --accent:#8c3b2e;
+    --accent-deep:#262b31;
+    --accent-2:#2f5d6b;
+    --gold:#b98a4a;
+    --sea:#5b6f7a;
+    --coral:#a84a2f;
+    --max:1120px;
+    --topbar:58px;
+    --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:radial-gradient(rgba(120,100,70,.055) .6px,transparent .6px);
+    background-size:4px 4px;
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:#e7c9a8;color:var(--ink)}
+  a{color:inherit}
+  .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:90;background:transparent;pointer-events:none}
+  .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .1s linear}
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:80;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:0 28px;border-bottom:1px solid transparent;
+    transition:background .3s,border-color .3s,backdrop-filter .3s;
+  }
+  .topbar.solid{
+    background:rgba(247,243,234,.96);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-bottom-color:var(--line);
+  }
+  .brand{
+    font-family:var(--serif);font-size:17px;font-weight:600;
+    letter-spacing:.22em;text-decoration:none;white-space:nowrap;
+  }
+  .section-nav{
+    display:flex;align-items:center;gap:24px;
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .section-nav::-webkit-scrollbar{display:none}
+  .section-nav a{
+    position:relative;padding:6px 0;font-size:11px;letter-spacing:.16em;
+    color:var(--ink-2);text-decoration:none;white-space:nowrap;
+  }
+  .section-nav a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--accent);transition:width .25s;
+  }
+  .section-nav a:hover::after,.section-nav a.active::after{width:100%}
+  .section-nav a.active{color:var(--accent)}
+  .hero{
+    position:relative;min-height:100svh;display:grid;place-items:center;
+    padding:120px 24px 84px;overflow:hidden;isolation:isolate;
+    background:linear-gradient(180deg,#f7f3ea 0%,#eef1f2 46%,#dfe5e8 100%);
+  }
+  .hero-art{position:absolute;inset:0;z-index:-2;pointer-events:none}
+  .hero-art svg{display:block;width:100%;height:100%}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,0) 50%,rgba(247,243,234,.18) 72%,var(--paper) 100%);
+  }
+  .hero-inner{position:relative;max-width:980px;text-align:center}
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.32em;color:var(--accent);margin:0 0 22px}
+  .hero h1{
+    font-family:var(--serif);font-size:clamp(76px,15vw,188px);font-weight:700;
+    line-height:.9;letter-spacing:.16em;text-indent:.16em;margin:0;color:var(--ink);
+  }
+  .hero-sub{
+    font-family:var(--serif);font-size:clamp(17px,2.2vw,26px);
+    letter-spacing:.2em;margin:24px 0 0;color:var(--ink-2);
+  }
+  .hero-lead{max-width:680px;margin:24px auto 0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .hero-route{
+    display:inline-flex;flex-wrap:wrap;justify-content:center;gap:7px;
+    margin:26px auto 0;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    font-size:10px;letter-spacing:.12em;color:var(--ink-3);
+  }
+  .hero-route span{white-space:nowrap}
+  .hero-stats{display:flex;justify-content:center;gap:clamp(24px,5vw,64px);margin-top:38px;flex-wrap:wrap}
+  .hero-stats div{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .hero-stats b{font-family:var(--serif);font-size:clamp(24px,3.2vw,36px);font-weight:600;line-height:1;color:var(--ink)}
+  .hero-stats span{font-size:10px;letter-spacing:.18em;color:var(--ink-3)}
+  .scroll-cue{
+    position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:var(--ink-3);font-size:10px;letter-spacing:.2em;text-decoration:none;
+  }
+  .scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--ink-3),transparent);animation:cue 2.2s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(.6);opacity:.5}50%{transform:scaleY(1);opacity:1}}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .section{padding:clamp(72px,9vw,120px) 0;scroll-margin-top:70px}
+  .section-head{max-width:760px;margin-bottom:40px}
+  .section-head .num{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0 0 12px}
+  .section-head h2{font-family:var(--serif);font-size:clamp(30px,4.2vw,48px);font-weight:600;line-height:1.2;letter-spacing:.06em;margin:0 0 16px}
+  .section-head .lead{max-width:690px;margin:0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .route{background:linear-gradient(180deg,var(--paper) 0%,#f1ebe0 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .route-intro{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:end;margin-bottom:40px}
+  .route-intro .section-head{margin-bottom:0}
+  .route-aside{font-size:12px;line-height:2;color:var(--ink-2);padding-left:22px;border-left:1px solid var(--line)}
+  .route-aside b{color:var(--ink);font-weight:600}
+  .route-line{
+    display:flex;overflow-x:auto;padding:18px 0 4px;border-top:1px solid var(--line);
+    scrollbar-width:none;
+  }
+  .route-line::-webkit-scrollbar{display:none}
+  .stop{
+    position:relative;flex:1 0 100px;min-width:100px;padding:22px 12px 0;
+    text-decoration:none;border-right:1px solid var(--line);
+  }
+  .stop:last-child{border-right:0}
+  .stop::before{
+    content:"";position:absolute;left:12px;top:-4px;width:7px;height:7px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 0 4px var(--paper);
+  }
+  .stop .date{font-size:9px;letter-spacing:.14em;color:var(--ink-3)}
+  .stop .city{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.4;margin:5px 0 3px}
+  .stop .note{font-size:10px;line-height:1.6;color:var(--ink-2)}
+  .stop:hover .city{color:var(--accent)}
+  .prelude-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .pre-card{
+    display:flex;flex-direction:column;justify-content:space-between;min-height:228px;
+    padding:26px 24px;background:rgba(255,255,255,.5);border:1px solid var(--line);
+  }
+  .pre-card .idx{font-family:var(--serif);font-size:28px;line-height:1;color:var(--accent-2)}
+  .pre-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:18px 0 8px}
+  .pre-card p{margin:0;font-size:12.5px;line-height:1.9;color:var(--ink-2)}
+  .journey{padding:clamp(60px,8vw,110px) 0}
+  .day{display:grid;grid-template-columns:160px 1fr;gap:48px;padding:46px 0;border-top:1px solid var(--line)}
+  .day:first-of-type{border-top:0}
+  .day-meta{position:sticky;top:86px;align-self:start}
+  .day-num{font-family:var(--serif);font-size:46px;line-height:1;color:var(--accent);letter-spacing:.02em}
+  .day-date{font-size:10px;letter-spacing:.2em;color:var(--ink-3);margin-top:8px}
+  .day-route{font-size:12px;line-height:1.8;color:var(--ink-2);margin-top:12px}
+  .day-route b{display:block;color:var(--ink);font-weight:600;margin-bottom:3px}
+  .day-body h3{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:600;line-height:1.35;letter-spacing:.02em;margin:0 0 14px}
+  .day-body p{font-size:14px;line-height:2;color:var(--ink-2);margin:0 0 12px}
+  .day-body p:last-child{margin-bottom:0}
+  .day-facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+  .fact{font-size:10px;line-height:1.5;color:var(--ink-2);background:rgba(255,255,255,.5);border:1px solid var(--line);padding:4px 8px}
+  .fact b{color:var(--accent);font-weight:700;margin-right:4px}
+  .day-pull{
+    margin:20px 0 0;padding:16px 18px;border-left:2px solid var(--accent-2);
+    background:rgba(194,120,58,.06);font-family:var(--serif);
+    font-size:16px;line-height:1.9;color:var(--ink);
+  }
+  .feature{position:relative;overflow:hidden;background:var(--accent-deep);color:#f3ead9}
+  .feature::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(80% 60% at 82% 0%,rgba(197,154,74,.2),transparent 60%),
+      radial-gradient(60% 55% at 0% 100%,rgba(47,93,107,.4),transparent 62%);
+  }
+  .feature .wrap{position:relative}
+  .feature .section-head .num{color:#e0b56a}
+  .feature .section-head h2{color:#f3ead9}
+  .feature .section-head .lead{color:rgba(243,234,217,.72)}
+  .feature-quote{
+    max-width:850px;margin:0 0 42px;font-family:var(--serif);
+    font-size:clamp(22px,3vw,34px);line-height:1.7;letter-spacing:.04em;color:#f3ead9;
+  }
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+  .feature-card{padding:22px;border:1px solid rgba(243,234,217,.18);background:rgba(255,255,255,.03)}
+  .feature-card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 8px;color:#f3ead9}
+  .feature-card .price{font-family:var(--serif);font-size:18px;color:#e0b56a;margin:0 0 10px}
+  .feature-card p{margin:0;font-size:12.5px;line-height:1.9;color:rgba(243,234,217,.72)}
+  .feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0 34px;border-top:1px solid rgba(243,234,217,.16);margin-top:28px}
+  .feature-list div{display:grid;grid-template-columns:1fr auto;gap:18px;padding:12px 0;border-bottom:1px solid rgba(243,234,217,.12);font-size:12.5px;color:rgba(243,234,217,.78)}
+  .feature-list b{font-family:var(--serif);font-size:14px;font-weight:600;color:#e0b56a}
+  .feature-note{margin-top:18px;font-size:11px;line-height:1.8;color:rgba(243,234,217,.5)}
+  .stay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .stay-card{display:flex;flex-direction:column;gap:10px;padding:22px;background:rgba(255,255,255,.55);border:1px solid var(--line)}
+  .stay-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .stay-card h3{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.4;margin:0}
+  .badge{flex:none;font-size:9px;letter-spacing:.08em;padding:3px 6px;border:1px solid;white-space:nowrap}
+  .badge.yes{color:var(--accent);border-color:rgba(47,93,107,.35);background:rgba(47,93,107,.06)}
+  .badge.no{color:#a84a2f;border-color:rgba(168,74,47,.3);background:rgba(168,74,47,.06)}
+  .stay-loc{font-size:11px;letter-spacing:.06em;color:var(--ink-3)}
+  .stay-price{font-family:var(--serif);font-size:16px;color:var(--accent-2)}
+  .stay-card p{margin:0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .travel-card{padding:20px 0 0;border-top:2px solid var(--accent)}
+  .travel-card .num{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--accent-2)}
+  .travel-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:8px 0 10px}
+  .travel-card p,.travel-card li{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .travel-card p{margin:0}
+  .travel-card ul{margin:0;padding-left:16px}
+  .travel-card li{margin:3px 0}
+  .expense{background:linear-gradient(180deg,#f1ebe0 0%,var(--paper) 100%);border-top:1px solid var(--line)}
+  .expense-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start;margin-bottom:34px}
+  .expense-total{padding:28px;background:var(--accent-deep);color:#f3ead9}
+  .expense-total .label{font-size:10px;letter-spacing:.2em;color:rgba(243,234,217,.6)}
+  .expense-total .amount{font-family:var(--serif);font-size:clamp(36px,5vw,56px);line-height:1.1;margin:10px 0 4px;color:#f3ead9}
+  .expense-total .amount small{font-family:var(--sans);font-size:14px;color:#e0b56a;margin-left:6px}
+  .expense-total .sub{font-size:11px;line-height:1.8;color:rgba(243,234,217,.62)}
+  .expense-note{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .expense-note p{margin:0 0 8px}
+  .expense-note b{color:var(--ink)}
+  .bars{display:grid;gap:12px;margin-top:20px}
+  .bar{display:grid;grid-template-columns:88px 1fr 82px;gap:12px;align-items:center;font-size:11px;color:var(--ink-2)}
+  .bar .track{height:7px;background:#e3dbcc;overflow:hidden}
+  .bar .fill{height:100%;width:0;background:var(--accent);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+  .bar .val{text-align:right;font-family:var(--serif);font-size:13px;color:var(--ink)}
+  .bar .val em{font-family:var(--sans);font-style:normal;font-size:9px;color:var(--ink-3);margin-left:4px}
+  .expense-foot{margin-top:18px;font-size:10px;line-height:1.9;color:var(--ink-3)}
+  .tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;border-top:1px solid var(--line)}
+  .tip{display:grid;grid-template-columns:38px 1fr;gap:16px;padding:26px 0;border-bottom:1px solid var(--line)}
+  .tip .n{font-family:var(--serif);font-size:18px;color:var(--accent-2)}
+  .tip h3{font-family:var(--serif);font-size:17px;font-weight:600;margin:0 0 6px}
+  .tip p{margin:0;font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .ending{padding:clamp(90px,12vw,160px) 24px;text-align:center;border-top:1px solid var(--line);background:var(--paper-2)}
+  .ending-kicker{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0}
+  .ending blockquote{max-width:840px;margin:18px auto;font-family:var(--serif);font-size:clamp(24px,4vw,42px);line-height:1.6;letter-spacing:.06em;color:var(--ink)}
+  .ending p{max-width:620px;margin:0 auto;font-size:12px;line-height:2;color:var(--ink-2)}
+  footer{padding:30px 24px;text-align:center;background:var(--paper-2);border-top:1px solid var(--line);font-size:10px;letter-spacing:.12em;color:var(--ink-3)}
+  .js .reveal{transform:translateY(18px);transition:transform .7s ease}
+  .js .reveal.in{transform:none}
+  @media (max-width:980px){
+    .route-intro{grid-template-columns:1fr;gap:20px}
+    .route-aside{padding-left:0;border-left:0;border-top:1px solid var(--line);padding-top:16px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid{grid-template-columns:1fr 1fr}
+    .expense-top{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    :root{--topbar:54px}
+    .topbar{padding:0 14px;gap:10px}
+    .brand{font-size:15px;letter-spacing:.16em}
+    .section-nav{gap:14px;margin-left:8px}
+    .section-nav a{font-size:10px;letter-spacing:.1em}
+    .hero{min-height:92svh;padding:106px 18px 70px}
+    .hero h1{font-size:clamp(64px,20vw,110px)}
+    .hero-sub{font-size:16px;letter-spacing:.14em}
+    .hero-lead{font-size:13px;line-height:1.9}
+    .hero-route{font-size:9px;line-height:1.8;gap:5px}
+    .hero-stats{gap:22px}
+    .hero-stats b{font-size:26px}
+    .section{padding:60px 0}
+    .wrap{padding:0 18px}
+    .section-head{margin-bottom:28px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid,.feature-list{grid-template-columns:1fr}
+    .route-line{margin:0 -18px;padding-left:18px;padding-right:18px}
+    .stop{flex:0 0 108px;min-width:108px}
+    .day{grid-template-columns:1fr;gap:18px;padding:34px 0}
+    .day-meta{position:static;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+    .day-num{font-size:38px}
+    .day-date{margin-top:0}
+    .day-route{flex:1 0 100%;margin-top:0;padding-top:8px;border-top:1px solid var(--line)}
+    .day-body h3{font-size:22px}
+    .day-pull{font-size:15px}
+    .bar{grid-template-columns:64px 1fr 64px;gap:8px;font-size:10px}
+    .bar .val{font-size:11px}
+    .bar .val em{display:none}
+    .tips-grid{grid-template-columns:1fr;gap:0}
+    .expense-total{padding:22px}
+    .ending{padding:70px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .js .reveal{opacity:1;transform:none;transition:none}
+    .scroll-cue i{animation:none}
+    .bar .fill{transition:none}
+  }
+
+  .hero h1{font-size:clamp(64px,17vw,168px);letter-spacing:.12em;text-indent:.12em}
+  .hero-sub{letter-spacing:.14em}
+  .hero::after{background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,.08) 48%,rgba(247,243,234,.58) 70%,rgba(247,243,234,.94) 88%,var(--paper) 100%)}
+  .hero-stats span{color:var(--ink-2)}
+  .feature .section-head .lead{max-width:720px}
+</style>
+</head>
+<body>
+<div class="progress"><span id="progressBar"></span></div>
+
+<header class="topbar" id="topbar">
+  <a class="brand" href="#top">见山河</a>
+  <nav class="section-nav" aria-label="页面目录">
+    <a href="#route" class="">路线</a>
+    <a href="#prelude">行前</a>
+    <a href="#journey" class="">逐日</a>
+    <a href="#feature" class="">博物馆</a>
+    <a href="#stay">住行</a>
+    <a href="#expense">费用</a>
+    <a href="#tips">心法</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f6f0e6"></stop>
+            <stop offset=".5" stop-color="#e9eef0"></stop>
+            <stop offset="1" stop-color="#d5e0e4"></stop>
+          </linearGradient>
+          <linearGradient id="hillFar" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#b9c9cc"></stop>
+            <stop offset="1" stop-color="#8fa4aa"></stop>
+          </linearGradient>
+          <linearGradient id="hillNear" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#6f858c"></stop>
+            <stop offset="1" stop-color="#3f565e"></stop>
+          </linearGradient>
+          <radialGradient id="sunGlow" cx=".5" cy=".5" r=".5">
+            <stop offset="0" stop-color="#e7b26c" stop-opacity=".55"></stop>
+            <stop offset=".55" stop-color="#e7b26c" stop-opacity=".16"></stop>
+            <stop offset="1" stop-color="#e7b26c" stop-opacity="0"></stop>
+          </radialGradient>
+        </defs>
+        <rect width="1440" height="900" fill="url(#sky)"></rect>
+        <circle cx="1040" cy="238" r="220" fill="url(#sunGlow)"></circle>
+        <circle cx="1040" cy="238" r="86" fill="#dca362" opacity=".85"></circle>
+        <path d="M0 560 C130 500 250 530 370 556 C500 584 620 520 760 548 C900 576 1030 520 1160 548 C1260 570 1360 540 1440 552 L1440 900 L0 900 Z" fill="url(#hillFar)" opacity=".55"></path>
+        <path d="M0 636 C130 588 260 620 390 636 C520 652 640 600 780 620 C920 640 1040 596 1170 620 C1270 638 1370 610 1440 622 L1440 900 L0 900 Z" fill="url(#hillNear)" opacity=".72"></path>
+        <path d="M0 720 C160 676 300 714 450 700 C600 686 730 726 880 708 C1030 690 1170 724 1300 704 C1350 696 1400 700 1440 708 L1440 900 L0 900 Z" fill="#263b43" opacity=".88"></path>
+        <g fill="#1d2d33" opacity=".88">
+          <rect x="160" y="628" width="34" height="92"></rect>
+          <rect x="204" y="650" width="22" height="70"></rect>
+          <rect x="236" y="612" width="44" height="108"></rect>
+          <rect x="290" y="668" width="18" height="52"></rect>
+          <rect x="318" y="640" width="30" height="80"></rect>
+          <rect x="1090" y="640" width="34" height="80"></rect>
+          <rect x="1134" y="660" width="22" height="60"></rect>
+          <rect x="1166" y="624" width="42" height="96"></rect>
+          <rect x="1218" y="674" width="18" height="46"></rect>
+          <rect x="1246" y="650" width="30" height="70"></rect>
+        </g>
+        <g stroke="#d5e0e4" stroke-width="2" opacity=".55">
+          <path d="M210 720 v-64 M250 720 v-48 M330 720 v-54"></path>
+          <path d="M1110 720 v-58 M1150 720 v-44 M1200 720 v-58 M1230 720 v-38"></path>
+        </g>
+        <path d="M320 900 L600 700 L1080 900" fill="none" stroke="#d9cbb8" stroke-width="3" opacity=".55"></path>
+        <path d="M360 900 L610 700 L1040 900" fill="none" stroke="#e7dccb" stroke-width="2" opacity=".55"></path>
+        <g stroke="#2b3a40" stroke-width="2" opacity=".55">
+          <path d="M335 878 L594 710 M390 900 L600 744 M960 900 L610 744 M1015 878 L606 710"></path>
+          <path d="M390 846 L650 720 M1015 846 L700 720 M480 812 L640 760 M970 812 L680 760"></path>
+        </g>
+        <g fill="none" stroke="#3f565e" stroke-width="1.6" opacity=".35">
+          <path d="M260 280 q12 -9 24 0 q12 -9 24 0"></path>
+          <path d="M340 245 q9 -7 18 0 q9 -7 18 0"></path>
+          <path d="M900 300 q10 -8 20 0 q10 -8 20 0"></path>
+        </g>
+        <path d="M0 840 C160 812 320 846 480 830 C640 814 800 850 960 832 C1120 814 1280 846 1440 824 L1440 900 L0 900 Z" fill="#31464d" opacity=".86"></path>
+      </svg>
+    </div>
+    <div class="hero-inner">
+      <p class="kicker">2025 · 五一 · 京哈线</p>
+      <h1>东北双城</h1>
+      <p class="hero-sub">长春 · 铁岭 · 沈阳 · 绥中</p>
+      <p class="hero-lead">一个省一个省地走。2019 年短暂停留过长春和沈阳，这次把缺的几个点补上：伪满皇宫、长影、九一八、工业博物馆、沈阳故宫、大帅府、辽博。去程动卧，回程自驾。</p>
+      <div class="hero-route">
+        <span>北京 · 动卧</span><span>→</span><span>长春</span><span>→</span><span>铁岭</span><span>→</span><span>沈阳</span><span>→</span><span>绥中</span><span>→</span><span>北京</span>
+      </div>
+      <div class="hero-stats">
+        <div><b>5</b><span>天</span></div>
+        <div><b>4</b><span>晚</span></div>
+        <div><b>2大2小</b><span>同行</span></div>
+        <div><b>6,135</b><span>元 · 总花费</span></div>
+      </div>
+    </div>
+    <a class="scroll-cue" href="#route">沿着京哈线，向北<i></i></a>
+  </section>
+
+  <section class="section route" id="route">
+    <div class="wrap">
+      <div class="route-intro">
+        <div class="section-head reveal">
+          <p class="num">01 / ROUTE</p>
+          <h2>从北京坐动卧，一路向北</h2>
+          <p class="lead">去程动卧，睡一觉到长春；长春取车，铁岭、沈阳、绥中一路自驾，最后回北京还车。五一车流大，城市里尽量把车停在地铁站外，再坐地铁进景点。</p>
+        </div>
+        <aside class="route-aside reveal">
+          <b>路线骨架</b><br>
+          北京（4.30 动卧）→ 长春 → 铁岭 → 沈阳 → 绥中 → 北京（自驾）。<br><br>
+          <b>节奏</b><br>
+          5 天 4 晚，2 大 2 小；长春取车、北京回龙观还车，12306 租车活动没有异地还车费，也不用买返程票。
+        </aside>
+      </div>
+      <div class="route-line reveal">
+        <a class="stop" href="#day-d0"><span class="date">4.30 · D0</span><span class="city">北京 → 长春</span><span class="note">动卧<br>睡一觉就到</span></a>
+        <a class="stop" href="#day-d1"><span class="date">5.1 · D1</span><span class="city">长春</span><span class="note">新天地<br>伪满皇宫</span></a>
+        <a class="stop" href="#day-d2"><span class="date">5.2 · D2</span><span class="city">长春 → 铁岭</span><span class="note">省博三馆<br>长影 / 生串</span></a>
+        <a class="stop" href="#day-d3"><span class="date">5.3 · D3</span><span class="city">铁岭 → 沈阳</span><span class="note">早市<br>九一八</span></a>
+        <a class="stop" href="#day-d4"><span class="date">5.4 · D4</span><span class="city">沈阳 → 绥中</span><span class="note">故宫 / 辽博<br>看海</span></a>
+        <a class="stop" href="#day-d5"><span class="date">5.5 · D5</span><span class="city">绥中 → 北京</span><span class="note">海鲜<br>错峰返程</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section prelude" id="prelude">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="num">02 / WHY</p>
+        <h2>为什么是东北双城</h2>
+        <p class="lead">秉着一个省一个省的原则，先把东三省补齐。长春和沈阳 2019 年短暂停留过，这次把缺的点补上；顺便把东北的早市、烧烤和洗浴都体验一遍。</p>
+      </div>
+      <div class="prelude-grid">
+        <article class="pre-card reveal">
+          <span class="idx">01</span>
+          <div>
+            <h3>一个省一个省地走</h3>
+            <p>东三省先补齐。长春和沈阳都去过，但只是短暂停留；这次把伪满皇宫、长影、九一八、工业博物馆、沈阳故宫、大帅府、辽博这些点串起来。</p>
+          </div>
+        </article>
+        <article class="pre-card reveal">
+          <span class="idx">02</span>
+          <div>
+            <h3>一条博物馆线</h3>
+            <p>伪满皇宫看末代皇帝，长影看电影史，省博 / 科技馆 / 光学馆一个门三个口，九一八和工业博物馆看近现代东北。行程不轻松，但值得。</p>
+          </div>
+        </article>
+        <article class="pre-card reveal">
+          <span class="idx">03</span>
+          <div>
+            <h3>烧烤四连</h3>
+            <p>每天晚上都是烧烤，连吃四天，各有各的口味。没有追求网红店，找本地人多的就行；铁岭生串、沈阳的茄子都让人惦记。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="journey" id="journey">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="num">03 / DAY BY DAY</p>
+        <h2>五天，把历史补上</h2>
+        <p class="lead">不赶打卡，先把每天最重要的博物馆或街区走完。剩下的时间，留给早市、烧烤和路边偶遇。</p>
+      </div>
+
+      <article class="day reveal" id="day-d0">
+        <div class="day-meta">
+          <div class="day-num">D0</div>
+          <div class="day-date">4.30 · 北京—长春</div>
+          <div class="day-route"><b>北京 → 长春</b>动卧，晚上上车，早上到；不占白天。</div>
+        </div>
+        <div class="day-body">
+          <h3>动卧去长春，睡一觉就到</h3>
+          <p>这次去程是动卧。晚上从北京上车，睡一觉，5.1 早上到长春；具体车次按 12306。比起白天高铁，动卧不占白天，到了就能开始玩。</p>
+          <p>回程不坐火车，而是自驾回北京。提前在 12306 上订了租车：长春这有山取车，北京回龙观还车，3 天 5 小时，839 元，没有异地还车费，也不用担心买返程票。</p>
+          <div class="day-facts">
+            <span class="fact"><b>行</b>北京—长春动卧</span>
+            <span class="fact"><b>租车</b>长春取 / 北京还 · 839</span>
+            <span class="fact"><b>提醒</b>12306 租车活动</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d1">
+        <div class="day-meta">
+          <div class="day-num">D1</div>
+          <div class="day-date">5.1 · 长春</div>
+          <div class="day-route"><b>长春西 → 新天地 → 伪满皇宫</b>打车到新天地吃饭；下午伪满皇宫。</div>
+        </div>
+        <div class="day-body">
+          <h3>新天地、伪满皇宫，和一顿不太好吃的锅包肉</h3>
+          <p>早上到长春西，打车到新天地，先吃饭。大商场里有很多吃的，选了个锅包肉，但是不好吃，不推荐。最有意思的是“威尼斯人平替”，室内划船，大小同价 15 元/人，很短，就是个体验。</p>
+          <p>接着打车到伪满皇宫博物院，了解末代皇帝，也了解东三省在近代史上的事件。伪满皇宫和长影可以买联票，比较划算；东北陈列馆地理位置上和伪满又挨着，可以两个一起看。</p>
+          <p>出来后在酒店周边找了个小馆子吃烧烤。当地大哥都说别去网红，小店老店都不错。</p>
+          <div class="day-facts">
+            <span class="fact"><b>住</b>全季长春 · 258</span>
+            <span class="fact"><b>吃</b>姬大厨 / 烧烤</span>
+            <span class="fact"><b>玩</b>新天地 / 伪满皇宫</span>
+            <span class="fact"><b>提醒</b>锅包肉不推荐</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d2">
+        <div class="day-meta">
+          <div class="day-num">D2</div>
+          <div class="day-date">5.2 · 长春—铁岭</div>
+          <div class="day-route"><b>省博 → 科技馆 → 光学馆 → 长影 → 这有山 → 铁岭</b>取车后开去铁岭。</div>
+        </div>
+        <div class="day-body">
+          <h3>一个门进三个馆，下午长影，晚上铁岭生串</h3>
+          <p>省博、科技馆、光学馆在一起，一个门进去，三个口。科技馆里全是孩子，可以体验项目，很大；远处就是长春影视城，游乐场。</p>
+          <p>三个馆出来直接去了长影，怕关门，也没有去别处，就在对面的萍乡大厨吃了午饭，抓紧进长影。电影开场标志打卡；里面的内容感觉没有电影博物馆得好，但情怀和历史在里面加持。</p>
+          <p>出来后对面就是观光有轨电车，票价分好几种；普通票坐两站体验一下就好，观光的价格高，但氛围好。过一个路口，看到人乌泱乌泱的，就是这有山了；巨大的商场，人太多，消防通道也不明显，挺害怕的，打个卡撤了。</p>
+          <p>晚上到宇宙中心铁岭。据说当天有小柔师妹来这里，但是到得晚了，没跟上看。特别喜欢铁岭的生串，遗憾的是有名的几家全都卖光了，找了个看着人多的，也挺好；饭后泡澡，136 元/人。</p>
+          <div class="day-facts">
+            <span class="fact"><b>住</b>铁岭天兴 · 266</span>
+            <span class="fact"><b>吃</b>萍乡大厨 / 生串</span>
+            <span class="fact"><b>玩</b>省博三馆 / 长影 / 这有山</span>
+            <span class="fact"><b>行</b>取车去铁岭</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d3">
+        <div class="day-meta">
+          <div class="day-num">D3</div>
+          <div class="day-date">5.3 · 铁岭—沈阳</div>
+          <div class="day-route"><b>彩虹桥早市 → 银冈书院 → 铁岭博物馆 → 九一八 → 工业博物馆</b>下午到沈阳。</div>
+        </div>
+        <div class="day-body">
+          <h3>早市、银冈书院，和雨里的九一八</h3>
+          <p>一家子早上起不来，早市成了奢侈；刚好铁岭住得离彩虹桥早市不远，赶紧去体验一把。当天可能是个良辰吉日，酒店下面公告牌上全是结婚的。东北早市，从头吃到尾。</p>
+          <p>银冈书院是周总理儿时读书的地方，和铁岭博物馆在一起，可以一起转。去铁岭火车站路上路过铁岭名人推荐过的火勺，小号的肉烧饼；打卡同款铁岭站。起得太早赶早市，路上熬不住了，全体歇了一会。</p>
+          <p>中午到沈阳，先去路比较顺的九一八。本来人就多，加上响雷飘了点雨，人群就乱了，急了，都往里冲，好多还都是年纪大的，不管不顾就挤。出来后去工业博物馆，会路过几个文化街区，没太大兴趣就直接过。晚上烧烤，平平无奇的茄子都特别好吃。</p>
+          <div class="day-facts">
+            <span class="fact"><b>住</b>全季沈阳开发区 · 359</span>
+            <span class="fact"><b>吃</b>早市 / 小二牛烧烤</span>
+            <span class="fact"><b>玩</b>银冈书院 / 九一八 / 工业博物馆</span>
+            <span class="fact"><b>提醒</b>雨天排队</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d4">
+        <div class="day-meta">
+          <div class="day-num">D4</div>
+          <div class="day-date">5.4 · 沈阳—绥中</div>
+          <div class="day-route"><b>沈阳故宫 → 大帅府 → 辽博 → 绥中</b>晚上开到绥中看海。</div>
+        </div>
+        <div class="day-body">
+          <h3>故宫、大帅府、辽博，然后去看海</h3>
+          <p>故地重游。2019 年来的时候随便进，现在排队都排不上。中街、故宫、大帅府走路可达；现在人太多，转圈排队，还没进去先绕两公里，里面每个殿门口又是转圈圈。</p>
+          <p>只能在拥挤的人群中，抬高手臂拍一张，稍微停留，保安就会喊“拍完赶快走”。看清楚、看历史？不存在的，拍完赶紧走，观感度为零。</p>
+          <p>出来打车去省博，司机大哥说这都算人少的了，只是堵但还能走动，前两天车根本动不了。省博不需要预约，但是儿童体验馆要预约；两娃大了兴趣不大，就没预约。晚上往回开了点，到绥中看看海；汉庭绥中 225，大鹏烧烤 210。</p>
+          <div class="day-facts">
+            <span class="fact"><b>住</b>汉庭绥中 · 225</span>
+            <span class="fact"><b>吃</b>米线 / 大鹏烧烤</span>
+            <span class="fact"><b>玩</b>沈阳故宫 / 大帅府 / 辽博</span>
+            <span class="fact"><b>提醒</b>五一排队</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d5">
+        <div class="day-meta">
+          <div class="day-num">D5</div>
+          <div class="day-date">5.5 · 绥中—北京</div>
+          <div class="day-route"><b>绥中 → 北京</b>海边随便玩；下午错峰返程。</div>
+        </div>
+        <div class="day-body">
+          <h3>海边写作业，错峰回京</h3>
+          <p>当天天气不好，加上还有个初中生作业需要收尾，就海边随便玩了玩，返程。海鲜市场买了螃蟹，包子、方便面补齐路上的胃。</p>
+          <p>返程路上很顺，没有堵车。还担心最后一天会不会车很多，据说好多车都堵在了 4 号，5 号下午反而一路畅通。顺利返京。</p>
+          <div class="day-facts">
+            <span class="fact"><b>行</b>绥中 → 北京</span>
+            <span class="fact"><b>吃</b>海鲜 / 包子</span>
+            <span class="fact"><b>提醒</b>错峰返程</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section feature" id="feature">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="num">04 / MUSEUMS &amp; BBQ</p>
+        <h2>白天看历史，晚上吃烧烤</h2>
+        <p class="lead">这次的重点不是打卡，而是把 2019 年没来得及看的几个点补上；博物馆安排得密，但每个都值得。晚上则统一交给烧烤。</p>
+      </div>
+      <p class="feature-quote reveal">“一个省一个省地走，先把东三省补齐。”</p>
+      <div class="feature-grid">
+        <article class="feature-card reveal">
+          <h3>伪满皇宫 + 长影</h3>
+          <p class="price">联票 129 × 2</p>
+          <p>末代皇帝与东北近代史；长影是电影情怀，内容不如电影博物馆，但历史加持。两处距离不远，联票更划算。</p>
+        </article>
+        <article class="feature-card reveal">
+          <h3>省博 / 科技馆 / 光学馆</h3>
+          <p class="price">一个门，三个口</p>
+          <p>科技馆里全是孩子，体验项目多、空间大；省博和光学馆可以顺路。适合安排半天，别低估孩子的体力消耗。</p>
+        </article>
+        <article class="feature-card reveal">
+          <h3>九一八 / 工业博物馆</h3>
+          <p class="price">免费 · 人多</p>
+          <p>九一八人多，雨里排队容易乱；工业博物馆看东北工业的骨架。两个都不轻松，但都是理解这座城市的入口。</p>
+        </article>
+      </div>
+      <div class="feature-list reveal">
+        <div><span>沈阳故宫 / 大帅府 / 辽博</span><b>故宫 100</b></div>
+        <div><span>银冈书院 / 铁岭博物馆</span><b>免费</b></div>
+        <div><span>烧烤四连 · 长春 / 铁岭 / 沈阳 / 绥中</span><b>每晚一顿</b></div>
+        <div><span>这有山 / 彩虹桥早市</span><b>打卡 / 早起</b></div>
+        <div><span>门票合计</span><b>720 元</b></div>
+        <div><span>其中洗浴 / 划船 / 联票 / 故宫</span><b>272 / 45 / 303 / 100</b></div>
+      </div>
+      <p class="feature-note">博物馆基本现场约或不约都行；辽博儿童体验馆要预约；伪满皇宫和长影联票更划算。门票合计含洗浴 272、新天地划船 45、长影 / 伪满 303、沈阳故宫 100。</p>
+    </div>
+  </section>
+
+  <section class="section stay" id="stay">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="num">05 / STAY &amp; DRIVE</p>
+        <h2>住得简单，路上要顺</h2>
+        <p class="lead">五一酒店只求干净、好停车；城市里把车停在地铁站外，再坐地铁进景点。去程动卧，回程自驾，是这次最省心的组合。</p>
+      </div>
+      <div class="stay-grid">
+        <article class="stay-card reveal">
+          <div class="stay-top"><h3>长春 · 全季</h3><span class="badge yes">推荐</span></div>
+          <div class="stay-loc">长春 · 酒店周边有小馆子</div>
+          <div class="stay-price">¥258 / 晚</div>
+          <p>经济型，干净好睡；晚上在周边找小店吃烧烤，比网红店舒服。去新天地、伪满皇宫打车方便。</p>
+        </article>
+        <article class="stay-card reveal">
+          <div class="stay-top"><h3>铁岭 · 天兴</h3><span class="badge yes">推荐</span></div>
+          <div class="stay-loc">铁岭 · 近早市和火车站</div>
+          <div class="stay-price">¥266 / 晚</div>
+          <p>住这里是为了第二天去彩虹桥早市；酒店下面公告牌全是结婚的，五一果然是好日子。停车方便。</p>
+        </article>
+        <article class="stay-card reveal">
+          <div class="stay-top"><h3>沈阳 · 全季开发区</h3><span class="badge yes">推荐</span></div>
+          <div class="stay-loc">沈阳 · 离景点有点距离</div>
+          <div class="stay-price">¥359 / 晚</div>
+          <p>五一市区酒店贵且堵，住开发区，车停地铁站外，坐地铁进故宫、九一八，反而省时间。</p>
+        </article>
+        <article class="stay-card reveal">
+          <div class="stay-top"><h3>绥中 · 汉庭</h3><span class="badge yes">推荐</span></div>
+          <div class="stay-loc">绥中 · 看海 / 海鲜市场</div>
+          <div class="stay-price">¥225 / 晚</div>
+          <p>回京前的落脚点，价格低；去海边和海鲜市场都方便，第二天错峰回京。</p>
+        </article>
+      </div>
+
+      <div class="travel-grid">
+        <article class="travel-card reveal">
+          <p class="num">01 / TRAIN &amp; CAR</p>
+          <h3>动卧去，自驾回</h3>
+          <ul>
+            <li>北京—长春动卧，晚上上车，早上到；不占白天。</li>
+            <li>12306 租车活动：长春这有山取车，北京回龙观还车，3 天 5 小时，839 元，无异地还车费。</li>
+            <li>加油 315 元；不用买返程票，回程自由。</li>
+          </ul>
+        </article>
+        <article class="travel-card reveal">
+          <p class="num">02 / CITY</p>
+          <h3>城市里别开车进景点</h3>
+          <ul>
+            <li>沈阳景点附近超级堵；车停两三站地铁外，再坐地铁过去。</li>
+            <li>打车也寸步难行；司机大哥说 4 号已经好很多了。</li>
+            <li>长春市区地铁 + 打车；铁岭小城停车相对轻松。</li>
+          </ul>
+        </article>
+        <article class="travel-card reveal">
+          <p class="num">03 / TICKETS</p>
+          <h3>博物馆和门票</h3>
+          <ul>
+            <li>这次感觉博物馆预约弱化了，基本现场约或者不约都行。</li>
+            <li>辽博不需要预约，但儿童体验馆要预约；两娃大了，没约。</li>
+            <li>伪满皇宫 + 长影联票更划算；沈阳故宫 100 元。</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section expense" id="expense">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="num">06 / COST</p>
+        <h2>6,135.12 元，四口之家</h2>
+        <p class="lead">5 天 4 晚，2 大 2 小，含动卧 / 租车 / 加油、住宿、门票、吃饭和洗浴。以下按 Excel 费用表整理，人民币计价。</p>
+      </div>
+      <div class="expense-top">
+        <div class="expense-total reveal">
+          <div class="label">TOTAL · 2025.5.1—5.5</div>
+          <div class="amount">6,135.12<small>元</small></div>
+          <div class="sub">日均约 1,227.02 元 · 2 大 2 小<br>大交通 / 租车 / 加油 2,615 · 住宿 1,108</div>
+        </div>
+        <div class="reveal">
+          <div class="expense-note">
+            <p><b>交通是最大头。</b>动卧 / 高铁 1,461 元，租车 839 元，加油 315 元，合计 2,615 元；城市打车和地铁另计 189.82 元。</p>
+            <p><b>吃得很实在。</b>餐饮 1,502.30 元，四天晚上都是烧烤；没有追网红店，人均反而舒服。</p>
+            <p><b>门票含体验。</b>720 元里，长影 / 伪满联票 303、洗浴 272、新天地划船 45、沈阳故宫 100。</p>
+          </div>
+          <div class="bars">
+            <div class="bar"><span>交通</span><div class="track"><div class="fill" data-w="42.6" style="width:42.6%;background:#8c3b2e"></div></div><span class="val">2,615.00<em>42.6%</em></span></div>
+            <div class="bar"><span>餐饮</span><div class="track"><div class="fill" data-w="24.5" style="width:24.5%;background:#2f5d6b"></div></div><span class="val">1,502.30<em>24.5%</em></span></div>
+            <div class="bar"><span>住宿</span><div class="track"><div class="fill" data-w="18.1" style="width:18.1%;background:#b98a4a"></div></div><span class="val">1,108.00<em>18.1%</em></span></div>
+            <div class="bar"><span>门票 / 体验</span><div class="track"><div class="fill" data-w="11.7" style="width:11.7%;background:#a84a2f"></div></div><span class="val">720.00<em>11.7%</em></span></div>
+            <div class="bar"><span>其他</span><div class="track"><div class="fill" data-w="3.1" style="width:3.1%;background:#8b9698"></div></div><span class="val">189.82<em>3.1%</em></span></div>
+          </div>
+          <p class="expense-foot">交通 = 动卧 / 高铁 1,461 + 租车 839 + 加油 315；门票 / 体验 = 洗浴 272 + 长影 / 伪满 303 + 新天地划船 45 + 沈阳故宫 100；其他 = 打车 / 地铁 189.82。百分比四舍五入，合计约 100%。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tips" id="tips">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="num">07 / NOTES</p>
+        <h2>五一北上，记住这些小事</h2>
+        <p class="lead">东北的五一，白天看历史，晚上吃烧烤；人多、车多，但错峰和地铁能把体验拉回来。</p>
+      </div>
+      <div class="tips-grid">
+        <article class="tip reveal"><span class="n">01</span><div><h3>动卧 + 12306 租车</h3><p>去程北京—长春动卧，睡一觉就到；12306 租车活动，长春取车、北京回龙观还车，没有异地还车费，也不用买返程票。</p></div></article>
+        <article class="tip reveal"><span class="n">02</span><div><h3>五一别开车进沈阳景点</h3><p>沈阳景点附近超级堵，车停两三站地铁外，再坐地铁过去；打车也寸步难行。司机大哥说 4 号已经好很多了。</p></div></article>
+        <article class="tip reveal"><span class="n">03</span><div><h3>博物馆预约</h3><p>这次博物馆预约弱化了，基本现场约或者不约都行；辽博儿童体验馆要预约，伪满皇宫 + 长影联票更划算。</p></div></article>
+        <article class="tip reveal"><span class="n">04</span><div><h3>烧烤找本地人多的</h3><p>连吃四天烧烤，各有各的口味；不追网红店。铁岭生串、沈阳的茄子、绥中的大鹏，都是本地人多的选择。</p></div></article>
+        <article class="tip reveal"><span class="n">05</span><div><h3>早市要早起</h3><p>彩虹桥早市值得去，但一家子容易起不来；住近一点，赶在收摊前从头吃到尾。火勺是小号肉烧饼，路过别错过。</p></div></article>
+        <article class="tip reveal"><span class="n">06</span><div><h3>这有山打卡就走</h3><p>人乌泱乌泱，消防通道也不明显；带娃不建议久留，拍张照就撤，把时间留给博物馆和烧烤。</p></div></article>
+        <article class="tip reveal"><span class="n">07</span><div><h3>九一八带伞、避开高峰</h3><p>人多加雷雨，入口容易乱；带伞，尽量避开团队高峰。工业博物馆可以顺路，但别安排得太满。</p></div></article>
+        <article class="tip reveal"><span class="n">08</span><div><h3>返程错峰</h3><p>5.5 下午反而一路畅通；好多车堵在 4 号。回京前加满油，海边玩完直接上高速，别赶在傍晚进城。</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ending">
+    <p class="ending-kicker">后记</p>
+    <blockquote>一个省一个省地走，<br>先把东三省补齐。</blockquote>
+    <p>顺利返京。下一次，继续把地图上的空白填上。</p>
+  </section>
+</main>
+
+<footer>见山河 · 东北双城 ｜ 2025.4.30—5.5 ｜ 长春 / 铁岭 / 沈阳 / 绥中 ｜ 单文件离线阅读</footer>
+
+<script>
+(function(){
+  'use strict';
+  var bar = document.getElementById('progressBar');
+  var topbar = document.getElementById('topbar');
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.section-nav a'));
+  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+
+  function onScroll(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? (window.scrollY / max) * 100 : 0;
+    if(bar) bar.style.width = Math.min(100, Math.max(0, p)) + '%';
+    if(topbar) topbar.classList.toggle('solid', window.scrollY > 24);
+    var current = sections[0];
+    sections.forEach(function(s){ if(s.getBoundingClientRect().top <= 120) current = s; });
+    navLinks.forEach(function(a){ a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    reveals.forEach(function(el){ io.observe(el); });
+  }else{
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var fills = Array.prototype.slice.call(document.querySelectorAll('.bar .fill'));
+  if('IntersectionObserver' in window){
+    var barIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var el = entry.target;
+          el.style.width = el.getAttribute('data-w') + '%';
+          barIO.unobserve(el);
+        }
+      });
+    }, {threshold:0.4});
+    fills.forEach(function(el){ barIO.observe(el); });
+  }else{
+    fills.forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+  }
+})();
+</script>
+
+
+</body></html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="js"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新马 2024 五一 · 吉隆坡 / 马六甲 / 新加坡</title>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --paper:#f7f3ea;
+    --paper-2:#efe8da;
+    --paper-3:#e7ddcb;
+    --ink:#1f2b30;
+    --ink-2:#55636a;
+    --ink-3:#8b9698;
+    --line:#d8d0c2;
+    --accent:#0f766e;
+    --accent-deep:#123b38;
+    --accent-2:#c2783a;
+    --gold:#b98a4a;
+    --sea:#5b6f7a;
+    --coral:#a84a2f;
+    --max:1120px;
+    --topbar:58px;
+    --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:radial-gradient(rgba(120,100,70,.055) .6px,transparent .6px);
+    background-size:4px 4px;
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:#e7c9a8;color:var(--ink)}
+  a{color:inherit}
+  .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:90;background:transparent;pointer-events:none}
+  .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .1s linear}
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:80;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:0 28px;border-bottom:1px solid transparent;
+    transition:background .3s,border-color .3s,backdrop-filter .3s;
+  }
+  .topbar.solid{
+    background:rgba(247,243,234,.96);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-bottom-color:var(--line);
+  }
+  .brand{
+    font-family:var(--serif);font-size:17px;font-weight:600;
+    letter-spacing:.22em;text-decoration:none;white-space:nowrap;
+  }
+  .section-nav{
+    display:flex;align-items:center;gap:24px;
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .section-nav::-webkit-scrollbar{display:none}
+  .section-nav a{
+    position:relative;padding:6px 0;font-size:11px;letter-spacing:.16em;
+    color:var(--ink-2);text-decoration:none;white-space:nowrap;
+  }
+  .section-nav a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--accent);transition:width .25s;
+  }
+  .section-nav a:hover::after,.section-nav a.active::after{width:100%}
+  .section-nav a.active{color:var(--accent)}
+  .hero{
+    position:relative;min-height:100svh;display:grid;place-items:center;
+    padding:120px 24px 84px;overflow:hidden;isolation:isolate;
+    background:linear-gradient(180deg,#f7f3ea 0%,#eef6f3 46%,#d9ece9 100%);
+  }
+  .hero-art{position:absolute;inset:0;z-index:-2;pointer-events:none}
+  .hero-art svg{display:block;width:100%;height:100%}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,0) 50%,rgba(247,243,234,.18) 72%,var(--paper) 100%);
+  }
+  .hero-inner{position:relative;max-width:980px;text-align:center}
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.32em;color:var(--accent);margin:0 0 22px}
+  .hero h1{
+    font-family:var(--serif);font-size:clamp(76px,15vw,188px);font-weight:700;
+    line-height:.9;letter-spacing:.16em;text-indent:.16em;margin:0;color:var(--ink);
+  }
+  .hero-sub{
+    font-family:var(--serif);font-size:clamp(17px,2.2vw,26px);
+    letter-spacing:.2em;margin:24px 0 0;color:var(--ink-2);
+  }
+  .hero-lead{max-width:680px;margin:24px auto 0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .hero-route{
+    display:inline-flex;flex-wrap:wrap;justify-content:center;gap:7px;
+    margin:26px auto 0;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    font-size:10px;letter-spacing:.12em;color:var(--ink-3);
+  }
+  .hero-route span{white-space:nowrap}
+  .hero-stats{display:flex;justify-content:center;gap:clamp(24px,5vw,64px);margin-top:38px;flex-wrap:wrap}
+  .hero-stats div{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .hero-stats b{font-family:var(--serif);font-size:clamp(24px,3.2vw,36px);font-weight:600;line-height:1;color:var(--ink)}
+  .hero-stats span{font-size:10px;letter-spacing:.18em;color:var(--ink-3)}
+  .scroll-cue{
+    position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:var(--ink-3);font-size:10px;letter-spacing:.2em;text-decoration:none;
+  }
+  .scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--ink-3),transparent);animation:cue 2.2s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(.6);opacity:.5}50%{transform:scaleY(1);opacity:1}}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .section{padding:clamp(72px,9vw,120px) 0;scroll-margin-top:70px}
+  .section-head{max-width:760px;margin-bottom:40px}
+  .section-head .num{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0 0 12px}
+  .section-head h2{font-family:var(--serif);font-size:clamp(30px,4.2vw,48px);font-weight:600;line-height:1.2;letter-spacing:.06em;margin:0 0 16px}
+  .section-head .lead{max-width:690px;margin:0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .route{background:linear-gradient(180deg,var(--paper) 0%,#f1ebe0 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .route-intro{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:end;margin-bottom:40px}
+  .route-intro .section-head{margin-bottom:0}
+  .route-aside{font-size:12px;line-height:2;color:var(--ink-2);padding-left:22px;border-left:1px solid var(--line)}
+  .route-aside b{color:var(--ink);font-weight:600}
+  .route-line{
+    display:flex;overflow-x:auto;padding:18px 0 4px;border-top:1px solid var(--line);
+    scrollbar-width:none;
+  }
+  .route-line::-webkit-scrollbar{display:none}
+  .stop{
+    position:relative;flex:1 0 100px;min-width:100px;padding:22px 12px 0;
+    text-decoration:none;border-right:1px solid var(--line);
+  }
+  .stop:last-child{border-right:0}
+  .stop::before{
+    content:"";position:absolute;left:12px;top:-4px;width:7px;height:7px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 0 4px var(--paper);
+  }
+  .stop .date{font-size:9px;letter-spacing:.14em;color:var(--ink-3)}
+  .stop .city{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.4;margin:5px 0 3px}
+  .stop .note{font-size:10px;line-height:1.6;color:var(--ink-2)}
+  .stop:hover .city{color:var(--accent)}
+  .prelude-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .pre-card{
+    display:flex;flex-direction:column;justify-content:space-between;min-height:228px;
+    padding:26px 24px;background:rgba(255,255,255,.5);border:1px solid var(--line);
+  }
+  .pre-card .idx{font-family:var(--serif);font-size:28px;line-height:1;color:var(--accent-2)}
+  .pre-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:18px 0 8px}
+  .pre-card p{margin:0;font-size:12.5px;line-height:1.9;color:var(--ink-2)}
+  .journey{padding:clamp(60px,8vw,110px) 0}
+  .day{display:grid;grid-template-columns:160px 1fr;gap:48px;padding:46px 0;border-top:1px solid var(--line)}
+  .day:first-of-type{border-top:0}
+  .day-meta{position:sticky;top:86px;align-self:start}
+  .day-num{font-family:var(--serif);font-size:46px;line-height:1;color:var(--accent);letter-spacing:.02em}
+  .day-date{font-size:10px;letter-spacing:.2em;color:var(--ink-3);margin-top:8px}
+  .day-route{font-size:12px;line-height:1.8;color:var(--ink-2);margin-top:12px}
+  .day-route b{display:block;color:var(--ink);font-weight:600;margin-bottom:3px}
+  .day-body h3{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:600;line-height:1.35;letter-spacing:.02em;margin:0 0 14px}
+  .day-body p{font-size:14px;line-height:2;color:var(--ink-2);margin:0 0 12px}
+  .day-body p:last-child{margin-bottom:0}
+  .day-facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+  .fact{font-size:10px;line-height:1.5;color:var(--ink-2);background:rgba(255,255,255,.5);border:1px solid var(--line);padding:4px 8px}
+  .fact b{color:var(--accent);font-weight:700;margin-right:4px}
+  .day-pull{
+    margin:20px 0 0;padding:16px 18px;border-left:2px solid var(--accent-2);
+    background:rgba(194,120,58,.06);font-family:var(--serif);
+    font-size:16px;line-height:1.9;color:var(--ink);
+  }
+  .feature{position:relative;overflow:hidden;background:var(--accent-deep);color:#f3ead9}
+  .feature::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(80% 60% at 82% 0%,rgba(197,154,74,.2),transparent 60%),
+      radial-gradient(60% 55% at 0% 100%,rgba(15,118,110,.4),transparent 62%);
+  }
+  .feature .wrap{position:relative}
+  .feature .section-head .num{color:#e0b56a}
+  .feature .section-head h2{color:#f3ead9}
+  .feature .section-head .lead{color:rgba(243,234,217,.72)}
+  .feature-quote{
+    max-width:850px;margin:0 0 42px;font-family:var(--serif);
+    font-size:clamp(22px,3vw,34px);line-height:1.7;letter-spacing:.04em;color:#f3ead9;
+  }
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+  .feature-card{padding:22px;border:1px solid rgba(243,234,217,.18);background:rgba(255,255,255,.03)}
+  .feature-card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 8px;color:#f3ead9}
+  .feature-card .price{font-family:var(--serif);font-size:18px;color:#e0b56a;margin:0 0 10px}
+  .feature-card p{margin:0;font-size:12.5px;line-height:1.9;color:rgba(243,234,217,.72)}
+  .feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0 34px;border-top:1px solid rgba(243,234,217,.16);margin-top:28px}
+  .feature-list div{display:grid;grid-template-columns:1fr auto;gap:18px;padding:12px 0;border-bottom:1px solid rgba(243,234,217,.12);font-size:12.5px;color:rgba(243,234,217,.78)}
+  .feature-list b{font-family:var(--serif);font-size:14px;font-weight:600;color:#e0b56a}
+  .feature-note{margin-top:18px;font-size:11px;line-height:1.8;color:rgba(243,234,217,.5)}
+  .stay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .stay-card{display:flex;flex-direction:column;gap:10px;padding:22px;background:rgba(255,255,255,.55);border:1px solid var(--line)}
+  .stay-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .stay-card h3{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.4;margin:0}
+  .badge{flex:none;font-size:9px;letter-spacing:.08em;padding:3px 6px;border:1px solid;white-space:nowrap}
+  .badge.yes{color:var(--accent);border-color:rgba(15,118,110,.35);background:rgba(15,118,110,.06)}
+  .badge.no{color:#a84a2f;border-color:rgba(168,74,47,.3);background:rgba(168,74,47,.06)}
+  .stay-loc{font-size:11px;letter-spacing:.06em;color:var(--ink-3)}
+  .stay-price{font-family:var(--serif);font-size:16px;color:var(--accent-2)}
+  .stay-card p{margin:0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .travel-card{padding:20px 0 0;border-top:2px solid var(--accent)}
+  .travel-card .num{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--accent-2)}
+  .travel-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:8px 0 10px}
+  .travel-card p,.travel-card li{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .travel-card p{margin:0}
+  .travel-card ul{margin:0;padding-left:16px}
+  .travel-card li{margin:3px 0}
+  .expense{background:linear-gradient(180deg,#f1ebe0 0%,var(--paper) 100%);border-top:1px solid var(--line)}
+  .expense-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start;margin-bottom:34px}
+  .expense-total{padding:28px;background:var(--accent-deep);color:#f3ead9}
+  .expense-total .label{font-size:10px;letter-spacing:.2em;color:rgba(243,234,217,.6)}
+  .expense-total .amount{font-family:var(--serif);font-size:clamp(36px,5vw,56px);line-height:1.1;margin:10px 0 4px;color:#f3ead9}
+  .expense-total .amount small{font-family:var(--sans);font-size:14px;color:#e0b56a;margin-left:6px}
+  .expense-total .sub{font-size:11px;line-height:1.8;color:rgba(243,234,217,.62)}
+  .expense-note{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .expense-note p{margin:0 0 8px}
+  .expense-note b{color:var(--ink)}
+  .bars{display:grid;gap:12px;margin-top:20px}
+  .bar{display:grid;grid-template-columns:88px 1fr 82px;gap:12px;align-items:center;font-size:11px;color:var(--ink-2)}
+  .bar .track{height:7px;background:#e3dbcc;overflow:hidden}
+  .bar .fill{height:100%;width:0;background:var(--accent);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+  .bar .val{text-align:right;font-family:var(--serif);font-size:13px;color:var(--ink)}
+  .bar .val em{font-family:var(--sans);font-style:normal;font-size:9px;color:var(--ink-3);margin-left:4px}
+  .expense-foot{margin-top:18px;font-size:10px;line-height:1.9;color:var(--ink-3)}
+  .tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;border-top:1px solid var(--line)}
+  .tip{display:grid;grid-template-columns:38px 1fr;gap:16px;padding:26px 0;border-bottom:1px solid var(--line)}
+  .tip .n{font-family:var(--serif);font-size:18px;color:var(--accent-2)}
+  .tip h3{font-family:var(--serif);font-size:17px;font-weight:600;margin:0 0 6px}
+  .tip p{margin:0;font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .ending{padding:clamp(90px,12vw,160px) 24px;text-align:center;border-top:1px solid var(--line);background:var(--paper-2)}
+  .ending-kicker{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0}
+  .ending blockquote{max-width:840px;margin:18px auto;font-family:var(--serif);font-size:clamp(24px,4vw,42px);line-height:1.6;letter-spacing:.06em;color:var(--ink)}
+  .ending p{max-width:620px;margin:0 auto;font-size:12px;line-height:2;color:var(--ink-2)}
+  footer{padding:30px 24px;text-align:center;background:var(--paper-2);border-top:1px solid var(--line);font-size:10px;letter-spacing:.12em;color:var(--ink-3)}
+  .js .reveal{transform:translateY(18px);transition:transform .7s ease}
+  .js .reveal.in{transform:none}
+  @media (max-width:980px){
+    .route-intro{grid-template-columns:1fr;gap:20px}
+    .route-aside{padding-left:0;border-left:0;border-top:1px solid var(--line);padding-top:16px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid{grid-template-columns:1fr 1fr}
+    .expense-top{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    :root{--topbar:54px}
+    .topbar{padding:0 14px;gap:10px}
+    .brand{font-size:15px;letter-spacing:.16em}
+    .section-nav{gap:14px;margin-left:8px}
+    .section-nav a{font-size:10px;letter-spacing:.1em}
+    .hero{min-height:92svh;padding:106px 18px 70px}
+    .hero h1{font-size:clamp(64px,20vw,110px)}
+    .hero-sub{font-size:16px;letter-spacing:.14em}
+    .hero-lead{font-size:13px;line-height:1.9}
+    .hero-route{font-size:9px;line-height:1.8;gap:5px}
+    .hero-stats{gap:22px}
+    .hero-stats b{font-size:26px}
+    .section{padding:60px 0}
+    .wrap{padding:0 18px}
+    .section-head{margin-bottom:28px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid,.feature-list{grid-template-columns:1fr}
+    .route-line{margin:0 -18px;padding-left:18px;padding-right:18px}
+    .stop{flex:0 0 108px;min-width:108px}
+    .day{grid-template-columns:1fr;gap:18px;padding:34px 0}
+    .day-meta{position:static;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+    .day-num{font-size:38px}
+    .day-date{margin-top:0}
+    .day-route{flex:1 0 100%;margin-top:0;padding-top:8px;border-top:1px solid var(--line)}
+    .day-body h3{font-size:22px}
+    .day-pull{font-size:15px}
+    .bar{grid-template-columns:64px 1fr 64px;gap:8px;font-size:10px}
+    .bar .val{font-size:11px}
+    .bar .val em{display:none}
+    .tips-grid{grid-template-columns:1fr;gap:0}
+    .expense-total{padding:22px}
+    .ending{padding:70px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .js .reveal{opacity:1;transform:none;transition:none}
+    .scroll-cue i{animation:none}
+    .bar .fill{transition:none}
+  }
+
+  .hero h1{font-size:clamp(64px,17vw,168px);letter-spacing:.12em;text-indent:.12em}
+  .hero-sub{letter-spacing:.14em}
+  .hero::after{background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,.08) 48%,rgba(247,243,234,.58) 70%,rgba(247,243,234,.94) 88%,var(--paper) 100%)}
+  .hero-stats span{color:var(--ink-2)}
+  .feature .section-head .lead{max-width:720px}
+
+  .part-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:54px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+  .part-head h3{font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:600;margin:0;letter-spacing:.04em}
+  .part-head span{font-size:10px;letter-spacing:.18em;color:var(--accent-2);font-weight:700;white-space:nowrap}
+  .part-head p{flex:1 0 100%;margin:4px 0 0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .route-line .stop{flex:1 0 140px}
+  .feature-list b{text-align:right}
+  @media (max-width:720px){
+    .part-head{margin-top:38px}
+    .part-head h3{font-size:22px}
+    .route-line .stop{flex:0 0 120px}
+  }
+
+</style>
+</head>
+<body>
+<div class="progress"><span id="progressBar"></span></div><header class="topbar" id="topbar"><a class="brand" href="#top">见山河</a><nav class="section-nav" aria-label="页面目录"><a href="#route">路线</a><a href="#prelude">行前</a><a href="#journey">逐日</a><a href="#feature">亲子</a><a href="#stay">住行</a><a href="#expense">费用</a><a href="#tips">心法</a></nav></header><main id="top"><section class="hero"><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f0e6"/><stop offset=".55" stop-color="#e9eef0"/><stop offset="1" stop-color="#9fb4bd"/></linearGradient><radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e7b26c" stop-opacity=".55"/><stop offset="1" stop-color="#e7b26c" stop-opacity="0"/></radialGradient></defs>
+<rect width="1440" height="900" fill="url(#sky)"/>
+<circle cx="1080" cy="230" r="210" fill="url(#glow)"/><circle cx="1080" cy="230" r="78" fill="#dfa25e" opacity=".85"/>
+<path d="M0 570 C150 510 300 544 440 560 C580 576 700 524 840 548 C980 572 1100 520 1240 548 C1330 566 1390 548 1440 556 L1440 900 L0 900 Z" fill="#9fb4bd" opacity=".55"/>
+<path d="M0 660 C170 614 320 650 470 656 C620 662 760 612 910 636 C1060 660 1200 618 1320 642 C1370 652 1410 648 1440 652 L1440 900 L0 900 Z" fill="#3f4650" opacity=".55"/>
+<path d="M0 750 C180 712 340 750 510 738 C680 726 820 764 980 746 C1140 728 1280 760 1440 738 L1440 900 L0 900 Z" fill="#2f3a40" opacity=".82"/>
+<g fill="#2f3a40" opacity=".35"><path d="M150 900 L180 690 L210 900 Z"/><path d="M215 900 L245 650 L278 900 Z"/><path d="M1180 900 L1210 690 L1242 900 Z"/><path d="M1250 900 L1280 650 L1310 900 Z"/></g>
+<g fill="none" stroke="#3f565e" stroke-width="1.5" opacity=".3"><path d="M300 280 q10 -8 20 0 q10 -8 20 0"/><path d="M380 245 q8 -6 16 0 q8 -6 16 0"/><path d="M860 300 q9 -7 18 0 q9 -7 18 0"/></g></svg></div><div class="hero-inner"><p class="kicker">2024 · 五一 · 马来西亚 / 新加坡</p><h1>新马</h1><p class="hero-sub">吉隆坡 · 马六甲 · 新山 · 新加坡</p><p class="hero-lead">疫情后第一站选个简单的：东南亚。最开始想春节去马来西亚、新加坡和印尼，各种原因最后定了五一新马。亚航红眼省时间，乐高、动物园、圣淘沙，四个人的特种兵行程。</p><div class="hero-route"><span>北京</span><span>吉隆坡</span><span>布城</span><span>马六甲</span><span>新山</span><span>新加坡</span><span>北京</span></div><div class="hero-stats"><div><b>7</b><span>天</span></div><div><b>6</b><span>晚</span></div><div><b>2大2小</b><span>同行</span></div><div><b>26,772</b><span>元 · 总花费</span></div></div></div><a class="scroll-cue" href="#route">沿着路，向北<i></i></a></section><section class="section route" id="route"><div class="wrap"><div class="route-intro"><div class="section-head reveal"><p class="num">01 / ROUTE</p><h2>吉隆坡进，新加坡出</h2><p class="lead">北京红眼到吉隆坡，市区一天；包车去布城、马六甲、新山；乐高乐园一天，再从新山过关到新加坡；动物园、圣淘沙、市区，樟宜机场回。</p></div><aside class="route-aside reveal"><b>路线骨架</b><br>北京 → 吉隆坡 → 布城 → 马六甲 → 新山 → 新加坡 → 北京。<br><br><b>节奏</b><br>7 天 6 晚；亚航红眼、Grab、新山过关大巴、新加坡地铁 + Gocity 通票；榴莲季没到，是最大遗憾。</aside></div><div class="route-line reveal"><a class="stop" href="#journey"><span class="date">4.29—4.30</span><span class="city">吉隆坡</span><span class="note">国博&lt;br&gt;双子塔</span></a><a class="stop" href="#journey"><span class="date">5.1</span><span class="city">布城 / 马六甲 / 新山</span><span class="note">粉红清真寺&lt;br&gt;鸡场街</span></a><a class="stop" href="#journey"><span class="date">5.2—5.4</span><span class="city">新加坡</span><span class="note">乐高&lt;br&gt;动物园 / 圣淘沙</span></a><a class="stop" href="#journey"><span class="date">5.5</span><span class="city">返程</span><span class="note">樟宜&lt;br&gt;马尼拉转机</span></a></div></div></section><section class="section prelude" id="prelude"><div class="wrap"><div class="section-head reveal"><p class="num">02 / WHY</p><h2>为什么是新马</h2><p class="lead">疫情后第一站，选个简单、飞行不太久、孩子有得玩的地方。乐高、动物园、圣淘沙、樟宜机场，刚好一条线。</p></div><div class="prelude-grid"><article class="pre-card reveal"><span class="idx">01</span><div><h3>红眼省时间</h3><p>亚航便宜，红眼航班熬一晚，第二天一早就能逛；打工人假期少，能省一天是一天。</p></div></article><article class="pre-card reveal"><span class="idx">02</span><div><h3>乐高和动物园</h3><p>新山乐高 land + sea + water park，人不多；新加坡动物园、飞禽、河川，孩子可以玩两天。</p></div></article><article class="pre-card reveal"><span class="idx">03</span><div><h3>城市和机场</h3><p>吉隆坡双子塔、马六甲、圣淘沙、滨海湾；樟宜机场多留时间，瀑布、小火车、大滑梯。</p></div></article></div></div></section><section class="journey" id="journey"><div class="wrap"><div class="section-head reveal"><p class="num">03 / DAY BY DAY</p><h2>七天，四城特种兵</h2><p class="lead">红眼、包车、过关、地铁、缆车；每天都是满的，但孩子有得玩，大人也吃到了。</p></div><div class="part-head reveal"><h3>第一段 · 吉隆坡、马六甲、新山</h3><span>4.29—5.1</span><p>国博、双子塔、布城、马六甲、乐高。</p></div><article class="day reveal" id="m-0429"><div class="day-meta"><div class="day-num">4.29</div><div class="day-date">D1 · 北京—吉隆坡</div><div class="day-route"><b>亚航 → 吉隆坡 → 国博 → 国家清真寺 → 双子塔</b>红眼落地，直接开逛。</div></div><div class="day-body"><h3>红眼到吉隆坡，先吃华阳冰室</h3><p>亚航 2:30 出发，7kg 行李；队友又高又胖，直呼廉航不能再坐。晚点一小时，9:30 落地吉隆坡。</p><p>机场华阳冰室吃广式茶餐厅，和香港的逛搭子一家连线；打车去国家博物馆，娃评价此行最差——四个展厅，只有一楼有空调。</p><p>国家清真寺、占美清真寺；太热，走几百米都很辛苦。回武吉免登酒店换衣服，海脚人吃饭；榴莲季没到，榴莲店都不开门。</p><p>晚上步行柏威年，走链接长廊去双子塔，公园里孩子玩水；大暴雨，来自内陆人的无知，以为下不长。</p><div class="day-facts"><span class="fact"><b>行</b>亚航红眼</span><span class="fact"><b>吃</b>华阳冰室 / 海脚人</span><span class="fact"><b>住</b>Sleeping Lion 327</span><span class="fact"><b>提醒</b>榴莲季没到</span></div></div></article><article class="day reveal" id="m-0430"><div class="day-meta"><div class="day-num">4.30</div><div class="day-date">D2 · 吉隆坡—布城—马六甲—新山</div><div class="day-route"><b>粉红清真寺 → 马六甲 → 水上清真寺 → 新山</b>包车一日游。</div></div><div class="day-body"><h3>马六甲，从书里变成现实</h3><p>包车去马六甲，先到粉红清真寺；网红机位实拍没有那么粉。马六甲一日游点基本固定：荷兰红屋、圣保罗山、旧皇宫、鸡场街、娘惹博物馆、三保庙。</p><p>对我们来说，更多是书上马六甲变成现实的情怀；其实都变旅游地，看不到真正的海峡，来不来尚可。</p><p>下午四点多往新山，又去了海上清真寺，堵车七点半到；打车去吃榴莲，五一不是季节，只有泰国金枕，猫山王是冻的，价格还高。</p><p>对面田鸡粥，广式粥铺；住 Fives，步行过关方便。</p><div class="day-facts"><span class="fact"><b>玩</b>粉红清真寺 / 马六甲</span><span class="fact"><b>吃</b>娘惹小厨 / 榴莲</span><span class="fact"><b>住</b>Fives 631</span><span class="fact"><b>提醒</b>包车点位</span></div></div></article><article class="day reveal" id="m-0501"><div class="day-meta"><div class="day-num">5.1</div><div class="day-date">D3 · 新山乐高</div><div class="day-route"><b>乐高 Land / Sea / Water Park</b>人不多，排队 5—10 分钟。</div></div><div class="day-body"><h3>乐高乐园，三个园一天</h3><p>Land 和 Sea 在一起，穿过海洋馆就是一条街；海洋馆一般，有套票快速看半小时。乐园更适合低幼，过山车也不怕。</p><p>人流量正好，不多不少，排队 5—10 分钟；中午乐高大街吃套餐，下午水上乐园，储物柜小 20、大 30。</p><p>晚上又去昨天的榴莲摊，开门的太少；芽笼田鸡粥、榴莲，回酒店。</p><div class="day-facts"><span class="fact"><b>玩</b>乐高三园</span><span class="fact"><b>吃</b>炸鸡饭 / 田鸡粥</span><span class="fact"><b>住</b>Fives</span><span class="fact"><b>提醒</b>水上储物柜</span></div></div></article><div class="part-head reveal"><h3>第二段 · 新加坡：动物园、圣淘沙</h3><span>5.2—5.4</span><p>新山过关，飞禽/动物园/河川，圣淘沙环球，滨海湾和市区。</p></div><article class="day reveal" id="m-0502"><div class="day-meta"><div class="day-num">5.2</div><div class="day-date">D4 · 新山—新加坡动物园—滨海湾</div><div class="day-route"><b>兀兰过关 → 飞禽 → 动物园 → 河川 → 滨海湾</b>过关大巴 CW1。</div></div><div class="day-body"><h3>四个动物园，和滨海湾夜景</h3><p>从酒店对面商场过关，跟着 Woodland 标志走；提前准备过关材料，坐 CW1，现金 2.6 新币/人，送到地铁站。</p><p>新加坡动物园这片有四个：动物园、河川、夜间、飞禽；飞禽远，要坐摆渡车；其他三个挨着。夜间要邮件预约，我们放弃，改去滨海湾。</p><p>飞禽的印度餐厅吃不惯，一份小 30 新币；园区直饮水省了不少买水钱。</p><p>晚上滨海湾花穹、天空树表演、金沙、双螺旋桥；看着不远，走起来挺累。</p><div class="day-facts"><span class="fact"><b>玩</b>飞禽 / 动物园 / 河川 / 滨海湾</span><span class="fact"><b>吃</b>印度菜 / 大排档</span><span class="fact"><b>住</b>Studio M 2,134</span><span class="fact"><b>提醒</b>夜间预约</span></div></div></article><article class="day reveal" id="m-0503"><div class="day-meta"><div class="day-num">5.3</div><div class="day-date">D5 · 圣淘沙</div><div class="day-route"><b>缆车 → 天际滑车 → 大秋千 → 环球 → 时光之翼</b>特种兵的一天。</div></div><div class="day-body"><h3>圣淘沙，从早玩到晚</h3><p>地铁到港湾站，缆车进岛；先反向往花柏山，再从高处看，然后坐到岛上。天际滑车买四圈，第一次新手通道，之后盖章走老手通道。</p><p>大秋千对身高体重要求严格，妹妹不能玩，去沙滩；岛上交通免费，地铁、巴士、小火车。环球下午排队，红黑过山车坐了两次，木乃伊、侏罗纪、靴子猫。</p><p>7:15 出来，7:45 时光之翼水幕秀；缆车回港湾，地铁牛车水大食堂吃饭，回酒店泳池。</p><div class="day-facts"><span class="fact"><b>玩</b>环球 / 滑车 / 时光之翼</span><span class="fact"><b>吃</b>牛车水</span><span class="fact"><b>住</b>Studio M</span><span class="fact"><b>提醒</b>环球关门时间</span></div></div></article><article class="day reveal" id="m-0504"><div class="day-meta"><div class="day-num">5.4</div><div class="day-date">D6 · 新加坡市区</div><div class="day-route"><b>鱼尾狮 → 鸭子船 → 观光巴士 → 牛车水 → 樟宜机场</b>大雨，city walk。</div></div><div class="day-body"><h3>鱼尾狮、鸭子船和樟宜机场</h3><p>一起来就大雨，幸亏是最后一天 city；先打车鱼尾狮打卡，大雨天没人；新达城坐鸭子船，晴天景色一定更好。</p><p>观光巴士 24 小时随上随下，红线经过小印度、牛车水、甘榜格南、哈芝巷、回教堂；牛车水佛牙寺、印度庙。</p><p>樟宜机场多留时间：T2 电子瀑布、T2—T3 小火车穿瀑布、T3 大滑梯；回程马尼拉转机，行李直挂。</p><div class="day-facts"><span class="fact"><b>玩</b>鱼尾狮 / 鸭子船 / 樟宜</span><span class="fact"><b>吃</b>松发 / 大胡子</span><span class="fact"><b>住</b>飞机上</span><span class="fact"><b>提醒</b>机场留时间</span></div></div></article><div class="part-head reveal"><h3>第三段 · 返程与行前</h3><span>5.5</span><p>新加坡—马尼拉—北京；红眼、行李、过关材料。</p></div><article class="day reveal" id="m-0505"><div class="day-meta"><div class="day-num">5.5</div><div class="day-date">D7 · 新加坡—北京</div><div class="day-route"><b>樟宜 → 马尼拉 → 北京</b>回家。</div></div><div class="day-body"><h3>返程</h3><p>新加坡—马尼拉—北京，行李直挂，不需要过境签；有工作人员指引，很方便。到家，假期结束。</p><div class="day-facts"><span class="fact"><b>行</b>马尼拉转机</span><span class="fact"><b>提醒</b>行李直挂</span><span class="fact"><b>住</b>回家</span></div></div></article></div></section><section class="section feature" id="feature"><div class="wrap"><div class="section-head reveal"><p class="num">04 / FAMILY</p><h2>乐高、动物园、圣淘沙</h2><p class="lead">新马这条线适合带娃：乐高人不多，动物园四个园，圣淘沙从早玩到晚，樟宜机场本身就是一个景点。</p></div><p class="feature-quote reveal">“榴莲季没到，是这次最大的遗憾；但四个人的特种兵行程，值了。”</p><div class="feature-grid"><article class="feature-card reveal"><h3>新山乐高</h3><p class="price">Land + Sea + Water</p><p>三个园一天，人不多，排队 5—10 分钟；水上乐园储物柜小 20、大 30。</p></article><article class="feature-card reveal"><h3>新加坡动物园</h3><p class="price">四个园</p><p>动物园、河川、夜间、飞禽；飞禽远，其他三个挨着；夜间要邮件预约。</p></article><article class="feature-card reveal"><h3>圣淘沙</h3><p class="price">环球 + 滑车</p><p>缆车进岛，天际滑车四圈，环球红黑过山车、木乃伊、侏罗纪，晚上时光之翼。</p></article><article class="feature-card reveal"><h3>樟宜机场</h3><p class="price">瀑布 + 滑梯</p><p>T2 电子瀑布、T2—T3 小火车穿瀑布、T3 大滑梯；多留时间。</p></article></div><div class="feature-list reveal"><div><span>亚航</span><b>红眼 · 7kg</b></div><div><span>Grab</span><b>吉隆坡打车</b></div><div><span>CW1</span><b>新山—新加坡</b></div><div><span>Gocity</span><b>新加坡通票</b></div><div><span>榴莲</span><b>五一不是季节</b></div><div><span>樟宜</span><b>提前到</b></div></div><p class="feature-note">马来西亚入境卡提前 3 天填；新山过关大巴票要提前买，亚航值机会查离开马来西亚的凭证；护照进出要盖章。</p></div></section><section class="section stay" id="stay"><div class="wrap"><div class="section-head reveal"><p class="num">05 / STAY &amp; DRIVE</p><h2>住得方便，过关优先</h2><p class="lead">7 天 6 晚；吉隆坡住武吉免登，新山住 Fives 步行过关，新加坡住 Studio M。</p></div><div class="stay-grid"><article class="stay-card reveal"><div class="stay-top"><h3>吉隆坡 · Sleeping Lion</h3><span class="badge yes">推荐</span></div><div class="stay-loc">武吉免登</div><div class="stay-price">¥327.31 / 晚</div><p>离柏威年、双子塔不远，步行可到；晚上回酒店换衣服方便。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>新山 · Fives Hotel</h3><span class="badge yes">推荐</span></div><div class="stay-loc">关口旁</div><div class="stay-price">¥631.40 / 2 晚</div><p>步行过关，纯方便；对面商场可以直接去 Woodland。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>新加坡 · Studio M</h3><span class="badge yes">推荐</span></div><div class="stay-loc">克拉码头附近</div><div class="stay-price">¥2,134.49 / 3 晚</div><p>地铁方便，去圣淘沙、滨海湾、牛车水都不远；新加坡酒店贵。</p></article></div><div class="travel-grid"><article class="travel-card reveal"><p class="num">01 / FLIGHT</p><h3>亚航红眼</h3><ul><li>北京—吉隆坡 2:30 起飞，7kg 行李；</li><li>队友又高又胖，廉航很挤，无餐无毯子，水也要钱；</li><li>价格悬殊，还是会坐。</li></ul></article><article class="travel-card reveal"><p class="num">02 / BORDER</p><h3>新山过关</h3><ul><li>酒店对面商场过关，跟 Woodland 标志走；</li><li>CW1 大巴现金 2.6 新币/人，送到地铁站；</li><li>亚航值机会查离开马来西亚的凭证，提前买大巴票。</li></ul></article><article class="travel-card reveal"><p class="num">03 / CITY</p><h3>Grab 与地铁</h3><ul><li>吉隆坡用 Grab，上车点固定；</li><li>新加坡地铁 + Gocity 通票；</li><li>樟宜机场多留时间。</li></ul></article></div></div></section><section class="section expense" id="expense"><div class="wrap"><div class="section-head reveal"><p class="num">06 / COST</p><h2>26,771.86 元，四口之家</h2><p class="lead">7 天 6 晚，2 大 2 小；含四段机票、住宿、Gocity 通票、包车、吃饭和打车。</p></div><div class="expense-top"><div class="expense-total reveal"><div class="label">TOTAL · 2024.4.29—5.5</div><div class="amount">26,771.86<small>元</small></div><div class="sub">日均约 3,824.55 元 · 2 大 2 小<br>机票 12,313 · 门票/包车 8,261.28 · 住宿 3,093.20</div></div><div class="reveal"><div class="expense-note"><p>机票 12,313 元：亚航 3,785、返程 8,528；四口之家。</p><p>门票/包车 8,261.28 元：Gocity 通票 6,606.88、马六甲包车 1,386、乐高等。</p><p>住宿 3,093.20；吃饭 1,745.08；打车 844.75；其他 514.55（含临时大巴票 39.57）。</p></div><div class="bars"><div class="bar"><span>机票</span><div class="track"><div class="fill" data-w="46.0" style="width:46.0%;background:#0f766e"></div></div><span class="val">12,313.00<em>46.0%</em></span></div><div class="bar"><span>门票/包车</span><div class="track"><div class="fill" data-w="30.9" style="width:30.9%;background:#c2783a"></div></div><span class="val">8,261.28<em>30.9%</em></span></div><div class="bar"><span>住宿</span><div class="track"><div class="fill" data-w="11.6" style="width:11.6%;background:#b07a3f"></div></div><span class="val">3,093.20<em>11.6%</em></span></div><div class="bar"><span>吃饭</span><div class="track"><div class="fill" data-w="6.5" style="width:6.5%;background:#2f5d6b"></div></div><span class="val">1,745.08<em>6.5%</em></span></div><div class="bar"><span>打车</span><div class="track"><div class="fill" data-w="3.2" style="width:3.2%;background:#8b9698"></div></div><span class="val">844.75<em>3.2%</em></span></div><div class="bar"><span>其他</span><div class="track"><div class="fill" data-w="1.9" style="width:1.9%;background:#a84a2f"></div></div><span class="val">514.55<em>1.9%</em></span></div></div><p class="expense-foot">百分比四舍五入，合计约 100%。机票含北京—吉隆坡、新加坡—北京；Gocity 通票含环球、动物园等。</p></div></div></div></section><section class="section tips" id="tips"><div class="wrap"><div class="section-head reveal"><p class="num">07 / NOTES</p><h2>新马带娃，记住这些小事</h2><p class="lead">红眼、过关、通票、机场；提前准备材料，别在值机柜台被卡住。</p></div><div class="tips-grid"><article class="tip reveal"><span class="n">01</span><div><h3>入境卡提前 3 天</h3><p>马来西亚入境卡官网填，提前 3 天；0 点以后入境算第二天。</p></div></article><article class="tip reveal"><span class="n">02</span><div><h3>新山过关材料</h3><p>亚航值机会查离开马来西亚的凭证；新山—新加坡大巴票提前网上买，现场买不固定时间。</p></div></article><article class="tip reveal"><span class="n">03</span><div><h3>护照盖章</h3><p>注意海关是否盖章；自助通道信息可能不同步，出关被查麻烦；乖乖扣章。</p></div></article><article class="tip reveal"><span class="n">04</span><div><h3>支付</h3><p>招行 visa 信用卡可坐地铁；现金不用多，100 多马币都没花完；部分支持支付宝。</p></div></article><article class="tip reveal"><span class="n">05</span><div><h3>流量</h3><p>移动国际流量 7 块多/天，3G 够用；没买当地卡，少了当地号码。</p></div></article><article class="tip reveal"><span class="n">06</span><div><h3>Gocity</h3><p>新加坡通票含环球、动物园等；鸭子船、夜间动物园要提前预约。</p></div></article><article class="tip reveal"><span class="n">07</span><div><h3>樟宜机场</h3><p>多留时间：T2 瀑布、T2—T3 小火车、T3 滑梯；回程马尼拉转机行李直挂。</p></div></article><article class="tip reveal"><span class="n">08</span><div><h3>榴莲</h3><p>五一不是榴莲季，很多店不开；新山只有泰国金枕，猫山王是冻的；想吃榴莲，换个季节再来。</p></div></article></div></div></section><section class="ending"><p class="ending-kicker">后记</p><blockquote>榴莲季没到，<br>但四个人的特种兵行程，值了。</blockquote><p>疫情后第一站，选个简单的东南亚；下一次，把印尼和榴莲季一起补上。</p></section></main>
+<footer>见山河 · 新马 2024 五一 ｜ 2024.4.29—5.5 ｜ 吉隆坡 / 马六甲 / 新山 / 新加坡 ｜ 单文件离线阅读</footer>
+<script>
+(function(){
+  'use strict';
+  var bar = document.getElementById('progressBar');
+  var topbar = document.getElementById('topbar');
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.section-nav a'));
+  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+
+  function onScroll(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? (window.scrollY / max) * 100 : 0;
+    if(bar) bar.style.width = Math.min(100, Math.max(0, p)) + '%';
+    if(topbar) topbar.classList.toggle('solid', window.scrollY > 24);
+    var current = sections[0];
+    sections.forEach(function(s){ if(s.getBoundingClientRect().top <= 120) current = s; });
+    navLinks.forEach(function(a){ a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    reveals.forEach(function(el){ io.observe(el); });
+  }else{
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var fills = Array.prototype.slice.call(document.querySelectorAll('.bar .fill'));
+  if('IntersectionObserver' in window){
+    var barIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var el = entry.target;
+          el.style.width = el.getAttribute('data-w') + '%';
+          barIO.unobserve(el);
+        }
+      });
+    }, {threshold:0.4});
+    fills.forEach(function(el){ barIO.observe(el); });
+  }else{
+    fills.forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+  }
+})();
+</script>
+</body>
+</html>

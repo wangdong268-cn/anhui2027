@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="js"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>二连浩特 2024 中秋 · 国门 / 恐龙 / 大红山</title>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --paper:#f7f3ea;
+    --paper-2:#efe8da;
+    --paper-3:#e7ddcb;
+    --ink:#1f2b30;
+    --ink-2:#55636a;
+    --ink-3:#8b9698;
+    --line:#d8d0c2;
+    --accent:#8c3b2e;
+    --accent-deep:#262b31;
+    --accent-2:#2f5d6b;
+    --gold:#b98a4a;
+    --sea:#5b6f7a;
+    --coral:#a84a2f;
+    --max:1120px;
+    --topbar:58px;
+    --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:radial-gradient(rgba(120,100,70,.055) .6px,transparent .6px);
+    background-size:4px 4px;
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:#e7c9a8;color:var(--ink)}
+  a{color:inherit}
+  .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:90;background:transparent;pointer-events:none}
+  .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .1s linear}
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:80;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:0 28px;border-bottom:1px solid transparent;
+    transition:background .3s,border-color .3s,backdrop-filter .3s;
+  }
+  .topbar.solid{
+    background:rgba(247,243,234,.96);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-bottom-color:var(--line);
+  }
+  .brand{
+    font-family:var(--serif);font-size:17px;font-weight:600;
+    letter-spacing:.22em;text-decoration:none;white-space:nowrap;
+  }
+  .section-nav{
+    display:flex;align-items:center;gap:24px;
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .section-nav::-webkit-scrollbar{display:none}
+  .section-nav a{
+    position:relative;padding:6px 0;font-size:11px;letter-spacing:.16em;
+    color:var(--ink-2);text-decoration:none;white-space:nowrap;
+  }
+  .section-nav a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--accent);transition:width .25s;
+  }
+  .section-nav a:hover::after,.section-nav a.active::after{width:100%}
+  .section-nav a.active{color:var(--accent)}
+  .hero{
+    position:relative;min-height:100svh;display:grid;place-items:center;
+    padding:120px 24px 84px;overflow:hidden;isolation:isolate;
+    background:linear-gradient(180deg,#f7f3ea 0%,#eef1f2 46%,#dfe5e8 100%);
+  }
+  .hero-art{position:absolute;inset:0;z-index:-2;pointer-events:none}
+  .hero-art svg{display:block;width:100%;height:100%}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,0) 50%,rgba(247,243,234,.18) 72%,var(--paper) 100%);
+  }
+  .hero-inner{position:relative;max-width:980px;text-align:center}
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.32em;color:var(--accent);margin:0 0 22px}
+  .hero h1{
+    font-family:var(--serif);font-size:clamp(76px,15vw,188px);font-weight:700;
+    line-height:.9;letter-spacing:.16em;text-indent:.16em;margin:0;color:var(--ink);
+  }
+  .hero-sub{
+    font-family:var(--serif);font-size:clamp(17px,2.2vw,26px);
+    letter-spacing:.2em;margin:24px 0 0;color:var(--ink-2);
+  }
+  .hero-lead{max-width:680px;margin:24px auto 0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .hero-route{
+    display:inline-flex;flex-wrap:wrap;justify-content:center;gap:7px;
+    margin:26px auto 0;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    font-size:10px;letter-spacing:.12em;color:var(--ink-3);
+  }
+  .hero-route span{white-space:nowrap}
+  .hero-stats{display:flex;justify-content:center;gap:clamp(24px,5vw,64px);margin-top:38px;flex-wrap:wrap}
+  .hero-stats div{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .hero-stats b{font-family:var(--serif);font-size:clamp(24px,3.2vw,36px);font-weight:600;line-height:1;color:var(--ink)}
+  .hero-stats span{font-size:10px;letter-spacing:.18em;color:var(--ink-3)}
+  .scroll-cue{
+    position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:var(--ink-3);font-size:10px;letter-spacing:.2em;text-decoration:none;
+  }
+  .scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--ink-3),transparent);animation:cue 2.2s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(.6);opacity:.5}50%{transform:scaleY(1);opacity:1}}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .section{padding:clamp(72px,9vw,120px) 0;scroll-margin-top:70px}
+  .section-head{max-width:760px;margin-bottom:40px}
+  .section-head .num{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0 0 12px}
+  .section-head h2{font-family:var(--serif);font-size:clamp(30px,4.2vw,48px);font-weight:600;line-height:1.2;letter-spacing:.06em;margin:0 0 16px}
+  .section-head .lead{max-width:690px;margin:0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .route{background:linear-gradient(180deg,var(--paper) 0%,#f1ebe0 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .route-intro{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:end;margin-bottom:40px}
+  .route-intro .section-head{margin-bottom:0}
+  .route-aside{font-size:12px;line-height:2;color:var(--ink-2);padding-left:22px;border-left:1px solid var(--line)}
+  .route-aside b{color:var(--ink);font-weight:600}
+  .route-line{
+    display:flex;overflow-x:auto;padding:18px 0 4px;border-top:1px solid var(--line);
+    scrollbar-width:none;
+  }
+  .route-line::-webkit-scrollbar{display:none}
+  .stop{
+    position:relative;flex:1 0 100px;min-width:100px;padding:22px 12px 0;
+    text-decoration:none;border-right:1px solid var(--line);
+  }
+  .stop:last-child{border-right:0}
+  .stop::before{
+    content:"";position:absolute;left:12px;top:-4px;width:7px;height:7px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 0 4px var(--paper);
+  }
+  .stop .date{font-size:9px;letter-spacing:.14em;color:var(--ink-3)}
+  .stop .city{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.4;margin:5px 0 3px}
+  .stop .note{font-size:10px;line-height:1.6;color:var(--ink-2)}
+  .stop:hover .city{color:var(--accent)}
+  .prelude-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .pre-card{
+    display:flex;flex-direction:column;justify-content:space-between;min-height:228px;
+    padding:26px 24px;background:rgba(255,255,255,.5);border:1px solid var(--line);
+  }
+  .pre-card .idx{font-family:var(--serif);font-size:28px;line-height:1;color:var(--accent-2)}
+  .pre-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:18px 0 8px}
+  .pre-card p{margin:0;font-size:12.5px;line-height:1.9;color:var(--ink-2)}
+  .journey{padding:clamp(60px,8vw,110px) 0}
+  .day{display:grid;grid-template-columns:160px 1fr;gap:48px;padding:46px 0;border-top:1px solid var(--line)}
+  .day:first-of-type{border-top:0}
+  .day-meta{position:sticky;top:86px;align-self:start}
+  .day-num{font-family:var(--serif);font-size:46px;line-height:1;color:var(--accent);letter-spacing:.02em}
+  .day-date{font-size:10px;letter-spacing:.2em;color:var(--ink-3);margin-top:8px}
+  .day-route{font-size:12px;line-height:1.8;color:var(--ink-2);margin-top:12px}
+  .day-route b{display:block;color:var(--ink);font-weight:600;margin-bottom:3px}
+  .day-body h3{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:600;line-height:1.35;letter-spacing:.02em;margin:0 0 14px}
+  .day-body p{font-size:14px;line-height:2;color:var(--ink-2);margin:0 0 12px}
+  .day-body p:last-child{margin-bottom:0}
+  .day-facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+  .fact{font-size:10px;line-height:1.5;color:var(--ink-2);background:rgba(255,255,255,.5);border:1px solid var(--line);padding:4px 8px}
+  .fact b{color:var(--accent);font-weight:700;margin-right:4px}
+  .day-pull{
+    margin:20px 0 0;padding:16px 18px;border-left:2px solid var(--accent-2);
+    background:rgba(194,120,58,.06);font-family:var(--serif);
+    font-size:16px;line-height:1.9;color:var(--ink);
+  }
+  .feature{position:relative;overflow:hidden;background:var(--accent-deep);color:#f3ead9}
+  .feature::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(80% 60% at 82% 0%,rgba(197,154,74,.2),transparent 60%),
+      radial-gradient(60% 55% at 0% 100%,rgba(47,93,107,.4),transparent 62%);
+  }
+  .feature .wrap{position:relative}
+  .feature .section-head .num{color:#e0b56a}
+  .feature .section-head h2{color:#f3ead9}
+  .feature .section-head .lead{color:rgba(243,234,217,.72)}
+  .feature-quote{
+    max-width:850px;margin:0 0 42px;font-family:var(--serif);
+    font-size:clamp(22px,3vw,34px);line-height:1.7;letter-spacing:.04em;color:#f3ead9;
+  }
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+  .feature-card{padding:22px;border:1px solid rgba(243,234,217,.18);background:rgba(255,255,255,.03)}
+  .feature-card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 8px;color:#f3ead9}
+  .feature-card .price{font-family:var(--serif);font-size:18px;color:#e0b56a;margin:0 0 10px}
+  .feature-card p{margin:0;font-size:12.5px;line-height:1.9;color:rgba(243,234,217,.72)}
+  .feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0 34px;border-top:1px solid rgba(243,234,217,.16);margin-top:28px}
+  .feature-list div{display:grid;grid-template-columns:1fr auto;gap:18px;padding:12px 0;border-bottom:1px solid rgba(243,234,217,.12);font-size:12.5px;color:rgba(243,234,217,.78)}
+  .feature-list b{font-family:var(--serif);font-size:14px;font-weight:600;color:#e0b56a}
+  .feature-note{margin-top:18px;font-size:11px;line-height:1.8;color:rgba(243,234,217,.5)}
+  .stay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .stay-card{display:flex;flex-direction:column;gap:10px;padding:22px;background:rgba(255,255,255,.55);border:1px solid var(--line)}
+  .stay-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .stay-card h3{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.4;margin:0}
+  .badge{flex:none;font-size:9px;letter-spacing:.08em;padding:3px 6px;border:1px solid;white-space:nowrap}
+  .badge.yes{color:var(--accent);border-color:rgba(47,93,107,.35);background:rgba(47,93,107,.06)}
+  .badge.no{color:#a84a2f;border-color:rgba(168,74,47,.3);background:rgba(168,74,47,.06)}
+  .stay-loc{font-size:11px;letter-spacing:.06em;color:var(--ink-3)}
+  .stay-price{font-family:var(--serif);font-size:16px;color:var(--accent-2)}
+  .stay-card p{margin:0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .travel-card{padding:20px 0 0;border-top:2px solid var(--accent)}
+  .travel-card .num{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--accent-2)}
+  .travel-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:8px 0 10px}
+  .travel-card p,.travel-card li{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .travel-card p{margin:0}
+  .travel-card ul{margin:0;padding-left:16px}
+  .travel-card li{margin:3px 0}
+  .expense{background:linear-gradient(180deg,#f1ebe0 0%,var(--paper) 100%);border-top:1px solid var(--line)}
+  .expense-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start;margin-bottom:34px}
+  .expense-total{padding:28px;background:var(--accent-deep);color:#f3ead9}
+  .expense-total .label{font-size:10px;letter-spacing:.2em;color:rgba(243,234,217,.6)}
+  .expense-total .amount{font-family:var(--serif);font-size:clamp(36px,5vw,56px);line-height:1.1;margin:10px 0 4px;color:#f3ead9}
+  .expense-total .amount small{font-family:var(--sans);font-size:14px;color:#e0b56a;margin-left:6px}
+  .expense-total .sub{font-size:11px;line-height:1.8;color:rgba(243,234,217,.62)}
+  .expense-note{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .expense-note p{margin:0 0 8px}
+  .expense-note b{color:var(--ink)}
+  .bars{display:grid;gap:12px;margin-top:20px}
+  .bar{display:grid;grid-template-columns:88px 1fr 82px;gap:12px;align-items:center;font-size:11px;color:var(--ink-2)}
+  .bar .track{height:7px;background:#e3dbcc;overflow:hidden}
+  .bar .fill{height:100%;width:0;background:var(--accent);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+  .bar .val{text-align:right;font-family:var(--serif);font-size:13px;color:var(--ink)}
+  .bar .val em{font-family:var(--sans);font-style:normal;font-size:9px;color:var(--ink-3);margin-left:4px}
+  .expense-foot{margin-top:18px;font-size:10px;line-height:1.9;color:var(--ink-3)}
+  .tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;border-top:1px solid var(--line)}
+  .tip{display:grid;grid-template-columns:38px 1fr;gap:16px;padding:26px 0;border-bottom:1px solid var(--line)}
+  .tip .n{font-family:var(--serif);font-size:18px;color:var(--accent-2)}
+  .tip h3{font-family:var(--serif);font-size:17px;font-weight:600;margin:0 0 6px}
+  .tip p{margin:0;font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .ending{padding:clamp(90px,12vw,160px) 24px;text-align:center;border-top:1px solid var(--line);background:var(--paper-2)}
+  .ending-kicker{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0}
+  .ending blockquote{max-width:840px;margin:18px auto;font-family:var(--serif);font-size:clamp(24px,4vw,42px);line-height:1.6;letter-spacing:.06em;color:var(--ink)}
+  .ending p{max-width:620px;margin:0 auto;font-size:12px;line-height:2;color:var(--ink-2)}
+  footer{padding:30px 24px;text-align:center;background:var(--paper-2);border-top:1px solid var(--line);font-size:10px;letter-spacing:.12em;color:var(--ink-3)}
+  .js .reveal{transform:translateY(18px);transition:transform .7s ease}
+  .js .reveal.in{transform:none}
+  @media (max-width:980px){
+    .route-intro{grid-template-columns:1fr;gap:20px}
+    .route-aside{padding-left:0;border-left:0;border-top:1px solid var(--line);padding-top:16px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid{grid-template-columns:1fr 1fr}
+    .expense-top{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    :root{--topbar:54px}
+    .topbar{padding:0 14px;gap:10px}
+    .brand{font-size:15px;letter-spacing:.16em}
+    .section-nav{gap:14px;margin-left:8px}
+    .section-nav a{font-size:10px;letter-spacing:.1em}
+    .hero{min-height:92svh;padding:106px 18px 70px}
+    .hero h1{font-size:clamp(64px,20vw,110px)}
+    .hero-sub{font-size:16px;letter-spacing:.14em}
+    .hero-lead{font-size:13px;line-height:1.9}
+    .hero-route{font-size:9px;line-height:1.8;gap:5px}
+    .hero-stats{gap:22px}
+    .hero-stats b{font-size:26px}
+    .section{padding:60px 0}
+    .wrap{padding:0 18px}
+    .section-head{margin-bottom:28px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid,.feature-list{grid-template-columns:1fr}
+    .route-line{margin:0 -18px;padding-left:18px;padding-right:18px}
+    .stop{flex:0 0 108px;min-width:108px}
+    .day{grid-template-columns:1fr;gap:18px;padding:34px 0}
+    .day-meta{position:static;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+    .day-num{font-size:38px}
+    .day-date{margin-top:0}
+    .day-route{flex:1 0 100%;margin-top:0;padding-top:8px;border-top:1px solid var(--line)}
+    .day-body h3{font-size:22px}
+    .day-pull{font-size:15px}
+    .bar{grid-template-columns:64px 1fr 64px;gap:8px;font-size:10px}
+    .bar .val{font-size:11px}
+    .bar .val em{display:none}
+    .tips-grid{grid-template-columns:1fr;gap:0}
+    .expense-total{padding:22px}
+    .ending{padding:70px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .js .reveal{opacity:1;transform:none;transition:none}
+    .scroll-cue i{animation:none}
+    .bar .fill{transition:none}
+  }
+
+  .hero h1{font-size:clamp(64px,17vw,168px);letter-spacing:.12em;text-indent:.12em}
+  .hero-sub{letter-spacing:.14em}
+  .hero::after{background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,.08) 48%,rgba(247,243,234,.58) 70%,rgba(247,243,234,.94) 88%,var(--paper) 100%)}
+  .hero-stats span{color:var(--ink-2)}
+  .feature .section-head .lead{max-width:720px}
+
+  .part-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:54px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+  .part-head h3{font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:600;margin:0;letter-spacing:.04em}
+  .part-head span{font-size:10px;letter-spacing:.18em;color:var(--accent-2);font-weight:700;white-space:nowrap}
+  .part-head p{flex:1 0 100%;margin:4px 0 0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .route-line .stop{flex:1 0 140px}
+  .feature-list b{text-align:right}
+  @media (max-width:720px){
+    .part-head{margin-top:38px}
+    .part-head h3{font-size:22px}
+    .route-line .stop{flex:0 0 120px}
+  }
+
+
+  .hero h1{font-size:clamp(64px,17vw,168px);letter-spacing:.1em;text-indent:.1em}
+</style>
+</head>
+<body>
+<div class="progress"><span id="progressBar"></span></div><header class="topbar" id="topbar"><a class="brand" href="#top">见山河</a><nav class="section-nav"><a href="#route">路线</a><a href="#prelude">行前</a><a href="#journey">逐日</a><a href="#feature">看点</a><a href="#stay">住行</a><a href="#expense">费用</a><a href="#tips">心法</a></nav></header><main id="top"><section class="hero"><div class="hero-art" aria-hidden="true">
+<svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7f0e2"/><stop offset=".55" stop-color="#f2dfc4"/><stop offset="1" stop-color="#d9b98c"/></linearGradient><radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e9a85f" stop-opacity=".55"/><stop offset="1" stop-color="#e9a85f" stop-opacity="0"/></radialGradient></defs>
+<rect width="1440" height="900" fill="url(#sky)"/><circle cx="1060" cy="235" r="220" fill="url(#glow)"/><circle cx="1060" cy="235" r="82" fill="#dfa25e" opacity=".85"/>
+<path d="M0 590 C160 540 320 570 460 586 C600 602 720 550 860 574 C1000 598 1120 552 1260 578 C1340 592 1400 580 1440 586 L1440 900 L0 900 Z" fill="#c9a678" opacity=".55"/>
+<path d="M0 680 C180 640 340 676 500 670 C660 664 800 700 960 684 C1120 668 1260 700 1440 678 L1440 900 L0 900 Z" fill="#9b744f" opacity=".6"/>
+<path d="M0 760 C180 724 360 760 540 748 C720 736 880 774 1060 754 C1220 736 1340 758 1440 744 L1440 900 L0 900 Z" fill="#5c4635" opacity=".85"/>
+<g fill="none" stroke="#5c4635" stroke-width="2" opacity=".35"><path d="M260 280 q10 -8 20 0 q10 -8 20 0"/><path d="M340 245 q8 -6 16 0 q8 -6 16 0"/></g>
+<g transform="translate(780 560)" fill="#3b2d24" opacity=".65"><path d="M0 52 q30 12 60 0 l-6 8 q-24 7 -48 0 Z"/><path d="M12 46 l18 -34 l3 0 l-14 34 Z"/><path d="M35 46 l14 -27 l3 0 l-11 27 Z"/></g>
+<g transform="translate(250 610)" fill="#3b2d24" opacity=".7"><path d="M0 130 C6 96 18 76 48 70 C40 56 44 42 58 36 C72 30 84 38 86 50 C90 42 100 38 108 44 C118 52 114 62 106 68 C130 74 142 92 146 130 L128 130 C124 108 116 100 100 98 L88 130 L72 130 L80 100 C68 102 60 110 56 130 Z"/><path d="M58 36 C60 20 72 12 86 16 C92 18 96 24 96 30" fill="none" stroke="#3b2d24" stroke-width="6"/><circle cx="92" cy="24" r="3" fill="#3b2d24"/></g>
+<path d="M0 820 C180 796 360 826 540 814 C720 802 900 834 1080 816 C1240 800 1360 822 1440 810 L1440 900 L0 900 Z" fill="#3f3025" opacity=".92"/>
+</svg></div><div class="hero-inner"><p class="kicker">2024 · 中秋 · 二连浩特</p><h1>二连浩特</h1><p class="hero-sub">国门 · 恐龙 · 大红山 · 草原</p><p class="hero-lead">二连浩特，有国门，有恐龙，有大红山，有草原，有蒙餐。三天行程偏轻松；放学下班后出发，先到乌兰察布，再一路向北。</p><div class="hero-route"><span>北京</span><span>→</span><span>乌兰察布</span><span>→</span><span>二连浩特</span><span>→</span><span>苏尼特右旗</span><span>→</span><span>草原天路</span><span>→</span><span>北京</span></div><div class="hero-stats"><div><b>4</b><span>天</span></div><div><b>3</b><span>晚</span></div><div><b>2家</b><span>同行</span></div><div><b>3,156</b><span>元 · 一家</span></div></div></div><a class="scroll-cue" href="#route">向北，去看国门<i></i></a></section><section class="section route" id="route"><div class="wrap"><div class="route-intro"><div class="section-head reveal"><p class="num">01 / ROUTE</p><h2>北京向北，去看国门</h2><p class="lead">北京—乌兰察布—二连浩特—苏尼特右旗—草原天路西线—北京。三天偏轻松，D0 放学下班后出发，把中秋假期用满。</p></div><aside class="route-aside reveal"><b>路线骨架</b><br>北京 → 乌兰察布 → 二连浩特 → 苏尼特右旗 → 草原天路西线 → 北京。<br><br><b>节奏</b><br>4 天 3 晚，两家同行；国门、恐龙、大红山、草原天路，一路向北。</aside></div><div class="route-line reveal"><a class="stop" href="#journey"><span class="date">9.13 · D0</span><span class="city">北京 → 乌兰察布</span><span class="note">放学出发<br>服务区泡面</span></a><a class="stop" href="#journey"><span class="date">9.14 · D1</span><span class="city">乌兰察布 → 二连浩特</span><span class="note">国门<br>蒙餐</span></a><a class="stop" href="#journey"><span class="date">9.15 · D2</span><span class="city">二连浩特 → 苏尼特右旗</span><span class="note">盐池 / 如来神掌<br>大红山</span></a><a class="stop" href="#journey"><span class="date">9.16 · D3</span><span class="city">右旗 → 北京</span><span class="note">草原天路<br>大雾返程</span></a></div></div></section><section class="section prelude" id="prelude"><div class="wrap"><div class="section-head reveal"><p class="num">02 / WHY</p><h2>不止恐龙，北国之北</h2><p class="lead">二连浩特有国门、有恐龙、有大红山、有草原、有蒙餐；中秋三天，适合两家一起轻轻松松走一趟。</p></div><div class="prelude-grid"><article class="pre-card reveal"><span class="idx">01</span><div><h3>国门与口岸</h3><p>二连浩特是中蒙边境口岸，国门景区可以近距离看对面的蒙古国；门口还有一个小型游乐场。</p></div></article><article class="pre-card reveal"><span class="idx">02</span><div><h3>恐龙之乡</h3><p>恐龙门、国家地质公园、二连浩特博物馆，都以恐龙为主；孩子会喜欢。</p></div></article><article class="pre-card reveal"><span class="idx">03</span><div><h3>大红山落日</h3><p>大红山在脑木更山，落日和中秋月都很美；两段涉水路面，慢一点。</p></div></article></div></div></section><section class="journey" id="journey"><div class="wrap"><div class="section-head reveal"><p class="num">03 / DAY BY DAY</p><h2>四天，向北再向北</h2><p class="lead">国门、恐龙、大红山、草原天路；每天一个主线，剩下的交给路上的晚霞和蒙餐。</p></div><article class="day reveal" id="d0"><div class="day-meta"><div class="day-num">9.13</div><div class="day-date">D0 · 北京—乌兰察布</div><div class="day-route"><b>北京 → 乌兰察布</b>放学下班后出发；服务区泡面。</div></div><div class="day-body"><h3>出发，先到乌兰察布</h3><p>放学下班后没吃饭就出发，先到乌兰察布；路上泡面，高速服务区的泡面是自驾出行的仪式感。</p><p>路过居庸关，中秋晚会的灯光已经打出来了；住望峰火山雅居。</p><div class="day-facts"><span class="fact"><b>行</b>北京—乌兰察布</span><span class="fact"><b>吃</b>服务区泡面</span><span class="fact"><b>住</b>望峰火山雅居 96</span><span class="fact"><b>提醒</b>中秋车流</span></div></div></article><article class="day reveal" id="d1"><div class="day-meta"><div class="day-num">9.14</div><div class="day-date">D1 · 乌兰察布—二连浩特</div><div class="day-route"><b>乌兰察布 → 二连浩特</b>国门；蒙餐；晚霞。</div></div><div class="day-body"><h3>国门、蒙餐，和路上的晚霞</h3><p>早晨特别冷，羽绒服都穿上了；民宿早餐的羊肉牛肉大包子真好吃。路过火山看了一眼，这次不去了。</p><p>看到恐龙门就到了二连浩特；中蒙边境，口岸经常能看到蒙古国的车和人。选了评分高的蒙餐，元苍狼、特尔贡；门口待宰的羊，老板说买一只可以当场杀，天气太热后面不好保存，放弃了。</p><p>下午国门景区，买票进入，可以近距离看对面的蒙古国，还有小型游乐场。出来后铁搭子的车爆胎，爸爸们去补胎，妈妈们带娃回酒店写作业；路上偶遇晚霞。</p><div class="day-facts"><span class="fact"><b>玩</b>国门</span><span class="fact"><b>吃</b>元苍狼 / 特尔贡</span><span class="fact"><b>住</b>汉庭 456</span><span class="fact"><b>提醒</b>爆胎</span></div></div></article><article class="day reveal" id="d2"><div class="day-meta"><div class="day-num">9.15</div><div class="day-date">D2 · 二连浩特—苏尼特右旗</div><div class="day-route"><b>盐池 → 如来神掌 → 恐龙地质公园 → 博物馆 → 大红山</b>涉水路面；落日与中秋月。</div></div><div class="day-body"><h3>盐池、恐龙和大红山落日</h3><p>酒店早饭，几个人一人一个手机抢十一的票，全体失败。第一站盐池；第二站如来神掌，适合无人机，没有无人机确实看不太出来，对面有越野车冲坡。</p><p>第三站国家地质公园，里面很大，孩子感兴趣；第四站二连浩特博物馆，也以恐龙为主。这次蒙餐不敢点硬菜，肉真的吃不动。</p><p>最后去大红山看落日。两段涉水路面，第一段还好，第二段经常掉车，前两天小卡今天换车掉了；我们停车踩了踩，看了对向路线，慢慢开过去，天黑原路返回就有经验了。</p><p>初见大红山，落日，海上生明月；中秋月亮太亮，几乎看不到星星，晚上开车如白昼。</p><div class="day-facts"><span class="fact"><b>玩</b>盐池 / 如来神掌 / 大红山</span><span class="fact"><b>吃</b>锡林河</span><span class="fact"><b>住</b>右旗酒店 254</span><span class="fact"><b>提醒</b>涉水慢行</span></div></div></article><article class="day reveal" id="d3"><div class="day-meta"><div class="day-num">9.16</div><div class="day-date">D3 · 苏尼特右旗—北京</div><div class="day-route"><b>右旗 → 草原天路西线 → 北京</b>烧麦、奶食；大雾。</div></div><div class="day-body"><h3>烧麦、奶食和寂静岭</h3><p>早上吃烧麦，好吃但物价不低，比呼市还贵；去奶食店买风干牛肉、奶条、奶豆腐，纯酸奶有点气泡。</p><p>直接回北京还是再去个哪里？选了草原天路西线，顺路、人少。当天大雾，何止人少，根本就没有人，就我们一台车；能见度几乎没有，寂静岭既视感。</p><p>走了半段，放弃环线，半段出来后上高速，就没有雾了；齐德隆大盘鸡，返程。</p><div class="day-facts"><span class="fact"><b>玩</b>草原天路西线</span><span class="fact"><b>吃</b>烧麦 / 大盘鸡</span><span class="fact"><b>行</b>右旗—北京</span><span class="fact"><b>提醒</b>大雾</span></div></div></article></div></section><section class="section feature" id="feature"><div class="wrap"><div class="section-head reveal"><p class="num">04 / HIGHLIGHTS</p><h2>国门、恐龙和大红山</h2><p class="lead">二连浩特不只有恐龙；国门、盐池、如来神掌、大红山、草原天路，一条线都不重复。</p></div><p class="feature-quote reveal">“海上生明月，天涯共此时。”</p><div class="feature-grid"><article class="feature-card reveal"><h3>国门</h3><p class="price">中蒙边境</p><p>买票进入，可以近距离看对面的蒙古国；里面还有小型游乐场。</p></article><article class="feature-card reveal"><h3>恐龙</h3><p class="price">恐龙门 / 地质公园 / 博物馆</p><p>二连浩特是恐龙之乡；孩子会喜欢地质公园和博物馆。</p></article><article class="feature-card reveal"><h3>大红山</h3><p class="price">脑木更山 · 落日</p><p>两段涉水路面，慢一点；落日、中秋月、星空，房车和无人机都适合。</p></article><article class="feature-card reveal"><h3>草原天路</h3><p class="price">西线 · 大雾</p><p>顺路、人少；当天大雾，能见度几乎没有，半段后上高速。</p></article></div><div class="feature-list reveal"><div><span>国门</span><b>260</b></div><div><span>元苍狼 / 特尔贡</span><b>336 / 674</b></div><div><span>锡林河</span><b>411.5</b></div><div><span>烧麦 / 大盘鸡</span><b>370 / 92</b></div><div><span>大红山</span><b>免费</b></div><div><span>草原天路</span><b>免费</b></div></div><p class="feature-note">国门景区门票 260 元；大红山免费，但涉水路面有风险，慢行；草原天路西线大雾，注意能见度。</p></div></section><section class="section stay" id="stay"><div class="wrap"><div class="section-head reveal"><p class="num">05 / STAY &amp; DRIVE</p><h2>住得简单，路上要稳</h2><p class="lead">两家同行，住宿以经济型为主；大红山和草原天路是路况重点。</p></div><div class="stay-grid"><article class="stay-card reveal"><div class="stay-top"><h3>望峰火山雅居</h3><span class="badge yes">推荐</span></div><div class="stay-loc">乌兰察布 · 火山旁</div><div class="stay-price">¥96</div><p>中秋前夜，价格便宜；民宿早餐的羊肉牛肉大包子好吃。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>汉庭 · 二连浩特</h3><span class="badge yes">推荐</span></div><div class="stay-loc">二连浩特市区</div><div class="stay-price">¥456</div><p>两家住一晚；去国门、蒙餐、博物馆都方便。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>苏尼特右旗 · 酒店</h3><span class="badge yes">推荐</span></div><div class="stay-loc">右旗</div><div class="stay-price">¥254</div><p>大红山回来后住一晚；第二天吃烧麦、买奶食。</p></article></div><div class="travel-grid"><article class="travel-card reveal"><p class="num">01 / DRIVE</p><h3>自驾</h3><ul><li>北京—乌兰察布—二连浩特—右旗—草原天路—北京；中秋车流，服务区泡面。</li></ul></article><article class="travel-card reveal"><p class="num">02 / WATER</p><h3>大红山涉水</h3><ul><li>两段涉水路面，第二段经常掉车；停车踩一踩、看对向路线，慢行。</li></ul></article><article class="travel-card reveal"><p class="num">03 / FOOD</p><h3>蒙餐与奶食</h3><ul><li>元苍狼、特尔贡、锡林河；右旗烧麦、奶食店，风干牛肉、奶条、奶豆腐。</li></ul></article></div></div></section><section class="section expense" id="expense"><div class="wrap"><div class="section-head reveal"><p class="num">06 / COST</p><h2>3,155.50 元，一家</h2><p class="lead">4 天 3 晚，两家同行，公共费用 AA；以下为苗一家花费，两家合计约 4,536.25 元。</p></div><div class="expense-top"><div class="expense-total reveal"><div class="label">TOTAL · 2024.9.13—9.16</div><div class="amount">3,155.50<small>元</small></div><div class="sub">一家 · 公共费用 AA<br>车辆 919.75 · 吃饭 987.75 · 其他 667</div></div><div class="reveal"><div class="expense-note"><p><b>车辆。</b>苏木山加油 420、白音查干高速 156.75、加油 267、玫瑰营 76，合计 919.75。</p><p><b>吃饭。</b>元苍狼、特尔贡、锡林河、烧麦、大盘鸡按 AA 后约 987.75。</p><p><b>住宿和其他。</b>望峰 96、汉庭 456/2、右旗 254/2；好特卖 200、奶制品 467。</p></div><div class="bars"><div class="bar"><span>车辆</span><div class="track"><div class="fill" data-w="29.1" style="width:29.1%;background:#8c3b2e"></div></div><span class="val">919.75<em>29.1%</em></span></div><div class="bar"><span>吃饭</span><div class="track"><div class="fill" data-w="31.3" style="width:31.3%;background:#2f5d6b"></div></div><span class="val">987.75<em>31.3%</em></span></div><div class="bar"><span>其他</span><div class="track"><div class="fill" data-w="21.1" style="width:21.1%;background:#8b9698"></div></div><span class="val">667.00<em>21.1%</em></span></div><div class="bar"><span>住宿</span><div class="track"><div class="fill" data-w="14.3" style="width:14.3%;background:#b07a3f"></div></div><span class="val">451.00<em>14.3%</em></span></div><div class="bar"><span>门票</span><div class="track"><div class="fill" data-w="4.1" style="width:4.1%;background:#a84a2f"></div></div><span class="val">130.00<em>4.1%</em></span></div></div><p class="expense-foot">百分比四舍五入，合计约 100%。两家合计 4,536.25 元；公共费用按 2 家 AA。</p></div></div></div></section><section class="section tips" id="tips"><div class="wrap"><div class="section-head reveal"><p class="num">07 / NOTES</p><h2>中秋北上，记住这些小事</h2><p class="lead">国门、恐龙、大红山、草原天路；路况和天气是重点。</p></div><div class="tips-grid"><article class="tip reveal"><span class="n">01</span><div><h3>国门</h3><p>买票进入，可以近距离看对面的蒙古国；里面有小型游乐场。</p></div></article><article class="tip reveal"><span class="n">02</span><div><h3>大红山</h3><p>两段涉水路面，第二段经常掉车；慢行，天黑原路返回要有经验。</p></div></article><article class="tip reveal"><span class="n">03</span><div><h3>草原天路</h3><p>西线大雾，能见度几乎没有；半段后上高速。</p></div></article><article class="tip reveal"><span class="n">04</span><div><h3>蒙餐</h3><p>元苍狼、特尔贡；肉真的吃不动，别点太多硬菜。</p></div></article><article class="tip reveal"><span class="n">05</span><div><h3>奶食</h3><p>右旗奶食店，风干牛肉、奶条、奶豆腐；纯酸奶有气泡。</p></div></article><article class="tip reveal"><span class="n">06</span><div><h3>恐龙</h3><p>恐龙门、地质公园、博物馆；孩子喜欢，预留时间。</p></div></article><article class="tip reveal"><span class="n">07</span><div><h3>衣物</h3><p>中秋早晨很冷，羽绒服都穿上了；白天又热，洋葱穿法。</p></div></article><article class="tip reveal"><span class="n">08</span><div><h3>抢票</h3><p>十一票全体失败；能早定早定。</p></div></article></div></div></section><section class="ending"><p class="ending-kicker">后记</p><blockquote>不止恐龙，<br>北国之北。</blockquote><p>二连浩特，有国门，有恐龙，有大红山，有草原，有蒙餐；中秋三天，偏轻松。</p></section></main><footer>见山河 · 二连浩特 2024 中秋 ｜ 2024.9.13—9.16 ｜ 国门 / 恐龙 / 大红山 ｜ 单文件离线阅读</footer>
+<script>
+(function(){
+  'use strict';
+  var bar = document.getElementById('progressBar');
+  var topbar = document.getElementById('topbar');
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.section-nav a'));
+  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+
+  function onScroll(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? (window.scrollY / max) * 100 : 0;
+    if(bar) bar.style.width = Math.min(100, Math.max(0, p)) + '%';
+    if(topbar) topbar.classList.toggle('solid', window.scrollY > 24);
+    var current = sections[0];
+    sections.forEach(function(s){ if(s.getBoundingClientRect().top <= 120) current = s; });
+    navLinks.forEach(function(a){ a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    reveals.forEach(function(el){ io.observe(el); });
+  }else{
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var fills = Array.prototype.slice.call(document.querySelectorAll('.bar .fill'));
+  if('IntersectionObserver' in window){
+    var barIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var el = entry.target;
+          el.style.width = el.getAttribute('data-w') + '%';
+          barIO.unobserve(el);
+        }
+      });
+    }, {threshold:0.4});
+    fills.forEach(function(el){ barIO.observe(el); });
+  }else{
+    fills.forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="js"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>下南洋 · 香港 / 澳门 / 西马自驾 · 2025</title>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --paper:#f7f3ea;
+    --paper-2:#efe8da;
+    --paper-3:#e7ddcb;
+    --ink:#1f2b30;
+    --ink-2:#55636a;
+    --ink-3:#8b9698;
+    --line:#d8d0c2;
+    --accent:#0f766e;
+    --accent-deep:#123b38;
+    --accent-2:#c2783a;
+    --gold:#c59a4a;
+    --sea:#0e7490;
+    --coral:#c96f4a;
+    --max:1120px;
+    --topbar:58px;
+    --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:radial-gradient(rgba(120,100,70,.055) .6px,transparent .6px);
+    background-size:4px 4px;
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:#e7c9a8;color:var(--ink)}
+  a{color:inherit}
+  .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:90;background:transparent;pointer-events:none}
+  .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .1s linear}
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:80;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:0 28px;border-bottom:1px solid transparent;
+    transition:background .3s,border-color .3s,backdrop-filter .3s;
+  }
+  .topbar.solid{
+    background:rgba(247,243,234,.96);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-bottom-color:var(--line);
+  }
+  .brand{
+    font-family:var(--serif);font-size:17px;font-weight:600;
+    letter-spacing:.22em;text-decoration:none;white-space:nowrap;
+  }
+  .section-nav{
+    display:flex;align-items:center;gap:24px;
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .section-nav::-webkit-scrollbar{display:none}
+  .section-nav a{
+    position:relative;padding:6px 0;font-size:11px;letter-spacing:.16em;
+    color:var(--ink-2);text-decoration:none;white-space:nowrap;
+  }
+  .section-nav a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--accent);transition:width .25s;
+  }
+  .section-nav a:hover::after,.section-nav a.active::after{width:100%}
+  .section-nav a.active{color:var(--accent)}
+  .hero{
+    position:relative;min-height:100svh;display:grid;place-items:center;
+    padding:120px 24px 84px;overflow:hidden;isolation:isolate;
+    background:linear-gradient(180deg,#f7f3ea 0%,#eef6f3 46%,#d9ece9 100%);
+  }
+  .hero-art{position:absolute;inset:0;z-index:-2;pointer-events:none}
+  .hero-art svg{display:block;width:100%;height:100%}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,0) 50%,rgba(247,243,234,.18) 72%,var(--paper) 100%);
+  }
+  .hero-inner{position:relative;max-width:980px;text-align:center}
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.32em;color:var(--accent);margin:0 0 22px}
+  .hero h1{
+    font-family:var(--serif);font-size:clamp(76px,15vw,188px);font-weight:700;
+    line-height:.9;letter-spacing:.16em;text-indent:.16em;margin:0;color:var(--ink);
+  }
+  .hero-sub{
+    font-family:var(--serif);font-size:clamp(17px,2.2vw,26px);
+    letter-spacing:.2em;margin:24px 0 0;color:var(--ink-2);
+  }
+  .hero-lead{max-width:680px;margin:24px auto 0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .hero-route{
+    display:inline-flex;flex-wrap:wrap;justify-content:center;gap:7px;
+    margin:26px auto 0;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    font-size:10px;letter-spacing:.12em;color:var(--ink-3);
+  }
+  .hero-route span{white-space:nowrap}
+  .hero-stats{display:flex;justify-content:center;gap:clamp(24px,5vw,64px);margin-top:38px;flex-wrap:wrap}
+  .hero-stats div{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .hero-stats b{font-family:var(--serif);font-size:clamp(24px,3.2vw,36px);font-weight:600;line-height:1;color:var(--ink)}
+  .hero-stats span{font-size:10px;letter-spacing:.18em;color:var(--ink-3)}
+  .scroll-cue{
+    position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:var(--ink-3);font-size:10px;letter-spacing:.2em;text-decoration:none;
+  }
+  .scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--ink-3),transparent);animation:cue 2.2s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(.6);opacity:.5}50%{transform:scaleY(1);opacity:1}}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .section{padding:clamp(72px,9vw,120px) 0;scroll-margin-top:70px}
+  .section-head{max-width:760px;margin-bottom:40px}
+  .section-head .num{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0 0 12px}
+  .section-head h2{font-family:var(--serif);font-size:clamp(30px,4.2vw,48px);font-weight:600;line-height:1.2;letter-spacing:.06em;margin:0 0 16px}
+  .section-head .lead{max-width:690px;margin:0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .route{background:linear-gradient(180deg,var(--paper) 0%,#f1ebe0 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .route-intro{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:end;margin-bottom:40px}
+  .route-intro .section-head{margin-bottom:0}
+  .route-aside{font-size:12px;line-height:2;color:var(--ink-2);padding-left:22px;border-left:1px solid var(--line)}
+  .route-aside b{color:var(--ink);font-weight:600}
+  .route-line{
+    display:flex;overflow-x:auto;padding:18px 0 4px;border-top:1px solid var(--line);
+    scrollbar-width:none;
+  }
+  .route-line::-webkit-scrollbar{display:none}
+  .stop{
+    position:relative;flex:1 0 100px;min-width:100px;padding:22px 12px 0;
+    text-decoration:none;border-right:1px solid var(--line);
+  }
+  .stop:last-child{border-right:0}
+  .stop::before{
+    content:"";position:absolute;left:12px;top:-4px;width:7px;height:7px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 0 4px var(--paper);
+  }
+  .stop .date{font-size:9px;letter-spacing:.14em;color:var(--ink-3)}
+  .stop .city{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.4;margin:5px 0 3px}
+  .stop .note{font-size:10px;line-height:1.6;color:var(--ink-2)}
+  .stop:hover .city{color:var(--accent)}
+  .prelude-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .pre-card{
+    display:flex;flex-direction:column;justify-content:space-between;min-height:228px;
+    padding:26px 24px;background:rgba(255,255,255,.5);border:1px solid var(--line);
+  }
+  .pre-card .idx{font-family:var(--serif);font-size:28px;line-height:1;color:var(--accent-2)}
+  .pre-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:18px 0 8px}
+  .pre-card p{margin:0;font-size:12.5px;line-height:1.9;color:var(--ink-2)}
+  .journey{padding:clamp(60px,8vw,110px) 0}
+  .day{display:grid;grid-template-columns:160px 1fr;gap:48px;padding:46px 0;border-top:1px solid var(--line)}
+  .day:first-of-type{border-top:0}
+  .day-meta{position:sticky;top:86px;align-self:start}
+  .day-num{font-family:var(--serif);font-size:46px;line-height:1;color:var(--accent);letter-spacing:.02em}
+  .day-date{font-size:10px;letter-spacing:.2em;color:var(--ink-3);margin-top:8px}
+  .day-route{font-size:12px;line-height:1.8;color:var(--ink-2);margin-top:12px}
+  .day-route b{display:block;color:var(--ink);font-weight:600;margin-bottom:3px}
+  .day-body h3{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:600;line-height:1.35;letter-spacing:.02em;margin:0 0 14px}
+  .day-body p{font-size:14px;line-height:2;color:var(--ink-2);margin:0 0 12px}
+  .day-body p:last-child{margin-bottom:0}
+  .day-facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+  .fact{font-size:10px;line-height:1.5;color:var(--ink-2);background:rgba(255,255,255,.5);border:1px solid var(--line);padding:4px 8px}
+  .fact b{color:var(--accent);font-weight:700;margin-right:4px}
+  .day-pull{
+    margin:20px 0 0;padding:16px 18px;border-left:2px solid var(--accent-2);
+    background:rgba(194,120,58,.06);font-family:var(--serif);
+    font-size:16px;line-height:1.9;color:var(--ink);
+  }
+  .durian{position:relative;overflow:hidden;background:var(--accent-deep);color:#f3ead9}
+  .durian::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(80% 60% at 82% 0%,rgba(197,154,74,.2),transparent 60%),
+      radial-gradient(60% 55% at 0% 100%,rgba(15,118,110,.4),transparent 62%);
+  }
+  .durian .wrap{position:relative}
+  .durian .section-head .num{color:#e0b56a}
+  .durian .section-head h2{color:#f3ead9}
+  .durian .section-head .lead{color:rgba(243,234,217,.72)}
+  .durian-quote{
+    max-width:850px;margin:0 0 42px;font-family:var(--serif);
+    font-size:clamp(22px,3vw,34px);line-height:1.7;letter-spacing:.04em;color:#f3ead9;
+  }
+  .durian-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+  .durian-card{padding:22px;border:1px solid rgba(243,234,217,.18);background:rgba(255,255,255,.03)}
+  .durian-card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 8px;color:#f3ead9}
+  .durian-card .price{font-family:var(--serif);font-size:18px;color:#e0b56a;margin:0 0 10px}
+  .durian-card p{margin:0;font-size:12.5px;line-height:1.9;color:rgba(243,234,217,.72)}
+  .durian-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0 34px;border-top:1px solid rgba(243,234,217,.16);margin-top:28px}
+  .durian-list div{display:grid;grid-template-columns:1fr auto;gap:18px;padding:12px 0;border-bottom:1px solid rgba(243,234,217,.12);font-size:12.5px;color:rgba(243,234,217,.78)}
+  .durian-list b{font-family:var(--serif);font-size:14px;font-weight:600;color:#e0b56a}
+  .durian-note{margin-top:18px;font-size:11px;line-height:1.8;color:rgba(243,234,217,.5)}
+  .stay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .stay-card{display:flex;flex-direction:column;gap:10px;padding:22px;background:rgba(255,255,255,.55);border:1px solid var(--line)}
+  .stay-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .stay-card h3{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.4;margin:0}
+  .badge{flex:none;font-size:9px;letter-spacing:.08em;padding:3px 6px;border:1px solid;white-space:nowrap}
+  .badge.yes{color:var(--accent);border-color:rgba(15,118,110,.35);background:rgba(15,118,110,.06)}
+  .badge.no{color:#a84a2f;border-color:rgba(168,74,47,.3);background:rgba(168,74,47,.06)}
+  .stay-loc{font-size:11px;letter-spacing:.06em;color:var(--ink-3)}
+  .stay-price{font-family:var(--serif);font-size:16px;color:var(--accent-2)}
+  .stay-card p{margin:0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .travel-card{padding:20px 0 0;border-top:2px solid var(--accent)}
+  .travel-card .num{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--accent-2)}
+  .travel-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:8px 0 10px}
+  .travel-card p,.travel-card li{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .travel-card p{margin:0}
+  .travel-card ul{margin:0;padding-left:16px}
+  .travel-card li{margin:3px 0}
+  .expense{background:linear-gradient(180deg,#f1ebe0 0%,var(--paper) 100%);border-top:1px solid var(--line)}
+  .expense-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start;margin-bottom:34px}
+  .expense-total{padding:28px;background:var(--accent-deep);color:#f3ead9}
+  .expense-total .label{font-size:10px;letter-spacing:.2em;color:rgba(243,234,217,.6)}
+  .expense-total .amount{font-family:var(--serif);font-size:clamp(36px,5vw,56px);line-height:1.1;margin:10px 0 4px;color:#f3ead9}
+  .expense-total .amount small{font-family:var(--sans);font-size:14px;color:#e0b56a;margin-left:6px}
+  .expense-total .sub{font-size:11px;line-height:1.8;color:rgba(243,234,217,.62)}
+  .expense-note{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .expense-note p{margin:0 0 8px}
+  .expense-note b{color:var(--ink)}
+  .bars{display:grid;gap:12px;margin-top:20px}
+  .bar{display:grid;grid-template-columns:88px 1fr 82px;gap:12px;align-items:center;font-size:11px;color:var(--ink-2)}
+  .bar .track{height:7px;background:#e3dbcc;overflow:hidden}
+  .bar .fill{height:100%;width:0;background:var(--accent);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+  .bar .val{text-align:right;font-family:var(--serif);font-size:13px;color:var(--ink)}
+  .bar .val em{font-family:var(--sans);font-style:normal;font-size:9px;color:var(--ink-3);margin-left:4px}
+  .expense-foot{margin-top:18px;font-size:10px;line-height:1.9;color:var(--ink-3)}
+  .tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;border-top:1px solid var(--line)}
+  .tip{display:grid;grid-template-columns:38px 1fr;gap:16px;padding:26px 0;border-bottom:1px solid var(--line)}
+  .tip .n{font-family:var(--serif);font-size:18px;color:var(--accent-2)}
+  .tip h3{font-family:var(--serif);font-size:17px;font-weight:600;margin:0 0 6px}
+  .tip p{margin:0;font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .ending{padding:clamp(90px,12vw,160px) 24px;text-align:center;border-top:1px solid var(--line);background:var(--paper-2)}
+  .ending-kicker{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0}
+  .ending blockquote{max-width:840px;margin:18px auto;font-family:var(--serif);font-size:clamp(24px,4vw,42px);line-height:1.6;letter-spacing:.06em;color:var(--ink)}
+  .ending p{max-width:620px;margin:0 auto;font-size:12px;line-height:2;color:var(--ink-2)}
+  footer{padding:30px 24px;text-align:center;background:var(--paper-2);border-top:1px solid var(--line);font-size:10px;letter-spacing:.12em;color:var(--ink-3)}
+  .js .reveal{transform:translateY(18px);transition:transform .7s ease}
+  .js .reveal.in{transform:none}
+  @media (max-width:980px){
+    .route-intro{grid-template-columns:1fr;gap:20px}
+    .route-aside{padding-left:0;border-left:0;border-top:1px solid var(--line);padding-top:16px}
+    .prelude-grid,.stay-grid,.travel-grid,.durian-grid{grid-template-columns:1fr 1fr}
+    .expense-top{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    :root{--topbar:54px}
+    .topbar{padding:0 14px;gap:10px}
+    .brand{font-size:15px;letter-spacing:.16em}
+    .section-nav{gap:14px;margin-left:8px}
+    .section-nav a{font-size:10px;letter-spacing:.1em}
+    .hero{min-height:92svh;padding:106px 18px 70px}
+    .hero h1{font-size:clamp(64px,20vw,110px)}
+    .hero-sub{font-size:16px;letter-spacing:.14em}
+    .hero-lead{font-size:13px;line-height:1.9}
+    .hero-route{font-size:9px;line-height:1.8;gap:5px}
+    .hero-stats{gap:22px}
+    .hero-stats b{font-size:26px}
+    .section{padding:60px 0}
+    .wrap{padding:0 18px}
+    .section-head{margin-bottom:28px}
+    .prelude-grid,.stay-grid,.travel-grid,.durian-grid,.durian-list{grid-template-columns:1fr}
+    .route-line{margin:0 -18px;padding-left:18px;padding-right:18px}
+    .stop{flex:0 0 108px;min-width:108px}
+    .day{grid-template-columns:1fr;gap:18px;padding:34px 0}
+    .day-meta{position:static;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+    .day-num{font-size:38px}
+    .day-date{margin-top:0}
+    .day-route{flex:1 0 100%;margin-top:0;padding-top:8px;border-top:1px solid var(--line)}
+    .day-body h3{font-size:22px}
+    .day-pull{font-size:15px}
+    .bar{grid-template-columns:64px 1fr 64px;gap:8px;font-size:10px}
+    .bar .val{font-size:11px}
+    .bar .val em{display:none}
+    .tips-grid{grid-template-columns:1fr;gap:0}
+    .expense-total{padding:22px}
+    .ending{padding:70px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .js .reveal{opacity:1;transform:none;transition:none}
+    .scroll-cue i{animation:none}
+    .bar .fill{transition:none}
+  }
+</style>
+</head>
+<body>
+<div class="progress"><span id="progressBar"></span></div>
+
+<header class="topbar" id="topbar">
+  <a class="brand" href="#top">见山河</a>
+  <nav class="section-nav" aria-label="页面目录">
+    <a href="#route" class="">路线</a>
+    <a href="#prelude">行前</a>
+    <a href="#journey">逐日</a>
+    <a href="#durian">榴莲</a>
+    <a href="#stay">住行</a>
+    <a href="#expense">费用</a>
+    <a href="#tips">心法</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f7f3ea"></stop>
+            <stop offset=".52" stop-color="#eaf5f1"></stop>
+            <stop offset="1" stop-color="#cfe8e4"></stop>
+          </linearGradient>
+          <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9bd7d0"></stop>
+            <stop offset=".55" stop-color="#4aa79e"></stop>
+            <stop offset="1" stop-color="#176966"></stop>
+          </linearGradient>
+          <radialGradient id="sunGlow" cx=".5" cy=".5" r=".5">
+            <stop offset="0" stop-color="#f2c680" stop-opacity=".55"></stop>
+            <stop offset=".55" stop-color="#f2c680" stop-opacity=".16"></stop>
+            <stop offset="1" stop-color="#f2c680" stop-opacity="0"></stop>
+          </radialGradient>
+        </defs>
+        <rect width="1440" height="900" fill="url(#sky)"></rect>
+        <circle cx="1110" cy="248" r="210" fill="url(#sunGlow)"></circle>
+        <circle cx="1110" cy="248" r="88" fill="#e4a45c" opacity=".9"></circle>
+        <circle cx="1110" cy="248" r="120" fill="none" stroke="#d7a35e" stroke-width="1" opacity=".34"></circle>
+        <path d="M0 610 C110 548 220 574 330 610 C440 646 520 588 640 604 C760 620 850 574 980 596 C1110 618 1240 578 1440 612 L1440 900 L0 900 Z" fill="#a8cec6" opacity=".55"></path>
+        <path d="M0 668 C130 624 250 660 370 672 C500 684 590 638 720 654 C850 670 970 634 1100 650 C1230 666 1340 638 1440 654 L1440 900 L0 900 Z" fill="#78b8ae" opacity=".5"></path>
+        <path d="M0 744 C150 704 280 748 430 734 C580 720 690 764 840 746 C990 728 1110 770 1260 744 C1330 732 1390 736 1440 746 L1440 900 L0 900 Z" fill="url(#sea)" opacity=".9"></path>
+        <path d="M0 812 C140 782 280 822 430 806 C600 788 720 832 880 814 C1040 796 1160 834 1300 812 C1350 804 1400 808 1440 816 L1440 900 L0 900 Z" fill="#155c59" opacity=".78"></path>
+        <path d="M0 858 C170 838 330 866 500 850 C670 834 830 872 1000 854 C1170 836 1310 862 1440 848 L1440 900 L0 900 Z" fill="#103f3d" opacity=".9"></path>
+        <g fill="none" stroke="#2f6b65" stroke-width="1.6" opacity=".38">
+          <path d="M250 292 q12 -9 24 0 q12 -9 24 0"></path>
+          <path d="M330 250 q9 -7 18 0 q9 -7 18 0"></path>
+          <path d="M940 320 q10 -8 20 0 q10 -8 20 0"></path>
+        </g>
+        <g fill="#1c514d" opacity=".2">
+          <path d="M110 900 C130 790 142 692 126 608 C120 578 104 548 86 526 C120 548 138 584 146 620 C156 682 150 790 138 900 Z"></path>
+          <path d="M126 604 C86 566 54 556 18 566 C52 540 92 548 130 580 C154 600 170 634 176 670 C152 638 132 618 126 604 Z"></path>
+          <path d="M128 596 C160 554 196 542 234 552 C194 532 158 544 124 578 C102 600 88 634 82 674 C102 636 118 612 128 596 Z"></path>
+          <path d="M126 590 C126 548 140 514 166 486 C140 506 124 540 118 578 C114 606 120 638 132 666 C128 636 124 612 126 590 Z"></path>
+          <path d="M134 900 C154 802 162 716 150 648 C146 624 136 600 122 582 C148 600 162 630 168 660 C176 716 170 802 158 900 Z" opacity=".55"></path>
+        </g>
+        <g transform="translate(1080 650)" fill="#103f3d" opacity=".55">
+          <path d="M0 26 q34 14 68 0 l-8 10 q-26 8 -52 0 Z"></path>
+          <path d="M14 18 l20 -38 l4 0 l-16 38 Z"></path>
+          <path d="M40 18 l16 -30 l3 0 l-12 30 Z"></path>
+          <path d="M2 14 q32 -12 64 0" fill="none" stroke="#103f3d" stroke-width="2"></path>
+        </g>
+      </svg>
+    </div>
+    <div class="hero-inner">
+      <p class="kicker">2025 · 夏 · 香港 / 澳门 / 西马</p>
+      <h1>下南洋</h1>
+      <p class="hero-sub">十年后再去港澳，带妹妹补上第一个迪士尼</p>
+      <p class="hero-lead">主线任务是马来西亚的榴莲季。香港转一下，机票便宜，刚好顺路；澳门停一晚，再飞吉隆坡。取一辆车，从西海岸一路向北，再横穿东西大道去东海岸。</p>
+      <div class="hero-route">
+        <span>北京</span><span>→</span><span>香港</span><span>→</span><span>澳门</span><span>→</span><span>吉隆坡</span><span>→</span><span>槟城</span><span>→</span><span>哥打巴鲁</span><span>→</span><span>登嘉楼</span><span>→</span><span>关丹</span><span>→</span><span>吉隆坡</span><span>→</span><span>北京</span>
+      </div>
+      <div class="hero-stats">
+        <div><b>10</b><span>天</span></div>
+        <div><b>8</b><span>晚</span></div>
+        <div><b>2大2小</b><span>同行</span></div>
+        <div><b>22,416</b><span>元 · 总花费</span></div>
+      </div>
+    </div>
+    <a class="scroll-cue" href="#route">沿着海风，向南<i></i></a>
+  </section>
+
+  <section class="section route" id="route">
+    <div class="wrap">
+      <div class="route-intro">
+        <div class="section-head reveal">
+          <p class="num">01 / ROUTE</p>
+          <h2>一条向南、再向西的环线</h2>
+          <p class="lead">请假不易，能周五走就周五走；尽量不走回头路，让每一步都在往前。香港和澳门各停一晚，马来西亚从吉隆坡取车，沿西海岸北上，再横穿东西大道去东海岸，最后回吉隆坡还车。</p>
+        </div>
+        <aside class="route-aside reveal">
+          <b>路线骨架</b><br>
+          北京 → 香港 → 澳门 → 吉隆坡 → 威北 → 槟城 → 哥打巴鲁 → 墨浪 → 登嘉楼 → 关丹 → 文冬 / 劳勿 → 吉隆坡 → 北京。<br><br>
+          <b>节奏</b><br>
+          港澳用公共交通，西马全程自驾；每天只设一个主线任务，剩下的交给路上的榴莲摊和海滩。
+        </aside>
+      </div>
+      <div class="route-line reveal">
+        <a class="stop" href="#day-d0"><span class="date">7.11 · D0</span><span class="city">北京大兴</span><span class="note">出发前夜<br>红眼航班</span></a>
+        <a class="stop" href="#day-d1"><span class="date">7.12 · D1</span><span class="city">香港</span><span class="note">迪士尼<br>20 周年</span></a>
+        <a class="stop" href="#day-d2"><span class="date">7.13 · D2</span><span class="city">澳门</span><span class="note">天星小轮<br>大三巴</span></a>
+        <a class="stop" href="#day-d3"><span class="date">7.14 · D3</span><span class="city">吉隆坡 → 威北</span><span class="note">取车<br>夜驾 4.5h</span></a>
+        <a class="stop" href="#day-d4"><span class="date">7.15 · D4</span><span class="city">槟城</span><span class="note">Escape<br>榴莲山</span></a>
+        <a class="stop" href="#day-d5"><span class="date">7.16 · D5</span><span class="city">哥打巴鲁</span><span class="note">东西大道<br>墨浪码头</span></a>
+        <a class="stop" href="#day-d6"><span class="date">7.17 · D6</span><span class="city">热浪岛</span><span class="note">浮潜<br>登嘉楼</span></a>
+        <a class="stop" href="#day-d7"><span class="date">7.18 · D7</span><span class="city">关丹</span><span class="note">3 号公路<br>海龟石</span></a>
+        <a class="stop" href="#day-d8"><span class="date">7.19 · D8</span><span class="city">吉隆坡</span><span class="note">文冬 / 劳勿<br>猫山王</span></a>
+        <a class="stop" href="#day-d9"><span class="date">7.20 · D9</span><span class="city">北京</span><span class="note">还车<br>回家</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section prelude" id="prelude">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="num">02 / WHY</p>
+        <h2>为什么是这条线</h2>
+        <p class="lead">十年前去过香港、澳门；马来西亚也去过几次，印象一直很好。这次南下，一半是补妹妹的迪士尼，一半是奔着榴莲季。</p>
+      </div>
+      <div class="prelude-grid">
+        <article class="pre-card reveal">
+          <span class="idx">01</span>
+          <div>
+            <h3>十年，再去一次港澳</h3>
+            <p>2015 年老大去过香港迪士尼，妹妹已经三年级，一个迪士尼都还没去过。正好这次要南下，就把港澳一起串上。十年前看过的维港，这次带两个小的再看一遍。</p>
+          </div>
+        </article>
+        <article class="pre-card reveal">
+          <span class="idx">02</span>
+          <div>
+            <h3>主线任务：榴莲季</h3>
+            <p>去年走了吉隆坡—新山—新加坡，大家一致觉得马来西亚的榴莲好吃。今年暑假再来，就是奔着榴莲季；结果不负众望，路边摊和自助都吃到了惊喜。</p>
+          </div>
+        </article>
+        <article class="pre-card reveal">
+          <span class="idx">03</span>
+          <div>
+            <h3>不走回头路</h3>
+            <p>假期捉襟见肘，回头路是对假期的不尊重。西马这段做成一个环线：吉隆坡取车，西海岸北上，横穿东西大道，东海岸南下，最后回吉隆坡还车。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="journey" id="journey">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="num">03 / DAY BY DAY</p>
+        <h2>每天都有一个主线任务</h2>
+        <p class="lead">不赶打卡，先把每天最重要的一件事做好。其余时间，留给路上的榴莲摊、海滩和偶遇。</p>
+      </div>
+
+      <article class="day reveal" id="day-d0">
+        <div class="day-meta">
+          <div class="day-num">D0</div>
+          <div class="day-date">7.11 · 北京大兴</div>
+          <div class="day-route"><b>北京 → 大兴机场</b>地铁 8 号线到瀛海，再打车去大兴，80—90 元。</div>
+        </div>
+        <div class="day-body">
+          <h3>出发前夜，把假期用到极致</h3>
+          <p>请假不容易，能周五走就周五走。暑期机票我们习惯在春节后、五一前看：提前一个假期，往往能捡到低折扣；代价是提前三四个月把日期锁死，临时有变就要认损失。</p>
+          <p>晚上地铁 8 号线到瀛海，再打车去大兴机场。红眼航班 UO235，2:30 起飞、6:10 落地香港，只有 7kg 手提行李。廉航的毯子要收费，卫衣、长裤、袜子自己穿好。打工人要有打工人的觉悟。</p>
+          <div class="day-facts">
+            <span class="fact"><b>行</b>地铁 + 打车</span>
+            <span class="fact"><b>航班</b>UO235 · 2:30—6:10</span>
+            <span class="fact"><b>提醒</b>充电宝要有 3C 标志</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d1">
+        <div class="day-meta">
+          <div class="day-num">D1</div>
+          <div class="day-date">7.12 · 香港</div>
+          <div class="day-route"><b>机场 → 东荟城 → 迪士尼</b>酒店大巴十几分钟；地铁东涌线转迪士尼线。</div>
+        </div>
+        <div class="day-body">
+          <h3>妹妹的第一个迪士尼</h3>
+          <p>6:10 落地，6:42 已经坐上酒店大巴。东荟城诺富特，先开房、寄存行李，去富东商场大家乐吃早饭；冰饮加 3 港币。东荟城很大，富东商场在边上，需要过一条长廊。</p>
+          <p>迪士尼 10 点开门，我们赶第一波。香港夏天说下雨就下雨，排队不到一小时，暴雨和晴天来回切换两三次，伞一定要带。恰逢迪士尼 20 周年，门票送小娃娃，领了几个。</p>
+          <p>人比想象中少，热门项目半小时左右；一天下来基本都能刷一遍，单人通道能省不少时间。冰雪奇缘区先冲，小小世界补上老大 2015 年的记忆。晚上烟花和灯光秀很好看，出门又耽误了一会儿，回东涌时饭店都关门了，只剩麦当劳。</p>
+          <p>代价是：新买的 3C 充电宝丢了，一次电都没充完。后半程只能关掉随身 Wi-Fi 省电，出师未捷身先死。</p>
+          <div class="day-facts">
+            <span class="fact"><b>住</b>诺富特东荟城</span>
+            <span class="fact"><b>吃</b>大家乐 / 金拱门</span>
+            <span class="fact"><b>玩</b>迪士尼</span>
+            <span class="fact"><b>教训</b>伞和充电宝</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d2">
+        <div class="day-meta">
+          <div class="day-num">D2</div>
+          <div class="day-date">7.13 · 香港—澳门</div>
+          <div class="day-route"><b>东涌 → 会展 → 湾仔 → 尖沙咀 → 港珠澳大桥 → 澳门</b>天星小轮过海，A21 到口岸，金巴过桥。</div>
+        </div>
+        <div class="day-body">
+          <h3>反着坐天星小轮，过海去澳门</h3>
+          <p>诺富特含 1 人早餐，可以带 1 名 16 岁以下儿童；派最能打的人去。吃完去东荟城 5 楼丰泽买了个小米充电宝，69 块，没有 3C，凑合用。</p>
+          <p>路线是：东涌—会展—紫荆花广场—湾仔码头—天星小轮—尖沙咀—星光大道—A21—港珠澳大桥—金巴—澳门—上葡京—葡京人—永利皇宫—永利澳门—新葡京—大三巴—三盏灯—公交回。反着坐天星小轮，和主流方向相反，不用排大队；6 港币/人，小孩半价。</p>
+          <p>星光大道、富豪雪糕、维港打卡；A21 到港珠澳大桥约 36 港币，儿童半价。金巴 38 港币/人，儿童票现场买；证件怎么进就怎么出。澳门出关坐发财车到上葡京，先领一杯奶茶和一个蛋挞；走去葡京人，913.85/晚。</p>
+          <p>问前台要永利皇宫缆车快速票，二楼排队少。再坐车去永利澳门看发财树，步行去大三巴。大三巴前面是游客区，后面才是生活；下坡往三盏灯走，路边摊炒鱿鱼 65 MOP、炒面 27、云吞 30 多、鸡爪 45、白粥 3、水 4，一顿 260 MOP 左右。错过末班发财车，坐 25B 公交 6 MOP/人回酒店。</p>
+          <div class="day-facts">
+            <span class="fact"><b>住</b>澳门葡京人</span>
+            <span class="fact"><b>吃</b>燊哥冰室 / 三盏灯</span>
+            <span class="fact"><b>玩</b>天星小轮 / 大三巴 / 永利</span>
+            <span class="fact"><b>提醒</b>澳门入境小条别丢</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d3">
+        <div class="day-meta">
+          <div class="day-num">D3</div>
+          <div class="day-date">7.14 · 澳门—吉隆坡—威北</div>
+          <div class="day-route"><b>澳门 → 吉隆坡 → 威北</b>AK189 14:35—18:30；KLIA1 取车，夜驾 385km / 4.5h。</div>
+        </div>
+        <div class="day-body">
+          <h3>右舵车，夜路四小时</h3>
+          <p>上午在酒店泳池玩，楼下燊哥冰室吃面和蛋挞；蛋挞 30 MOP 一盒 6 个。葡京人没有机场发财车，走去上葡京北门 B1 坐，十几分钟到机场。</p>
+          <p>AK189，14:35—18:30 到吉隆坡。华阳冰室吃晚饭，一桌约 RM200；19:30 坐下，时间刚好。KLIA1 取车，Seiyon，右舵。第一次开右舵就上夜间长途，说没压力是假的；开上车也就那样。</p>
+          <p>吉隆坡到威北 385 公里，4.5 小时，21:30—2:00。高速三车道到怡保，之后双车道；服务区窗明几净，还有榴莲。200 的表，油门到底 160，下坡冲 180；在快车道被一辆本田大哥贴尾，让超之后目测 200+。</p>
+          <p>加油站先预扣 200 RM，加完再结算；马来加油可以不用熄火。酒店 The Bagan Suite，印度人开的，655.08/2 晚，有自己的停车场；在威北县 Butterworth，不在槟城岛上，楼下有饭店和超市，支付宝微信都能扫。</p>
+          <div class="day-facts">
+            <span class="fact"><b>住</b>The Bagan Suite</span>
+            <span class="fact"><b>吃</b>华阳冰室 / 服务区榴莲</span>
+            <span class="fact"><b>行</b>夜驾 4.5h</span>
+            <span class="fact"><b>提醒</b>右舵 / Touch 'n Go</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d4">
+        <div class="day-meta">
+          <div class="day-num">D4</div>
+          <div class="day-date">7.15 · 槟城</div>
+          <div class="day-route"><b>威北 → 乔治市 → Escape → 浮罗山背 → 巴六拜</b>跨海大桥约 1 小时到 Escape。</div>
+        </div>
+        <div class="day-body">
+          <h3>Escape 玩到闭园，再去榴莲山</h3>
+          <p>早上在楼下大排档吃炒面、粉、炒饭，6—10 RM；出发去乔治市。今天两个主线：Escape 乐园和浮罗山背榴莲山。</p>
+          <p>Escape 在榴莲山上山入口，官网买票，支付宝可以付；付完上传自拍，刷脸入园，没有二维码。陆地项目 10 点、水上 12 点；大柜 15 RM/天，小柜 10 RM/天。带吃的、水、手机防水套、洞洞鞋，尽量减少装备。</p>
+          <p>Zip Coaster 是世界最长滑索之一，滑下去 4 分多钟；Water Slide 是世界最长水滑梯，也要 4 分多钟；Tubby Racer 一分多钟；Kite Flyer 是超级秋千；Monke Business 树上穿越，L2 我们用了一小时，L3 要两小时。水上项目的大水桶、跳水（5 米深）都值得试。</p>
+          <p>下午去浮罗山背。名气很大，游客生意；树上看不到果，店里一筐筐从外面进货。开了一个奶油 80 RM，好吃，但价格不便宜。真正惊喜在巴六拜的 OH Richard：5 个人 130 RM 自助，老板本职是后面的饭馆，周二休息；各种口味一直开，吃到你喊停。单买 12 RM/kg。晚上去壁画街，回酒店又是深夜。</p>
+          <div class="day-facts">
+            <span class="fact"><b>玩</b>Escape / 榴莲山 / 壁画街</span>
+            <span class="fact"><b>吃</b>早市 / 幸运肉骨茶 / OH Richard</span>
+            <span class="fact"><b>榴莲</b>130 RM 自助</span>
+            <span class="fact"><b>提醒</b>防水袋 / 洞洞鞋</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d5">
+        <div class="day-meta">
+          <div class="day-num">D5</div>
+          <div class="day-date">7.16 · 槟城—哥打巴鲁—墨浪</div>
+          <div class="day-route"><b>槟城 → 东西大道 → 哥打巴鲁 → 墨浪码头</b>320km + 120km，山路国道。</div>
+        </div>
+        <div class="day-body">
+          <h3>东西大道，路边全是榴莲摊</h3>
+          <p>今天没有确切项目，就是横穿西马到东海岸。东西大道全程山路国道，路况好，中间有服务区，穿过小镇也能吃饭。</p>
+          <p>路边水果摊，山峇榴莲 10 RM/kg；大哥开了两个。旁边以为是狗，结果是猴子，还有猴子宝宝。吃完扫码付不了，身上只有 10 RM 现金，最后按汇率付了人民币。</p>
+          <p>继续走，遇到一位大爷卖榴莲，7 RM/kg，椰子 2 RM 一个。我们说没现金，大爷说下次路过再付；最后用人民币结了。村里有中国人，也收人民币。路过马泰边境的北京清真寺，仿牛街；在榴莲摊小哥帮助下，扫码给小吃摊主 100 RM，换回现金，解决了后面的马币。</p>
+          <p>晚上到哥打巴鲁，Lemark 马来餐厅，手抓饭；门口有 BYD 店；超市补货。住 Merang Jetty 边上的 RAZAK GUEST HOUSE，RM202.78，晚到没人，钥匙留在门上。</p>
+          <div class="day-facts">
+            <span class="fact"><b>住</b>RAZAK Guest House</span>
+            <span class="fact"><b>吃</b>Lemark / 路边榴莲</span>
+            <span class="fact"><b>行</b>320 + 120km</span>
+            <span class="fact"><b>提醒</b>现金 / 猴子 / 大象</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d6">
+        <div class="day-meta">
+          <div class="day-num">D6</div>
+          <div class="day-date">7.17 · 热浪岛—登嘉楼</div>
+          <div class="day-route"><b>墨浪码头 → 热浪岛 → 登嘉楼</b>40 分钟快艇；8 点集合，8:30 出发。</div>
+        </div>
+        <div class="day-body">
+          <h3>果冻海、海龟，和没等到的鲸鲨</h3>
+          <p>Merang Jetty 和 Marang Jetty 是两个地方，一定分清。官网 merangjetty.com 订一日游，经济版 100 RM/成人、80 RM/儿童，含盒饭和浮潜装备；8 点集合，8:30 出发，码头停车免费。</p>
+          <p>40 分钟快艇到浮潜点，水清见底；用三角饼装进瓶子吸引鱼。踩了海龟一脚，真不是故意。中午盒饭配椰浆，寒碜但管饱。回程时另一条船说看到鲸鲨，我们转了十分钟也没等到。</p>
+          <p>4:30 上岸，去登嘉楼。清真寺工作人员带我们转了一圈，还去了安拉的位置；门口马来大爷主动帮我们合影，口袋里掉出腾势 D9 钥匙，30 万 RM。他说黑刺超过 40 RM/kg、猫山王超过 25 RM/kg 就要慎重。晚上唐人街、海龟巷、关帝庙，赶上关帝圣君诞辰；夜市很热闹。榴莲摊 100 RM 一堆。</p>
+          <div class="day-facts">
+            <span class="fact"><b>玩</b>浮潜 / 清真寺 / 唐人街</span>
+            <span class="fact"><b>吃</b>盒饭 / 榴莲 / 夜市</span>
+            <span class="fact"><b>住</b>明涛酒店</span>
+            <span class="fact"><b>提醒</b>Merang ≠ Marang</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d7">
+        <div class="day-meta">
+          <div class="day-num">D7</div>
+          <div class="day-date">7.18 · 登嘉楼—关丹</div>
+          <div class="day-route"><b>登嘉楼 → 3 号公路 → 关丹</b>约 200km，沿着海岸线南下。</div>
+        </div>
+        <div class="day-body">
+          <h3>3 号公路，随便一个海滩都很美</h3>
+          <p>沿 3 号公路南下，200 公里。第一个海滩浪大坡陡，放弃；第二个有天然小泳池，还能抓螃蟹。海龟石是当地著名景点，沙滩上很多寄居蟹。</p>
+          <p>午饭在村口解决，7—8 RM 一份，不知道叫什么，大家都在吃。路上又遇到榴莲摊，必须停。晚上关丹乞丐鸡，推荐，物美价廉；河粉打包，第二天就坏了。高温高湿，食物真的容易腐败。</p>
+          <p>住 Codidik Hotel，不推荐：周边什么都没有，空调很差。</p>
+          <div class="day-facts">
+            <span class="fact"><b>行</b>200km</span>
+            <span class="fact"><b>吃</b>乞丐鸡 / 路边摊</span>
+            <span class="fact"><b>住</b>Codidik（不推荐）</span>
+            <span class="fact"><b>提醒</b>食物别隔夜</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d8">
+        <div class="day-meta">
+          <div class="day-num">D8</div>
+          <div class="day-date">7.19 · 关丹—文冬 / 劳勿—吉隆坡</div>
+          <div class="day-route"><b>关丹 → 文冬 → 劳勿 → 吉隆坡</b>猫山王的故乡；晚上住双威。</div>
+        </div>
+        <div class="day-body">
+          <h3>猫山王的故乡，和一顿朋友饭</h3>
+          <p>早上在关丹找当地最时尚的餐厅吃饭，味道不错，价格不贵；周边转一圈，又是壁画街，还有小瀑布（本地人 2 RM，外国人 5 RM）。</p>
+          <p>今天的重点是文冬、劳勿——猫山王的故乡。吉米榴莲园可以住宿、吃榴莲，环境好，但贵；我们最后还是去了路边摊。黑刺 40 RM/kg、猫山王 30、D24 25。</p>
+          <p>到吉隆坡，赖总请吃饭。去年在新加坡最后一天也是赖总，今年吉隆坡还是；据说明年要去韩国，韩国环国自驾可以安排上了。晚上住 Sunway Velocity Two，Airbnb 629.98，不推荐；见朋友方便，但吉隆坡还是推荐住柏威年 / 双子塔那一片。</p>
+          <div class="day-facts">
+            <span class="fact"><b>行</b>关丹 → 劳勿 → KL</span>
+            <span class="fact"><b>吃</b>榴莲 / 赖总饭</span>
+            <span class="fact"><b>住</b>Sunway（不推荐）</span>
+            <span class="fact"><b>提醒</b>名种价格</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="day reveal" id="day-d9">
+        <div class="day-meta">
+          <div class="day-num">D9</div>
+          <div class="day-date">7.20 · 吉隆坡—北京</div>
+          <div class="day-route"><b>双子塔 → 机场 → 北京</b>Five 加油站满油还车；KLIA2 亚航自助值机。</div>
+        </div>
+        <div class="day-body">
+          <h3>最后一顿榴莲，没赶上</h3>
+          <p>早上 Jollibee 菲律宾炸鸡；去双子塔下面看小孩玩水。本来想走之前再炫一次榴莲自助，结果几家都要下午 1 点才开，我们是 18:30 的飞机，12 点进场、13 点出场、14 点还车，来不及。热猫榴莲也说 1 点才开始，一个榴莲都没有。</p>
+          <p>去机场生活区附近的 Five 加油站，3 公里，满油还车。KLIA2 是亚航的天下，有托运也可以自助；别排人工值机，人非常多。行李称重、查超重，提前到。</p>
+          <p>飞机 3,020 元；D10 7.21 落地大兴，接机 214 元，回家。愉快的假期总是很快结束，下一次也许真的该去韩国了。</p>
+          <div class="day-facts">
+            <span class="fact"><b>行</b>还车 / 亚航</span>
+            <span class="fact"><b>吃</b>Jollibee / 最后榴莲</span>
+            <span class="fact"><b>提醒</b>提前到机场</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section durian" id="durian">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="num">04 / DURIAN</p>
+        <h2>这一次，是奔着榴莲季来的</h2>
+        <p class="lead">去年吉隆坡—新山—新加坡，大家一致认为马来西亚的榴莲好吃；今年暑假，主线任务就是榴莲。从槟城吃到东海岸，再吃到吉隆坡，最后发现最好吃的往往不在网红店。</p>
+      </div>
+      <p class="durian-quote reveal">“榴莲不一定非要名种。碰到好吃的甘榜，也是非常好的；吃甘榜的意义就是，谁知道是什么口味的。”</p>
+      <div class="durian-grid">
+        <article class="durian-card reveal">
+          <h3>甘榜</h3>
+          <p class="price">7—10 RM/kg</p>
+          <p>路边摊、服务区、村子里最常见。没有名字的都叫甘榜，像开盲盒；肉可能薄一点，但味道常常比名种更有性格。</p>
+        </article>
+        <article class="durian-card reveal">
+          <h3>名种</h3>
+          <p class="price">猫山王 25—30 · 黑刺 40 · D24 25</p>
+          <p>文冬、劳勿是猫山王的故乡。价格透明，但游客多的地方要留个心眼；登嘉楼大爷说，黑刺超过 40、猫山王超过 25 就要慎重。</p>
+        </article>
+        <article class="durian-card reveal">
+          <h3>自助</h3>
+          <p class="price">OH Richard · 5 人 130 RM</p>
+          <p>巴六拜的惊喜。老板本职是后面的饭馆，周二休息；各种口味一直开，吃到你喊停。单买 12 RM/kg，本次最佳。</p>
+        </article>
+      </div>
+      <div class="durian-list reveal">
+        <div><span>槟城 · 浮罗山背</span><b>奶油 80 RM</b></div>
+        <div><span>巴六拜 · OH Richard</span><b>5 人 130 RM</b></div>
+        <div><span>东西大道 · 山峇榴莲</span><b>10 RM/kg</b></div>
+        <div><span>东西大道 · 大爷榴莲</span><b>7 RM/kg</b></div>
+        <div><span>登嘉楼 · 路边摊</span><b>100 RM 一堆</b></div>
+        <div><span>文冬 / 劳勿 · 名种</span><b>25—40 RM/kg</b></div>
+      </div>
+      <p class="durian-note">价格为 2025 年 7 月现场价，按公斤计，仅供参照。榴莲价格随品种、产地、季节和摊位变化，买之前先问清楚。</p>
+    </div>
+  </section>
+
+  <section class="section stay" id="stay">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="num">05 / STAY &amp; DRIVE</p>
+        <h2>住得经济，位置要准</h2>
+        <p class="lead">长途自驾，酒店主要是睡一觉。香港别贪便宜，澳门选葡京人，马来优先家庭房和停车；交通则分港澳公共交通和西马右舵自驾两段。</p>
+      </div>
+      <div class="stay-grid">
+        <article class="stay-card reveal">
+          <div class="stay-top"><h3>香港 · 东荟城诺富特</h3><span class="badge yes">推荐</span></div>
+          <div class="stay-loc">东涌 · 近地铁和机场</div>
+          <div class="stay-price">¥1,257.66 / 晚 · 含 1 份早餐</div>
+          <p>机场大巴直达，去迪士尼方便；含 1 人早餐，可带 1 名 16 岁以下儿童。香港酒店别找特别便宜的，容易住到重庆大厦那种地方。</p>
+        </article>
+        <article class="stay-card reveal">
+          <div class="stay-top"><h3>澳门 · 葡京人</h3><span class="badge yes">推荐</span></div>
+          <div class="stay-loc">氹仔 · 上葡京旁边</div>
+          <div class="stay-price">¥913.85 / 晚</div>
+          <p>“各种人”里最便宜的一家。门口有去永利皇宫的发财车，楼下有商场，燊哥冰室可以吃饭；蛋挞 30 MOP 一盒 6 个。没有机场发财车，走去上葡京坐。</p>
+        </article>
+        <article class="stay-card reveal">
+          <div class="stay-top"><h3>槟城 · The Bagan Suite</h3><span class="badge yes">推荐</span></div>
+          <div class="stay-loc">威北县 Butterworth · 不在槟城岛</div>
+          <div class="stay-price">¥655.08 / 2 晚</div>
+          <p>印度人开的店，有自己的停车场；停满了停酒店边上也行。楼下有饭店和超市，支付宝微信都能扫。适合自驾，公共交通不太方便。</p>
+        </article>
+        <article class="stay-card reveal">
+          <div class="stay-top"><h3>墨浪 · RAZAK Guest House</h3><span class="badge yes">推荐</span></div>
+          <div class="stay-loc">Merang Jetty 旁几十米</div>
+          <div class="stay-price">RM202.78 / 晚 · 约 ¥381</div>
+          <p>马来人开的家庭旅馆，方便第二天浮潜。缺点：去晚了没有接待的人，但会把钥匙留在房门上，自己进去住。</p>
+        </article>
+        <article class="stay-card reveal">
+          <div class="stay-top"><h3>关丹 · Codidik Hotel</h3><span class="badge no">不推荐</span></div>
+          <div class="stay-loc">关丹 · 周边什么都没有</div>
+          <div class="stay-price">¥339.68 / 晚</div>
+          <p>空调很差，周边没有吃的；只是睡一觉的话勉强，但不建议专门选。</p>
+        </article>
+        <article class="stay-card reveal">
+          <div class="stay-top"><h3>吉隆坡 · Sunway Velocity Two</h3><span class="badge no">不推荐</span></div>
+          <div class="stay-loc">双威 · 见朋友方便</div>
+          <div class="stay-price">¥629.98 / 晚 · Airbnb</div>
+          <p>因为有朋友在这边，要过来见个面才住这里。吉隆坡还是推荐住柏威年 / 双子塔那一片，吃饭和逛街都方便。</p>
+        </article>
+      </div>
+
+      <div class="travel-grid">
+        <article class="travel-card reveal">
+          <p class="num">01 / FLIGHT</p>
+          <h3>机票与机场</h3>
+          <ul>
+            <li>暑期提前一个假期看票，春节后到五一前；第一周或最后一周人相对少。</li>
+            <li>大兴夜间航班多，地铁 8 号线到瀛海再打车，80—90 元。</li>
+            <li>UO235 只有 7kg 手提；毯子收费，自己穿暖。</li>
+          </ul>
+        </article>
+        <article class="travel-card reveal">
+          <p class="num">02 / HK &amp; MACAU</p>
+          <h3>港澳交通</h3>
+          <ul>
+            <li>微信 / 支付宝乘车码可坐公交地铁；香港地铁一个微信码可设置 3 人，公交轮渡一人一码。</li>
+            <li>天星小轮反着坐，避开排队；港珠澳金巴提前买，儿童票现场买。</li>
+            <li>用什么证件进，就用什么证件出；澳门入境小条别丢。</li>
+          </ul>
+        </article>
+        <article class="travel-card reveal">
+          <p class="num">03 / DRIVE</p>
+          <h3>西马自驾</h3>
+          <ul>
+            <li>KLIA1 取车，右舵；Seiyon 在租车楼第一个，飞猪—租租车—门店层层外包。</li>
+            <li>高速用 Touch 'n Go；油站先预扣 200 RM，加完结算；加油可以不熄火。</li>
+            <li>东海岸国道注意大象；夜路慢一点，满油还车。</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section expense" id="expense">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="num">06 / COST</p>
+        <h2>22,415.75 元，四口之家</h2>
+        <p class="lead">10 天，2 大 2 小，含大交通、租车、住宿、门票、吃饭和榴莲。以下按 Excel 费用表整理，人民币计价。</p>
+      </div>
+      <div class="expense-top">
+        <div class="expense-total reveal">
+          <div class="label">TOTAL · 2025.7.11—7.20</div>
+          <div class="amount">22,415.75<small>元</small></div>
+          <div class="sub">日均约 2,241.58 元 · 2 大 2 小<br>大交通 7,618 · 租车 900 · 当地交通 / 油费 / 过路约 1,149</div>
+        </div>
+        <div class="reveal">
+          <div class="expense-note">
+            <p><b>交通是大头。</b>三段机票合计 7,618 元，租车 900 元；剩下的当地交通、油费、过路、停车合计约 1,149 元。</p>
+            <p><b>住宿次之。</b>8 晚合计 4,563.37 元；香港和澳门占了一半以上，马来西亚的家庭房性价比更高。</p>
+            <p><b>门票和榴莲。</b>迪士尼、Escape、浮潜等门票 3,991 元；榴莲 865.50 元，是这次最值的一笔“项目费”。</p>
+          </div>
+          <div class="bars">
+            <div class="bar"><span>交通</span><div class="track"><div class="fill" data-w="43.1" style="width:43.1%;background:#0f766e"></div></div><span class="val">9,667.05<em>43.1%</em></span></div>
+            <div class="bar"><span>住宿</span><div class="track"><div class="fill" data-w="20.4" style="width:20.4%;background:#c59a4a"></div></div><span class="val">4,563.37<em>20.4%</em></span></div>
+            <div class="bar"><span>门票</span><div class="track"><div class="fill" data-w="17.8" style="width:17.8%;background:#c96f4a"></div></div><span class="val">3,991.00<em>17.8%</em></span></div>
+            <div class="bar"><span>餐饮</span><div class="track"><div class="fill" data-w="8.3" style="width:8.3%;background:#0e7490"></div></div><span class="val">1,851.50<em>8.3%</em></span></div>
+            <div class="bar"><span>其他</span><div class="track"><div class="fill" data-w="3.9" style="width:3.9%;background:#8b9698"></div></div><span class="val">877.33<em>3.9%</em></span></div>
+            <div class="bar"><span>榴莲</span><div class="track"><div class="fill" data-w="3.9" style="width:3.9%;background:#6b8e23"></div></div><span class="val">865.50<em>3.9%</em></span></div>
+            <div class="bar"><span>现金</span><div class="track"><div class="fill" data-w="2.7" style="width:2.7%;background:#b08968"></div></div><span class="val">600.00<em>2.7%</em></span></div>
+          </div>
+          <p class="expense-foot">现金 600 元 = 港币 200 × 0.9 + 澳门币 100 × 0.8 + 马币 200 × 1.7，已计入总计。两笔租车 / 酒店押金未退共 259.01 元，计入“其他”。Excel 另列露露的门票 + 交通 4,125.59 元，已含在总计中；百分比四舍五入，合计约 100%。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tips" id="tips">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="num">07 / NOTES</p>
+        <h2>带娃南下，记住这些小事</h2>
+        <p class="lead">每次长途出行，我们都会做一份很细的计划：每天住哪、看什么、吃什么、开多久。打印一份，云端一份，随时能翻。</p>
+      </div>
+      <div class="tips-grid">
+        <article class="tip reveal"><span class="n">01</span><div><h3>机票提前一个假期看</h3><p>暑期出行，过完春节、五一之前就开始看票；提前一个假期通常有低折扣。风险是提前三四个月锁日期，临时有变会有损失。</p></div></article>
+        <article class="tip reveal"><span class="n">02</span><div><h3>列一张物品清单</h3><p>想起来就往里加，走之前一项项核对装包。伞、洞洞鞋、泳衣、手机防水袋、转换头、3C 充电宝，都是这次真正用上的东西。</p></div></article>
+        <article class="tip reveal"><span class="n">03</span><div><h3>证件和入境卡</h3><p>香港、澳门用什么证件进就用什么证件出；澳门入境小条别丢。马来西亚入境卡提前 3 天填，0 点以后入境算第二天。</p></div></article>
+        <article class="tip reveal"><span class="n">04</span><div><h3>香港交通小技巧</h3><p>微信乘车码坐地铁，一个码可以设置 3 个人，分别选成人 / 儿童；公交和轮渡只能一人一码。天星小轮反着坐，省排队。</p></div></article>
+        <article class="tip reveal"><span class="n">05</span><div><h3>右舵车别慌</h3><p>取车后先在停车场试两圈；高速用 Touch 'n Go，油站先预扣 200 RM。东海岸国道注意大象，夜里尽量不赶路。</p></div></article>
+        <article class="tip reveal"><span class="n">06</span><div><h3>网络和热点</h3><p>移动一带一路 8.8 元/天，用几天买几天；旧手机开热点，关掉自动更新。儿童手表 30 天 500M / 10 元，不视频发图足够。</p></div></article>
+        <article class="tip reveal"><span class="n">07</span><div><h3>多问工作人员和当地人</h3><p>找不到地方、不知道怎么走，就问。注册 WhatsApp，看到招牌上的号码可以加；马来西亚号码记得加 +60，首位 0 要保留。</p></div></article>
+        <article class="tip reveal"><span class="n">08</span><div><h3>榴莲别只看名气</h3><p>路边摊和甘榜常有惊喜；名种先问价。登嘉楼大爷的经验：黑刺超过 40 RM/kg、猫山王超过 25 RM/kg 就慎重。吃榴莲，开心最重要。</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="ending">
+    <p class="ending-kicker">后记</p>
+    <blockquote>读万卷书，行万里路。<br>万里路基本上每年都有，万卷书没读够。</blockquote>
+    <p>我们比较喜欢带着娃出去玩，没报过语数英的学习班，没什么好卷的。下一次，也许真的该去韩国了。</p>
+  </section>
+</main>
+
+<footer>见山河 · 下南洋 ｜ 2025.7.11—7.20 ｜ 香港 / 澳门 / 西马自驾 ｜ 单文件离线阅读</footer>
+
+<script>
+(function(){
+  'use strict';
+  var bar = document.getElementById('progressBar');
+  var topbar = document.getElementById('topbar');
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.section-nav a'));
+  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+
+  function onScroll(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? (window.scrollY / max) * 100 : 0;
+    if(bar) bar.style.width = Math.min(100, Math.max(0, p)) + '%';
+    if(topbar) topbar.classList.toggle('solid', window.scrollY > 24);
+    var current = sections[0];
+    sections.forEach(function(s){ if(s.getBoundingClientRect().top <= 120) current = s; });
+    navLinks.forEach(function(a){ a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    reveals.forEach(function(el){ io.observe(el); });
+  }else{
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var fills = Array.prototype.slice.call(document.querySelectorAll('.bar .fill'));
+  if('IntersectionObserver' in window){
+    var barIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var el = entry.target;
+          el.style.width = el.getAttribute('data-w') + '%';
+          barIO.unobserve(el);
+        }
+      });
+    }, {threshold:0.4});
+    fills.forEach(function(el){ barIO.observe(el); });
+  }else{
+    fills.forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+  }
+})();
+</script>
+
+
+</body></html>

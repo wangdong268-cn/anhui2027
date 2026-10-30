@@ -845,6 +845,9 @@
   .fuel-chip{background:#f1f5f9;border-color:#94a3b8;color:#334155;}
   .fuel-box{background:#f1f5f9;border:1.2px solid #64748b;color:#334155;}
   .map-attribution{position:absolute;left:12px;bottom:38px;z-index:20;font-size:8.5px;line-height:1.5;color:#94a3b8;background:rgba(255,255,255,.72);padding:2px 5px;border-radius:3px;pointer-events:none;}
+  .guide-link{position:absolute;right:12px;bottom:12px;z-index:650;display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;border:1px solid rgba(31,43,48,.18);background:rgba(255,255,255,.94);color:#1f2b30;text-decoration:none;font-size:11px;font-weight:700;letter-spacing:.08em;box-shadow:0 4px 18px rgba(31,43,48,.13);white-space:nowrap;}
+  .guide-link::before{content:"↗";font-size:12px;color:var(--blue-main);}
+  .guide-link:hover{background:#fff;border-color:var(--blue-main);color:var(--blue-main)}
   .geo-map-label{font-family:var(--serif);font-size:11px;fill:#94a3b8;letter-spacing:.24em;opacity:.7;pointer-events:none;}
   .route-map-label{
     font-family:var(--sans);font-size:10.5px;font-weight:800;fill:#0284c7;
@@ -969,63 +972,11 @@
 </div>
 <div class="ex-bars"><div class="ex-bar"><div class="ex-head"><span>加油</span><b>¥3,847.22</b><em>39.9%</em></div><div class="ex-track"><i style="width:39.9%;background:#0284c7"></i></div></div><div class="ex-bar"><div class="ex-head"><span>门票</span><b>¥2,211.00</b><em>23.0%</em></div><div class="ex-track"><i style="width:23.0%;background:#059669"></i></div></div><div class="ex-bar"><div class="ex-head"><span>吃饭</span><b>¥2,038.60</b><em>21.2%</em></div><div class="ex-track"><i style="width:21.2%;background:#d97706"></i></div></div><div class="ex-bar"><div class="ex-head"><span>高速</span><b>¥1,534.30</b><em>15.9%</em></div><div class="ex-track"><i style="width:15.9%;background:#64748b"></i></div></div></div>
 <div class="expense-list"><div class="expense-row"><span class="ex-day">D0</span><span class="ex-date">7.9</span><span class="ex-route">北京 → 太原</span><b>¥412.82</b></div><div class="expense-row"><span class="ex-day">D1</span><span class="ex-date">7.10</span><span class="ex-route">太原 → 延安</span><b>¥524.41</b></div><div class="expense-row"><span class="ex-day">D2</span><span class="ex-date">7.11</span><span class="ex-route">延安 → 中宁</span><b>¥729.99</b></div><div class="expense-row"><span class="ex-day">D3</span><span class="ex-date">7.12</span><span class="ex-route">中宁 → 兰州</span><b>¥711.30</b></div><div class="expense-row"><span class="ex-day">D4</span><span class="ex-date">7.13</span><span class="ex-route">兰州 → 卓尼</span><b>¥371.13</b></div><div class="expense-row"><span class="ex-day">D5</span><span class="ex-date">7.14</span><span class="ex-route">卓尼 → 迭部</span><b>¥1,089.02</b></div><div class="expense-row"><span class="ex-day">D6</span><span class="ex-date">7.15</span><span class="ex-route">迭部 → 夏河</span><b>¥398.00</b></div><div class="expense-row"><span class="ex-day">D7</span><span class="ex-date">7.16</span><span class="ex-route">夏河 → 西宁</span><b>¥391.65</b></div><div class="expense-row"><span class="ex-day">D8</span><span class="ex-date">7.17</span><span class="ex-route">西宁 → 德令哈</span><b>¥347.75</b></div><div class="expense-row"><span class="ex-day">D9</span><span class="ex-date">7.18</span><span class="ex-route">德令哈 → 格尔木</span><b>¥493.50</b></div><div class="expense-row"><span class="ex-day">D10</span><span class="ex-date">7.19</span><span class="ex-route">格尔木 → 格尔木</span><b>¥330.00</b></div><div class="expense-row"><span class="ex-day">D11</span><span class="ex-date">7.20</span><span class="ex-route">格尔木 → 敦煌/凌晨5到达</span><b>¥1,082.30</b></div><div class="expense-row"><span class="ex-day">D12</span><span class="ex-date">7.21</span><span class="ex-route">敦煌 → 敦煌</span><b>¥351.00</b></div><div class="expense-row"><span class="ex-day">D13</span><span class="ex-date">7.22</span><span class="ex-route">敦煌 → 酒泉山丹</span><b>¥807.00</b></div><div class="expense-row"><span class="ex-day">D14</span><span class="ex-date">7.23</span><span class="ex-route">山丹 → 中卫</span><b>¥124.95</b></div><div class="expense-row"><span class="ex-day">D15</span><span class="ex-date">7.24</span><span class="ex-route">中卫 → 五寨</span><b>¥938.45</b></div><div class="expense-row"><span class="ex-day">D16</span><span class="ex-date">7.25</span><span class="ex-route">五寨 → 北京</span><b>¥527.85</b></div></div>
-<div class="expense-foot">另有未记录高速收费 318.52 元；住宿费用未在表中记录。<br><a href="map.html#expense">查看图文版 · 完整费用表与 Excel ↓</a></div>
+<div class="expense-foot">另有未记录高速收费 318.52 元；住宿费用未在表中记录。<br>完整费用表与 Excel 见地图下方「图文版」。</div>
     </div>
 
     <div class="sidebar-body" id="sidebarPanel3" style="display:none;">
 <div class="panel-title">带娃自驾的十件小事</div><div class="tip-card"><span>01</span><div><b>司机睡足，早上不赶路</b><p>睡到几点是几点，吃完早午饭再出发。长途自驾，司机的状态比早到一小时重要。</p></div></div><div class="tip-card"><span>02</span><div><b>吃完先消化再上车</b><p>孩子上车爱睡觉，刚吃饱就走容易晕车。在饭店门口玩一会儿，再出发。</p></div></div><div class="tip-card"><span>03</span><div><b>衣服一天一换洗</b><p>不用带太多，随时找机会晾。服务区、民宿、路边的小风，都能把衣服吹干。</p></div></div><div class="tip-card"><span>04</span><div><b>不催，不赶打卡</b><p>“带着蜗牛去散步。”孩子在路边玩土、扔石头、看收割，可能比景区更开心。</p></div></div><div class="tip-card"><span>05</span><div><b>自热食品备足</b><p>自热米饭、火锅、螺蛳粉、烤鱼。西北中午常赶不到城市，晚上再好好吃一顿。</p></div></div><div class="tip-card"><span>06</span><div><b>氧气罐有备无患</b><p>海拔慢慢升，孩子高反不一定严重。卓尼 3340 米、昆仑山口 4700 米，备着安心。</p></div></div><div class="tip-card"><span>07</span><div><b>见加油站就加满</b><p>柴达木盆地中间没有城镇，小柴旦湖以南、西台以东有加油站。别等亮灯。</p></div></div><div class="tip-card"><span>08</span><div><b>垃圾带下山</b><p>昆仑山上带一袋垃圾下山，会得到一枚小勋章。这里的生态，恢复得太慢。</p></div></div><div class="tip-card"><span>09</span><div><b>防晒，防晒，防晒</b><p>西北特别晒，但不热。大人孩子都要做好防晒，帽子和墨镜比防晒霜更省事。</p></div></div><div class="tip-card"><span>10</span><div><b>放轻松，开心最重要</b><p>不用纠结“有没有用”“学到了多少”。他看了，他见了，就够了。</p></div></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
-    </div>
-
-    <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
-      <div id="allSpotsContainer"></div>
     </div>
 
     <div class="sidebar-body" id="sidebarPanel4" style="display:none;">
@@ -1063,6 +1014,7 @@
       <div class="detail-body" id="drawerBody"></div>
     </div>
     <!-- 背景拼图来源：壶口瀑布/Leruswing (CC BY-SA 3.0)、扎尕那/Jonashtand (CC BY-SA 4.0)、张掖丹霞/iamangela9 (CC0)、月牙泉/N509FZ (CC BY-SA 4.0)、青海湖油菜花/Jucember (CC BY-SA 3.0)、茶卡盐湖/西安兵马俑 (CC BY-SA 4.0)，均来自 Wikimedia Commons -->
+    <a class="guide-link" href="map.html">图文版</a>
     <div class="map-attribution" title="壶口瀑布 / Leruswing · 扎尕那 / Jonashtand · 张掖丹霞 / iamangela9 · 月牙泉 / N509FZ · 青海湖 / Jucember · 茶卡盐湖 / 西安兵马俑 · Wikimedia Commons">背景拼图：壶口 · 扎尕那 · 张掖 · 月牙泉 · 青海湖 · 茶卡<br><span style="opacity:.75">图片：Wikimedia Commons · CC BY-SA / CC0</span></div>
   </main>
 </div>
@@ -1527,6 +1479,7 @@ function renderMap() {
   // Zoomed in (>= 165): Show specific scenic spots progressively!
   if (showSpots || showStays || showFood || showFuel) {
     const occupiedRects = [];
+    const seenOverviewLabels = new Set();
     const CANDIDATE_SLOTS = [
       [9, 0, false],
       [-9, 0, true],
@@ -1573,6 +1526,11 @@ function renderMap() {
         (spot.category === 'food' && view.scale >= 180) ||
         (spot.category === 'fuel' && view.scale >= 240);
       if (!shouldShowLabel) return;
+      if (!dayView && !isSel) {
+        const lblKey = (hasStay ? 'STAY:' : '') + baseName;
+        if (seenOverviewLabels.has(lblKey)) return;
+        seenOverviewLabels.add(lblKey);
+      }
 
       const estWidth = Math.max(58, baseName.length * 12 + (hasStay && showStays ? 78 : 14));
       const estHeight = 21;

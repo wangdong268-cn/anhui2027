@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="js"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小兴安岭 2024 十一 · 秋色环线</title>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+  :root{
+    --paper:#f7f3ea;
+    --paper-2:#efe8da;
+    --paper-3:#e7ddcb;
+    --ink:#1f2b30;
+    --ink-2:#55636a;
+    --ink-3:#8b9698;
+    --line:#d8d0c2;
+    --accent:#3f5d45;
+    --accent-deep:#1f3328;
+    --accent-2:#b07a3f;
+    --gold:#c59a4a;
+    --sea:#5b6f7a;
+    --coral:#a84a2f;
+    --max:1120px;
+    --topbar:58px;
+    --serif:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:radial-gradient(rgba(120,100,70,.055) .6px,transparent .6px);
+    background-size:4px 4px;
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:#e7c9a8;color:var(--ink)}
+  a{color:inherit}
+  .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:90;background:transparent;pointer-events:none}
+  .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .1s linear}
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:80;
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:0 28px;border-bottom:1px solid transparent;
+    transition:background .3s,border-color .3s,backdrop-filter .3s;
+  }
+  .topbar.solid{
+    background:rgba(247,243,234,.96);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-bottom-color:var(--line);
+  }
+  .brand{
+    font-family:var(--serif);font-size:17px;font-weight:600;
+    letter-spacing:.22em;text-decoration:none;white-space:nowrap;
+  }
+  .section-nav{
+    display:flex;align-items:center;gap:24px;
+    overflow-x:auto;scrollbar-width:none;
+  }
+  .section-nav::-webkit-scrollbar{display:none}
+  .section-nav a{
+    position:relative;padding:6px 0;font-size:11px;letter-spacing:.16em;
+    color:var(--ink-2);text-decoration:none;white-space:nowrap;
+  }
+  .section-nav a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--accent);transition:width .25s;
+  }
+  .section-nav a:hover::after,.section-nav a.active::after{width:100%}
+  .section-nav a.active{color:var(--accent)}
+  .hero{
+    position:relative;min-height:100svh;display:grid;place-items:center;
+    padding:120px 24px 84px;overflow:hidden;isolation:isolate;
+    background:linear-gradient(180deg,#f7f3ea 0%,#eef0e4 46%,#dce4d5 100%);
+  }
+  .hero-art{position:absolute;inset:0;z-index:-2;pointer-events:none}
+  .hero-art svg{display:block;width:100%;height:100%}
+  .hero::after{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,0) 50%,rgba(247,243,234,.18) 72%,var(--paper) 100%);
+  }
+  .hero-inner{position:relative;max-width:980px;text-align:center}
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.32em;color:var(--accent);margin:0 0 22px}
+  .hero h1{
+    font-family:var(--serif);font-size:clamp(76px,15vw,188px);font-weight:700;
+    line-height:.9;letter-spacing:.16em;text-indent:.16em;margin:0;color:var(--ink);
+  }
+  .hero-sub{
+    font-family:var(--serif);font-size:clamp(17px,2.2vw,26px);
+    letter-spacing:.2em;margin:24px 0 0;color:var(--ink-2);
+  }
+  .hero-lead{max-width:680px;margin:24px auto 0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .hero-route{
+    display:inline-flex;flex-wrap:wrap;justify-content:center;gap:7px;
+    margin:26px auto 0;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    font-size:10px;letter-spacing:.12em;color:var(--ink-3);
+  }
+  .hero-route span{white-space:nowrap}
+  .hero-stats{display:flex;justify-content:center;gap:clamp(24px,5vw,64px);margin-top:38px;flex-wrap:wrap}
+  .hero-stats div{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .hero-stats b{font-family:var(--serif);font-size:clamp(24px,3.2vw,36px);font-weight:600;line-height:1;color:var(--ink)}
+  .hero-stats span{font-size:10px;letter-spacing:.18em;color:var(--ink-3)}
+  .scroll-cue{
+    position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:var(--ink-3);font-size:10px;letter-spacing:.2em;text-decoration:none;
+  }
+  .scroll-cue i{display:block;width:1px;height:38px;background:linear-gradient(var(--ink-3),transparent);animation:cue 2.2s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(.6);opacity:.5}50%{transform:scaleY(1);opacity:1}}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .section{padding:clamp(72px,9vw,120px) 0;scroll-margin-top:70px}
+  .section-head{max-width:760px;margin-bottom:40px}
+  .section-head .num{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0 0 12px}
+  .section-head h2{font-family:var(--serif);font-size:clamp(30px,4.2vw,48px);font-weight:600;line-height:1.2;letter-spacing:.06em;margin:0 0 16px}
+  .section-head .lead{max-width:690px;margin:0;font-size:14px;line-height:2;color:var(--ink-2)}
+  .route{background:linear-gradient(180deg,var(--paper) 0%,#f1ebe0 100%);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .route-intro{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:end;margin-bottom:40px}
+  .route-intro .section-head{margin-bottom:0}
+  .route-aside{font-size:12px;line-height:2;color:var(--ink-2);padding-left:22px;border-left:1px solid var(--line)}
+  .route-aside b{color:var(--ink);font-weight:600}
+  .route-line{
+    display:flex;overflow-x:auto;padding:18px 0 4px;border-top:1px solid var(--line);
+    scrollbar-width:none;
+  }
+  .route-line::-webkit-scrollbar{display:none}
+  .stop{
+    position:relative;flex:1 0 100px;min-width:100px;padding:22px 12px 0;
+    text-decoration:none;border-right:1px solid var(--line);
+  }
+  .stop:last-child{border-right:0}
+  .stop::before{
+    content:"";position:absolute;left:12px;top:-4px;width:7px;height:7px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 0 4px var(--paper);
+  }
+  .stop .date{font-size:9px;letter-spacing:.14em;color:var(--ink-3)}
+  .stop .city{font-family:var(--serif);font-size:15px;font-weight:600;line-height:1.4;margin:5px 0 3px}
+  .stop .note{font-size:10px;line-height:1.6;color:var(--ink-2)}
+  .stop:hover .city{color:var(--accent)}
+  .prelude-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .pre-card{
+    display:flex;flex-direction:column;justify-content:space-between;min-height:228px;
+    padding:26px 24px;background:rgba(255,255,255,.5);border:1px solid var(--line);
+  }
+  .pre-card .idx{font-family:var(--serif);font-size:28px;line-height:1;color:var(--accent-2)}
+  .pre-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:18px 0 8px}
+  .pre-card p{margin:0;font-size:12.5px;line-height:1.9;color:var(--ink-2)}
+  .journey{padding:clamp(60px,8vw,110px) 0}
+  .day{display:grid;grid-template-columns:160px 1fr;gap:48px;padding:46px 0;border-top:1px solid var(--line)}
+  .day:first-of-type{border-top:0}
+  .day-meta{position:sticky;top:86px;align-self:start}
+  .day-num{font-family:var(--serif);font-size:46px;line-height:1;color:var(--accent);letter-spacing:.02em}
+  .day-date{font-size:10px;letter-spacing:.2em;color:var(--ink-3);margin-top:8px}
+  .day-route{font-size:12px;line-height:1.8;color:var(--ink-2);margin-top:12px}
+  .day-route b{display:block;color:var(--ink);font-weight:600;margin-bottom:3px}
+  .day-body h3{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:600;line-height:1.35;letter-spacing:.02em;margin:0 0 14px}
+  .day-body p{font-size:14px;line-height:2;color:var(--ink-2);margin:0 0 12px}
+  .day-body p:last-child{margin-bottom:0}
+  .day-facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+  .fact{font-size:10px;line-height:1.5;color:var(--ink-2);background:rgba(255,255,255,.5);border:1px solid var(--line);padding:4px 8px}
+  .fact b{color:var(--accent);font-weight:700;margin-right:4px}
+  .day-pull{
+    margin:20px 0 0;padding:16px 18px;border-left:2px solid var(--accent-2);
+    background:rgba(194,120,58,.06);font-family:var(--serif);
+    font-size:16px;line-height:1.9;color:var(--ink);
+  }
+  .feature{position:relative;overflow:hidden;background:var(--accent-deep);color:#f3ead9}
+  .feature::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(80% 60% at 82% 0%,rgba(197,154,74,.2),transparent 60%),
+      radial-gradient(60% 55% at 0% 100%,rgba(63,93,69,.4),transparent 62%);
+  }
+  .feature .wrap{position:relative}
+  .feature .section-head .num{color:#e0b56a}
+  .feature .section-head h2{color:#f3ead9}
+  .feature .section-head .lead{color:rgba(243,234,217,.72)}
+  .feature-quote{
+    max-width:850px;margin:0 0 42px;font-family:var(--serif);
+    font-size:clamp(22px,3vw,34px);line-height:1.7;letter-spacing:.04em;color:#f3ead9;
+  }
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+  .feature-card{padding:22px;border:1px solid rgba(243,234,217,.18);background:rgba(255,255,255,.03)}
+  .feature-card h3{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 8px;color:#f3ead9}
+  .feature-card .price{font-family:var(--serif);font-size:18px;color:#e0b56a;margin:0 0 10px}
+  .feature-card p{margin:0;font-size:12.5px;line-height:1.9;color:rgba(243,234,217,.72)}
+  .feature-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0 34px;border-top:1px solid rgba(243,234,217,.16);margin-top:28px}
+  .feature-list div{display:grid;grid-template-columns:1fr auto;gap:18px;padding:12px 0;border-bottom:1px solid rgba(243,234,217,.12);font-size:12.5px;color:rgba(243,234,217,.78)}
+  .feature-list b{font-family:var(--serif);font-size:14px;font-weight:600;color:#e0b56a}
+  .feature-note{margin-top:18px;font-size:11px;line-height:1.8;color:rgba(243,234,217,.5)}
+  .stay-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .stay-card{display:flex;flex-direction:column;gap:10px;padding:22px;background:rgba(255,255,255,.55);border:1px solid var(--line)}
+  .stay-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .stay-card h3{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.4;margin:0}
+  .badge{flex:none;font-size:9px;letter-spacing:.08em;padding:3px 6px;border:1px solid;white-space:nowrap}
+  .badge.yes{color:var(--accent);border-color:rgba(63,93,69,.35);background:rgba(63,93,69,.06)}
+  .badge.no{color:#a84a2f;border-color:rgba(168,74,47,.3);background:rgba(168,74,47,.06)}
+  .stay-loc{font-size:11px;letter-spacing:.06em;color:var(--ink-3)}
+  .stay-price{font-family:var(--serif);font-size:16px;color:var(--accent-2)}
+  .stay-card p{margin:0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+  .travel-card{padding:20px 0 0;border-top:2px solid var(--accent)}
+  .travel-card .num{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--accent-2)}
+  .travel-card h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:8px 0 10px}
+  .travel-card p,.travel-card li{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .travel-card p{margin:0}
+  .travel-card ul{margin:0;padding-left:16px}
+  .travel-card li{margin:3px 0}
+  .expense{background:linear-gradient(180deg,#f1ebe0 0%,var(--paper) 100%);border-top:1px solid var(--line)}
+  .expense-top{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:start;margin-bottom:34px}
+  .expense-total{padding:28px;background:var(--accent-deep);color:#f3ead9}
+  .expense-total .label{font-size:10px;letter-spacing:.2em;color:rgba(243,234,217,.6)}
+  .expense-total .amount{font-family:var(--serif);font-size:clamp(36px,5vw,56px);line-height:1.1;margin:10px 0 4px;color:#f3ead9}
+  .expense-total .amount small{font-family:var(--sans);font-size:14px;color:#e0b56a;margin-left:6px}
+  .expense-total .sub{font-size:11px;line-height:1.8;color:rgba(243,234,217,.62)}
+  .expense-note{font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .expense-note p{margin:0 0 8px}
+  .expense-note b{color:var(--ink)}
+  .bars{display:grid;gap:12px;margin-top:20px}
+  .bar{display:grid;grid-template-columns:88px 1fr 82px;gap:12px;align-items:center;font-size:11px;color:var(--ink-2)}
+  .bar .track{height:7px;background:#e3dbcc;overflow:hidden}
+  .bar .fill{height:100%;width:0;background:var(--accent);transition:width 1s cubic-bezier(.2,.7,.2,1)}
+  .bar .val{text-align:right;font-family:var(--serif);font-size:13px;color:var(--ink)}
+  .bar .val em{font-family:var(--sans);font-style:normal;font-size:9px;color:var(--ink-3);margin-left:4px}
+  .expense-foot{margin-top:18px;font-size:10px;line-height:1.9;color:var(--ink-3)}
+  .tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;border-top:1px solid var(--line)}
+  .tip{display:grid;grid-template-columns:38px 1fr;gap:16px;padding:26px 0;border-bottom:1px solid var(--line)}
+  .tip .n{font-family:var(--serif);font-size:18px;color:var(--accent-2)}
+  .tip h3{font-family:var(--serif);font-size:17px;font-weight:600;margin:0 0 6px}
+  .tip p{margin:0;font-size:12px;line-height:1.9;color:var(--ink-2)}
+  .ending{padding:clamp(90px,12vw,160px) 24px;text-align:center;border-top:1px solid var(--line);background:var(--paper-2)}
+  .ending-kicker{font-size:10px;font-weight:700;letter-spacing:.28em;color:var(--accent);margin:0}
+  .ending blockquote{max-width:840px;margin:18px auto;font-family:var(--serif);font-size:clamp(24px,4vw,42px);line-height:1.6;letter-spacing:.06em;color:var(--ink)}
+  .ending p{max-width:620px;margin:0 auto;font-size:12px;line-height:2;color:var(--ink-2)}
+  footer{padding:30px 24px;text-align:center;background:var(--paper-2);border-top:1px solid var(--line);font-size:10px;letter-spacing:.12em;color:var(--ink-3)}
+  .js .reveal{transform:translateY(18px);transition:transform .7s ease}
+  .js .reveal.in{transform:none}
+  @media (max-width:980px){
+    .route-intro{grid-template-columns:1fr;gap:20px}
+    .route-aside{padding-left:0;border-left:0;border-top:1px solid var(--line);padding-top:16px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid{grid-template-columns:1fr 1fr}
+    .expense-top{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    :root{--topbar:54px}
+    .topbar{padding:0 14px;gap:10px}
+    .brand{font-size:15px;letter-spacing:.16em}
+    .section-nav{gap:14px;margin-left:8px}
+    .section-nav a{font-size:10px;letter-spacing:.1em}
+    .hero{min-height:92svh;padding:106px 18px 70px}
+    .hero h1{font-size:clamp(64px,20vw,110px)}
+    .hero-sub{font-size:16px;letter-spacing:.14em}
+    .hero-lead{font-size:13px;line-height:1.9}
+    .hero-route{font-size:9px;line-height:1.8;gap:5px}
+    .hero-stats{gap:22px}
+    .hero-stats b{font-size:26px}
+    .section{padding:60px 0}
+    .wrap{padding:0 18px}
+    .section-head{margin-bottom:28px}
+    .prelude-grid,.stay-grid,.travel-grid,.feature-grid,.feature-list{grid-template-columns:1fr}
+    .route-line{margin:0 -18px;padding-left:18px;padding-right:18px}
+    .stop{flex:0 0 108px;min-width:108px}
+    .day{grid-template-columns:1fr;gap:18px;padding:34px 0}
+    .day-meta{position:static;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+    .day-num{font-size:38px}
+    .day-date{margin-top:0}
+    .day-route{flex:1 0 100%;margin-top:0;padding-top:8px;border-top:1px solid var(--line)}
+    .day-body h3{font-size:22px}
+    .day-pull{font-size:15px}
+    .bar{grid-template-columns:64px 1fr 64px;gap:8px;font-size:10px}
+    .bar .val{font-size:11px}
+    .bar .val em{display:none}
+    .tips-grid{grid-template-columns:1fr;gap:0}
+    .expense-total{padding:22px}
+    .ending{padding:70px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .js .reveal{opacity:1;transform:none;transition:none}
+    .scroll-cue i{animation:none}
+    .bar .fill{transition:none}
+  }
+
+  .hero h1{font-size:clamp(64px,17vw,168px);letter-spacing:.12em;text-indent:.12em}
+  .hero-sub{letter-spacing:.14em}
+  .hero::after{background:linear-gradient(180deg,var(--paper) 0%,rgba(247,243,234,.58) 22%,rgba(247,243,234,.08) 48%,rgba(247,243,234,.58) 70%,rgba(247,243,234,.94) 88%,var(--paper) 100%)}
+  .hero-stats span{color:var(--ink-2)}
+  .feature .section-head .lead{max-width:720px}
+
+  .part-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:54px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+  .part-head h3{font-family:var(--serif);font-size:clamp(22px,3vw,30px);font-weight:600;margin:0;letter-spacing:.04em}
+  .part-head span{font-size:10px;letter-spacing:.18em;color:var(--accent-2);font-weight:700;white-space:nowrap}
+  .part-head p{flex:1 0 100%;margin:4px 0 0;font-size:12px;line-height:1.8;color:var(--ink-2)}
+  .route-line .stop{flex:1 0 140px}
+  .feature-list b{text-align:right}
+  @media (max-width:720px){
+    .part-head{margin-top:38px}
+    .part-head h3{font-size:22px}
+    .route-line .stop{flex:0 0 120px}
+  }
+
+</style>
+</head>
+<body>
+<div class="progress"><span id="progressBar"></span></div><header class="topbar" id="topbar"><a class="brand" href="#top">见山河</a><nav class="section-nav" aria-label="页面目录"><a href="#route">路线</a><a href="#prelude">行前</a><a href="#journey">逐日</a><a href="#feature">看点</a><a href="#stay">住行</a><a href="#expense">费用</a><a href="#tips">心法</a></nav></header><main id="top"><section class="hero"><div class="hero-art" aria-hidden="true"><svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eef0e4"/><stop offset=".55" stop-color="#cfdcc6"/><stop offset="1" stop-color="#8aa277"/></linearGradient><radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#e7b26c" stop-opacity=".55"/><stop offset="1" stop-color="#e7b26c" stop-opacity="0"/></radialGradient></defs>
+<rect width="1440" height="900" fill="url(#sky)"/>
+<circle cx="1080" cy="230" r="210" fill="url(#glow)"/><circle cx="1080" cy="230" r="78" fill="#dfa25e" opacity=".85"/>
+<path d="M0 570 C150 510 300 544 440 560 C580 576 700 524 840 548 C980 572 1100 520 1240 548 C1330 566 1390 548 1440 556 L1440 900 L0 900 Z" fill="#8aa277" opacity=".55"/>
+<path d="M0 660 C170 614 320 650 470 656 C620 662 760 612 910 636 C1060 660 1200 618 1320 642 C1370 652 1410 648 1440 652 L1440 900 L0 900 Z" fill="#3f5d45" opacity=".55"/>
+<path d="M0 750 C180 712 340 750 510 738 C680 726 820 764 980 746 C1140 728 1280 760 1440 738 L1440 900 L0 900 Z" fill="#2f4b36" opacity=".82"/>
+<g fill="#2f4b36" opacity=".35"><path d="M150 900 L180 690 L210 900 Z"/><path d="M215 900 L245 650 L278 900 Z"/><path d="M1180 900 L1210 690 L1242 900 Z"/><path d="M1250 900 L1280 650 L1310 900 Z"/></g>
+<g fill="none" stroke="#3f565e" stroke-width="1.5" opacity=".3"><path d="M300 280 q10 -8 20 0 q10 -8 20 0"/><path d="M380 245 q8 -6 16 0 q8 -6 16 0"/><path d="M860 300 q9 -7 18 0 q9 -7 18 0"/></g></svg></div><div class="hero-inner"><p class="kicker">2024 · 十一 · 北国秋色</p><h1>小兴安岭</h1><p class="hero-sub">哈尔滨 · 横道河子 · 嘉荫 · 黑河 · 齐齐哈尔 · 大庆</p><p class="hero-lead">自打前几年十一去了大兴安岭、额济纳，对祖国北边的秋景念念不忘。这次改了行程，去探小兴安岭环线：动卧到哈尔滨，先看虎园和731，再坐动车去横道河子，牡丹江取车，沿G331一路向北。</p><div class="hero-route"><span>北京</span><span>动卧</span><span>哈尔滨</span><span>横道河子</span><span>牡丹江</span><span>佳木斯</span><span>嘉荫</span><span>黑河</span><span>齐齐哈尔</span><span>大庆</span><span>哈尔滨</span><span>北京</span></div><div class="hero-stats"><div><b>10</b><span>天</span></div><div><b>9</b><span>晚</span></div><div><b>3娃</b><span>同行</span></div><div><b>14,486</b><span>元 · 总花费</span></div></div></div><a class="scroll-cue" href="#route">沿着路，向北<i></i></a></section><section class="section route" id="route"><div class="wrap"><div class="route-intro"><div class="section-head reveal"><p class="num">01 / ROUTE</p><h2>一条向北、再向西南的秋色环线</h2><p class="lead">北京动卧到哈尔滨，先玩城市；动车去横道河子、牡丹江，取车后一路向北到佳木斯、嘉荫、黑河，再南下齐齐哈尔、大庆，最后回哈尔滨还车。</p></div><aside class="route-aside reveal"><b>路线骨架</b><br>北京 → 哈尔滨 → 横道河子 → 牡丹江 → 佳木斯 → 嘉荫 → 黑河 → 齐齐哈尔 → 大庆 → 哈尔滨 → 北京。<br><br><b>节奏</b><br>10 天 9 晚；动卧去、动车+自驾回；国庆人多，虎园和731尽量赶早、提前预约。</aside></div><div class="route-line reveal"><a class="stop" href="#journey"><span class="date">9.28 · D0</span><span class="city">北京 → 哈尔滨</span><span class="note">动卧&lt;br&gt;夕发朝至</span></a><a class="stop" href="#journey"><span class="date">9.29 · D1</span><span class="city">哈尔滨</span><span class="note">虎园&lt;br&gt;731 / 索菲亚</span></a><a class="stop" href="#journey"><span class="date">9.30 · D2</span><span class="city">横道河子 → 牡丹江</span><span class="note">虎园基地&lt;br&gt;东北洗浴</span></a><a class="stop" href="#journey"><span class="date">10.2 · D4</span><span class="city">佳木斯 → 嘉荫</span><span class="note">小兴安岭&lt;br&gt;界江 / 星星</span></a><a class="stop" href="#journey"><span class="date">10.3 · D5</span><span class="city">嘉荫 → 黑河</span><span class="note">G331&lt;br&gt;瑷珲</span></a><a class="stop" href="#journey"><span class="date">10.5 · D7</span><span class="city">齐齐哈尔 → 大庆</span><span class="note">扎龙&lt;br&gt;铁人</span></a></div></div></section><section class="section prelude" id="prelude"><div class="wrap"><div class="section-head reveal"><p class="num">02 / WHY</p><h2>为什么是这条线</h2><p class="lead">大兴安岭、额济纳之后，北边的秋景一直惦记着。小兴安岭有林海、界江、边境小城，还有虎园、731、扎龙和铁人精神，正好凑成一条亲子环线。</p></div><div class="prelude-grid"><article class="pre-card reveal"><span class="idx">01</span><div><h3>北国秋色</h3><p>从哈尔滨到嘉荫，沿G331穿过小兴安岭；五花山、界江、白桦林，叶子虽然落了不少，但路上的秋色仍然值得。</p></div></article><article class="pre-card reveal"><span class="idx">02</span><div><h3>虎园和731</h3><p>哈尔滨虎园看老虎，横道河子看基地；731罪证陈列馆是带娃必去的爱国主义教育，提前预约、按时段进。</p></div></article><article class="pre-card reveal"><span class="idx">03</span><div><h3>边境线和烤肉</h3><p>嘉荫看俄罗斯灯光，黑河看瑷珲、吃俄餐；齐齐哈尔现切现拌的烤肉，大庆的铁人和猛犸象，一条线都不重复。</p></div></article></div></div></section><section class="journey" id="journey"><div class="wrap"><div class="section-head reveal"><p class="num">03 / DAY BY DAY</p><h2>十天，从城市到林海</h2><p class="lead">前两天特种兵，中间开始放慢；国庆堵车和落叶是遗憾，但虎园、界江、星空、烤肉和铁人精神，把这条环线填满了。</p></div><div class="part-head reveal"><h3>第一段 · 哈尔滨与横道河子</h3><span>9.28—9.30</span><p>动卧到哈尔滨，虎园、731、中央大街、索菲亚；再坐动车去横道河子，牡丹江洗浴。</p></div><article class="day reveal" id="day-0928"><div class="day-meta"><div class="day-num">9.28</div><div class="day-date">D0 · 北京—哈尔滨</div><div class="day-route"><b>北京 → 哈尔滨</b>Z203 动卧，夕发朝至。</div></div><div class="day-body"><h3>动卧去哈尔滨，睡一觉就到</h3><p>假一直请不下来，车票也没定，临出发前两天才定行程。好在动卧夕发朝至，睡一觉，9.29 早上到哈尔滨。</p><p>行李先放酒店，路边吃早饭，然后打车去虎园。</p><div class="day-facts"><span class="fact"><b>行</b>Z203 动卧</span><span class="fact"><b>住</b>火车上</span><span class="fact"><b>提醒</b>国庆票要早定</span></div></div></article><article class="day reveal" id="day-0929"><div class="day-meta"><div class="day-num">9.29</div><div class="day-date">D1 · 哈尔滨</div><div class="day-route"><b>虎园 → 省博 → 731 → 中央大街 → 索菲亚</b>虎园赶第一波；731 提前预约。</div></div><div class="day-body"><h3>老虎、731，和夜幕下的索菲亚</h3><p>虎园不到 9 点就到了，赶第一波；惊险车买肉喂老虎，20 元一个，100 块 5 大块。老虎扑过来、舔玻璃，孩子看得又怕又兴奋。</p><p>下午省博、731；731 排队很长，提前预约、按时间段进。晚上中央大街、江边、烟囱面包、索菲亚教堂，没经受住公主写真，拍到快关灯。</p><div class="day-facts"><span class="fact"><b>玩</b>虎园 / 731 / 索菲亚</span><span class="fact"><b>吃</b>老厨家 / 山河屯</span><span class="fact"><b>住</b>汉庭中央大街 217</span><span class="fact"><b>提醒</b>731 预约</span></div></div></article><article class="day reveal" id="day-0930"><div class="day-meta"><div class="day-num">9.30</div><div class="day-date">D2 · 哈尔滨—横道河子—牡丹江</div><div class="day-route"><b>动车 → 横道河子 → 牡丹江</b>虎园基地；东北洗浴。</div></div><div class="day-body"><h3>横道河子，东北北海道的小镇</h3><p>一早动车到横道河子东站，出站就被美景吸引；虎园就在对面，绕桥走过去。横道河子是虎园基地，更大、老虎更多，但国庆观光车不开，改成了小镇 walk。</p><p>娃们只想看老虎，于是又进了一次虎园。出来打车到牡丹江，吃饺子、放行李，体验东北洗浴，太舒服了；晚上俄餐大串。</p><div class="day-facts"><span class="fact"><b>玩</b>横道河子 / 虎园 / 洗浴</span><span class="fact"><b>吃</b>饺子 / 俄餐</span><span class="fact"><b>住</b>牡丹江星程 205</span><span class="fact"><b>提醒</b>观光车停运</span></div></div></article><article class="day reveal" id="day-1001"><div class="day-meta"><div class="day-num">10.1</div><div class="day-date">D3 · 牡丹江—佳木斯</div><div class="day-route"><b>牡丹江 → 佳木斯</b>休整、取车、接哥哥。</div></div><div class="day-body"><h3>休整一天，去佳木斯接人</h3><p>前两天特种兵太累，今天写作业、洗衣服、看电影、溜达，吃朝鲜族汤饭。神州租车取车，零食店补货，下午出发佳木斯。</p><p>十点，三个娃汇合；一顿小烧烤庆祝。</p><div class="day-facts"><span class="fact"><b>行</b>牡丹江取车</span><span class="fact"><b>吃</b>鸭绿江 / 烧烤</span><span class="fact"><b>住</b>佳木斯蓝鼎心悦 188</span><span class="fact"><b>提醒</b>接机</span></div></div></article><div class="part-head reveal"><h3>第二段 · 小兴安岭与G331</h3><span>10.2—10.4</span><p>佳木斯—嘉荫—黑河，沿G331看界江、捡玛瑙、拍星星；五大连池和瑷珲。</p></div><article class="day reveal" id="day-1002"><div class="day-meta"><div class="day-num">10.2</div><div class="day-date">D4 · 佳木斯—嘉荫</div><div class="day-route"><b>佳木斯 → 鹿溪牧场 → 嘉荫 → 向阳乡</b>堵车，叶子落了不少。</div></div><div class="day-body"><h3>鹿溪牧场，和嘉荫的烟花与星星</h3><p>今天开始公路之行，路两边都是秋色；但人多、堵车，到得晚，叶子也落了不少。放弃金山鹿苑，三点多到鹿溪牧场，好在人不多。</p><p>晚上到嘉荫，边境小城，江对面就是俄罗斯；路边买烟花，娃们很开心。住的又贵又差，沿G331多走一点到向阳乡，满天繁星，银河可见。</p><div class="day-facts"><span class="fact"><b>玩</b>鹿溪牧场 / 界江 / 星空</span><span class="fact"><b>吃</b>饺子 / 冷饮</span><span class="fact"><b>住</b>嘉荫永盛 / 向阳乡</span><span class="fact"><b>提醒</b>国庆堵车</span></div></div></article><article class="day reveal" id="day-1003"><div class="day-meta"><div class="day-num">10.3</div><div class="day-date">D5 · 嘉荫—黑河</div><div class="day-route"><b>向阳乡 → G331 → 黑河</b>界河捡玛瑙；爱辉腾冲线。</div></div><div class="day-body"><h3>G331，醉美边防路</h3><p>白天再看黑龙江，才知道昨晚的江边这么美。早饭要趁早，游客多、饭店少。沿边防路走，遇到能下江边的地方就停车捡玛瑙。</p><p>天黑到黑河，先去爱辉腾冲人口地理分界线，再去母亲广场看对面俄罗斯布市；列娜俄餐太火，幸亏路上预订了，确实好吃。</p><div class="day-facts"><span class="fact"><b>玩</b>G331 / 爱辉 / 母亲广场</span><span class="fact"><b>吃</b>列娜俄餐</span><span class="fact"><b>住</b>黑河如家派柏 283</span><span class="fact"><b>提醒</b>带护照可报团</span></div></div></article><article class="day reveal" id="day-1004"><div class="day-meta"><div class="day-num">10.4</div><div class="day-date">D6 · 黑河—齐齐哈尔</div><div class="day-route"><b>黑河早市 → 瑷珲 → 五大连池 → 富裕</b>早市、纪念馆、火山与落日。</div></div><div class="day-body"><h3>从瑷珲到五大连池</h3><p>体验东北早市，哪家都排队，买了大列巴；出黑河去瑷珲，爱国主义教育不能少，赶上讲解，很窝火的一段历史。</p><p>下午五大连池，火山博物馆、二龙泉接泉水、药泉山；本来去白龙桥看落日，路上太阳就下去了，就在一池二池路边看。晚上到富裕，铁良子烤肉，现切现拌。</p><div class="day-facts"><span class="fact"><b>玩</b>瑷珲 / 五大连池</span><span class="fact"><b>吃</b>早市 / 铁良子烤肉</span><span class="fact"><b>住</b>富裕心悦 220</span><span class="fact"><b>提醒</b>火山石拍照注意安全</span></div></div></article><div class="part-head reveal"><h3>第三段 · 齐齐哈尔、大庆与返程</h3><span>10.5—10.7</span><p>扎龙看鹤、大庆看铁人和猛犸象，回哈尔滨还车，动车返京。</p></div><article class="day reveal" id="day-1005"><div class="day-meta"><div class="day-num">10.5</div><div class="day-date">D7 · 富裕—大庆</div><div class="day-route"><b>富裕 → 齐齐哈尔 → 扎龙 → 大庆</b>督军府、扎龙、飞鹤。</div></div><div class="day-body"><h3>齐齐哈尔不只有烤肉</h3><p>作为曾经的省会，齐齐哈尔还是有些历史；督军府开放，旁边的市博不开。去扎龙看放飞，人太多，飞就几十秒，溜达鹤更好看。</p><p>飞鹤牧场买奶砖、糯米糍、酸奶；晚上到大庆，进了一家全是本地人的熏酱馆，东北人的松弛感。</p><div class="day-facts"><span class="fact"><b>玩</b>督军府 / 扎龙 / 飞鹤</span><span class="fact"><b>吃</b>水煮鱼 / 熏酱</span><span class="fact"><b>住</b>大庆悦来 132</span><span class="fact"><b>提醒</b>看放飞别挤前排</span></div></div></article><article class="day reveal" id="day-1006"><div class="day-meta"><div class="day-num">10.6</div><div class="day-date">D8 · 大庆—哈尔滨</div><div class="day-route"><b>大庆 → 铁人纪念馆 → 哈尔滨</b>铁人精神，猛犸象。</div></div><div class="day-body"><h3>遍地磕头机，铁人精神</h3><p>从小课本里的铁人精神，这一刻具象化了；铁人第一口井、铁人王进喜纪念馆、石油科技馆、大庆博物馆，镇馆之宝猛犸象。</p><p>晚上回哈尔滨，还车，住新疆大街；吃华溪家烤肉，真的没有踩雷。</p><div class="day-facts"><span class="fact"><b>玩</b>铁人馆 / 石油科技馆 / 博物馆</span><span class="fact"><b>吃</b>华溪家烤肉</span><span class="fact"><b>住</b>汉庭新疆大街 209</span><span class="fact"><b>提醒</b>特色坑烤肉提前电话</span></div></div></article><article class="day reveal" id="day-1007"><div class="day-meta"><div class="day-num">10.7</div><div class="day-date">D9 · 哈尔滨—北京</div><div class="day-route"><b>哈尔滨 → 北京</b>731 补课，动车返京。</div></div><div class="day-body"><h3>补上731，完美结束</h3><p>早上 5 点先送新队员，接着兵分两路：一个带哥哥去731补课，一个看妹妹收拾行李。</p><p>中午吃偏脸子烧烤，西站动车回京；到家，假期结束。</p><div class="day-facts"><span class="fact"><b>玩</b>731</span><span class="fact"><b>吃</b>偏脸子烧烤</span><span class="fact"><b>行</b>G948 动车</span><span class="fact"><b>提醒</b>作业见缝插针</span></div></div></article></div></section><section class="section feature" id="feature"><div class="wrap"><div class="section-head reveal"><p class="num">04 / HIGHLIGHTS</p><h2>秋色、虎园和边境线</h2><p class="lead">这条线不只有秋色：虎园、731、G331、五大连池、扎龙、铁人纪念馆，每个点都不一样。</p></div><p class="feature-quote reveal">“北边的秋景，值得一年一年来看。”</p><div class="feature-grid"><article class="feature-card reveal"><h3>哈尔滨虎园</h3><p class="price">惊险车 · 第一波</p><p>老虎扑过来吃肉、舔玻璃；车上买肉，20 元一个，100 块 5 大块。带娃一定看好，不要自带食物投喂。</p></article><article class="feature-card reveal"><h3>731 罪证陈列馆</h3><p class="price">提前预约 · 分时段</p><p>带娃必去的爱国主义教育；按时段进，闸机刷不开就进不去。向前走，别回头，别忘记来时路。</p></article><article class="feature-card reveal"><h3>G331 / 嘉荫</h3><p class="price">界江 · 星空</p><p>沿边防路捡玛瑙，江对面就是俄罗斯；嘉荫小城有烟花，向阳乡江边能看到银河。</p></article><article class="feature-card reveal"><h3>五大连池 / 扎龙 / 大庆</h3><p class="price">火山 · 丹顶鹤 · 铁人</p><p>火山博物馆、二龙泉、药泉山；扎龙看鹤；大庆看铁人第一口井、纪念馆和猛犸象。</p></article></div><div class="feature-list reveal"><div><span>伊春四个森林公园</span><b>溪水 / 汤旺河 / 五营 / 茅兰沟</b></div><div><span>虎园门票 + 投喂</span><b>约 150 + 100</b></div><div><span>731</span><b>免费 · 预约</b></div><div><span>扎龙</span><b>202.5</b></div><div><span>租车</span><b>2,470</b></div><div><span>大交通</span><b>4,916</b></div></div><p class="feature-note">伊春的森林公园因为堵车一个没去；溪水离市区最近，旁边就是鹿溪牧场；五营喂松鼠概率大，茅兰沟更原始，汤旺河是5A。下次补。</p></div></section><section class="section stay" id="stay"><div class="wrap"><div class="section-head reveal"><p class="num">05 / STAY &amp; DRIVE</p><h2>住得简单，路上要顺</h2><p class="lead">国庆酒店边走边订，伊春、嘉荫又贵又差；能早定就早定。哈尔滨住中央大街/新疆大街，牡丹江、佳木斯、黑河、富裕、大庆都选经济型。</p></div><div class="stay-grid"><article class="stay-card reveal"><div class="stay-top"><h3>哈尔滨 · 汉庭中央大街</h3><span class="badge yes">推荐</span></div><div class="stay-loc">中央大街 · 步行到江边</div><div class="stay-price">¥217 / 晚</div><p>位置好，去索菲亚、中央大街、江边都方便；第二天去虎园打车。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>牡丹江 · 星程</h3><span class="badge yes">推荐</span></div><div class="stay-loc">牡丹江站附近</div><div class="stay-price">¥205 / 晚</div><p>放行李、吃饺子、洗浴都方便；第二天取车去佳木斯。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>佳木斯 · 蓝鼎心悦</h3><span class="badge yes">推荐</span></div><div class="stay-loc">佳木斯市区</div><div class="stay-price">¥188 / 晚</div><p>接哥哥、吃烧烤；出发去嘉荫前补给。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>嘉荫 / 向阳乡</h3><span class="badge yes">推荐</span></div><div class="stay-loc">嘉荫县城 / 向阳乡农家乐</div><div class="stay-price">¥176 + 农家乐</div><p>嘉荫又贵又差，后来沿G331多走到向阳乡，农家乐反而能看星星。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>黑河 · 如家派柏</h3><span class="badge yes">推荐</span></div><div class="stay-loc">俄罗斯商品街附近</div><div class="stay-price">¥283 / 晚</div><p>江边、母亲广场、列娜俄餐都近；国庆价格高。</p></article><article class="stay-card reveal"><div class="stay-top"><h3>富裕 · 心悦 / 大庆 · 悦来</h3><span class="badge yes">推荐</span></div><div class="stay-loc">齐齐哈尔富裕县 / 大庆</div><div class="stay-price">¥220 / ¥132</div><p>富裕是为了第二天扎龙；大庆住一晚，看铁人馆和博物馆。</p></article></div><div class="travel-grid"><article class="travel-card reveal"><p class="num">01 / TRAIN</p><h3>动卧 + 动车</h3><ul><li>北京—哈尔滨 Z203 动卧，夕发朝至；</li><li>哈尔滨—横道河子动车，横道河子—牡丹江动车；</li><li>牡丹江取车，哈尔滨还车，租车 2,470 元。</li></ul></article><article class="travel-card reveal"><p class="num">02 / DRIVE</p><h3>G331 与国庆车流</h3><ul><li>佳木斯—嘉荫—黑河走 G331，个别路段不好，慢一点；</li><li>伊春交警全线维持秩序，仍有人逆向，别跟；</li><li>国庆住宿早订，伊春、嘉荫尤其紧张。</li></ul></article><article class="travel-card reveal"><p class="num">03 / TICKETS</p><h3>预约与门票</h3><ul><li>731 提前预约、按时段进；孩子不用预约码，可走孩子通道；</li><li>虎园车票分观光车/惊险车，进去看好了再排队；</li><li>扎龙放飞人很多，飞就几十秒，溜达鹤更好看。</li></ul></article></div></div></section><section class="section expense" id="expense"><div class="wrap"><div class="section-head reveal"><p class="num">06 / COST</p><h2>14,486.17 元，十一环线</h2><p class="lead">10 天 9 晚，3 娃同行；含动卧/动车/机票、租车、油费、住宿、门票和吃饭。以下按 Excel 费用表整理。</p></div><div class="expense-top"><div class="expense-total reveal"><div class="label">TOTAL · 2024.9.28—10.7</div><div class="amount">14,486.17<small>元</small></div><div class="sub">日均约 1,448.62 元 · 3 娃同行<br>大交通 4,916 · 车辆 3,742.58 · 住宿 1,630</div></div><div class="reveal"><div class="expense-note"><p>大交通 4,916 元：动卧 1,265、哈尔滨—横道河子/牡丹江动车 334、北京—佳木斯机票 1,530、返程动车 1,787。</p><p>车辆 3,742.58 元：租车 2,470、加油、停车、补胎等；住宿 1,630 元，共 8 晚酒店 + 1 晚动卧。</p><p>门票 1,098.10 元含索菲亚写真 240、虎园/横道河子虎园/洗浴/扎龙等；吃饭 3,099.49 元。</p></div><div class="bars"><div class="bar"><span>大交通</span><div class="track"><div class="fill" data-w="33.9" style="width:33.9%;background:#3f5d45"></div></div><span class="val">4,916.00<em>33.9%</em></span></div><div class="bar"><span>车辆</span><div class="track"><div class="fill" data-w="25.8" style="width:25.8%;background:#b07a3f"></div></div><span class="val">3,742.58<em>25.8%</em></span></div><div class="bar"><span>吃饭</span><div class="track"><div class="fill" data-w="21.4" style="width:21.4%;background:#2f5d6b"></div></div><span class="val">3,099.49<em>21.4%</em></span></div><div class="bar"><span>住宿</span><div class="track"><div class="fill" data-w="11.3" style="width:11.3%;background:#8c3b2e"></div></div><span class="val">1,630.00<em>11.3%</em></span></div><div class="bar"><span>门票</span><div class="track"><div class="fill" data-w="7.6" style="width:7.6%;background:#8b9698"></div></div><span class="val">1,098.10<em>7.6%</em></span></div></div><p class="expense-foot">百分比四舍五入，合计约 100%。租车 2,470 元；加油/停车/补胎等已含在车辆里。</p></div></div></div></section><section class="section tips" id="tips"><div class="wrap"><div class="section-head reveal"><p class="num">07 / NOTES</p><h2>国庆北上，记住这些小事</h2><p class="lead">虎园、731、G331、扎龙，都是人多的地方；早起、预约、错峰，体验会好很多。</p></div><div class="tips-grid"><article class="tip reveal"><span class="n">01</span><div><h3>虎园赶第一波</h3><p>9 点前到，老虎还愿意扑过来吃肉；下午喂肉都爱搭不理。惊险车进去看好了再排队，车上买肉。</p></div></article><article class="tip reveal"><span class="n">02</span><div><h3>731 按时段预约</h3><p>提前预约，时间段不对闸机刷不开；孩子不用预约码，可走孩子通道。带娃必去。</p></div></article><article class="tip reveal"><span class="n">03</span><div><h3>伊春堵车</h3><p>国庆伊春交警全线维持秩序，仍有人逆向；不要跟，慢慢排队。溪水、汤旺河、五营、茅兰沟，下次选一个。</p></div></article><article class="tip reveal"><span class="n">04</span><div><h3>住宿早订</h3><p>伊春、嘉荫国庆又贵又差；能早定就早定，或者沿G331多走一段到向阳乡农家乐。</p></div></article><article class="tip reveal"><span class="n">05</span><div><h3>不要自带食物喂虎</h3><p>不管车上还是步行区，都有人扔火腿肠；老虎饮食有标准，别随便喂，看好孩子。</p></div></article><article class="tip reveal"><span class="n">06</span><div><h3>黑河可以报团去俄罗斯</h3><p>中俄双子城，报团免签，当时问的是 800 两天，管吃住交通；带护照。</p></div></article><article class="tip reveal"><span class="n">07</span><div><h3>扎龙看放飞别挤</h3><p>放飞就几十秒，人非常多；没必要为前排占位，溜达鹤更好看。</p></div></article><article class="tip reveal"><span class="n">08</span><div><h3>作业见缝插针</h3><p>哪天有空哪天写，跳绳背着；哥哥来之前写了一点，晚上有空就写，学习和玩不冲突。</p></div></article></div></div></section><section class="ending"><p class="ending-kicker">后记</p><blockquote>北边的秋景，<br>值得一年一年来看。</blockquote><p>小遗憾是伊春的森林公园一个没去，本溪红叶也没时间；有假期了再去看看北疆的秋。</p></section></main>
+<footer>见山河 · 小兴安岭 2024 十一 ｜ 2024.9.28—10.7 ｜ 哈尔滨 / 横道河子 / 嘉荫 / 黑河 / 齐齐哈尔 / 大庆 ｜ 单文件离线阅读</footer>
+<script>
+(function(){
+  'use strict';
+  var bar = document.getElementById('progressBar');
+  var topbar = document.getElementById('topbar');
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.section-nav a'));
+  var sections = navLinks.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+
+  function onScroll(){
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - window.innerHeight;
+    var p = max > 0 ? (window.scrollY / max) * 100 : 0;
+    if(bar) bar.style.width = Math.min(100, Math.max(0, p)) + '%';
+    if(topbar) topbar.classList.toggle('solid', window.scrollY > 24);
+    var current = sections[0];
+    sections.forEach(function(s){ if(s.getBoundingClientRect().top <= 120) current = s; });
+    navLinks.forEach(function(a){ a.classList.toggle('active', current && a.getAttribute('href') === '#' + current.id); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    reveals.forEach(function(el){ io.observe(el); });
+  }else{
+    reveals.forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var fills = Array.prototype.slice.call(document.querySelectorAll('.bar .fill'));
+  if('IntersectionObserver' in window){
+    var barIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          var el = entry.target;
+          el.style.width = el.getAttribute('data-w') + '%';
+          barIO.unobserve(el);
+        }
+      });
+    }, {threshold:0.4});
+    fills.forEach(function(el){ barIO.observe(el); });
+  }else{
+    fills.forEach(function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+  }
+})();
+</script>
+</body>
+</html>
